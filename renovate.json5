@@ -1,0 +1,67 @@
+{
+  $schema: "https://docs.renovatebot.com/renovate-schema.json",
+  extends: [
+    // Tells Renovate to maintain one GitHub issue as the "dependency dashboard". See https://docs.renovatebot.com/key-concepts/dashboard
+    ":dependencyDashboard",
+    // Use semantic commit type fix for dependencies and chore for all others if semantic commits are in use. See https://docs.renovatebot.com/presets-default/#semanticprefixfixdepschoreothers
+    ":semanticPrefixFixDepsChoreOthers",
+    // Group all updates together. See https://docs.renovatebot.com/presets-group/#groupall
+    // Other less drastic groupings that may be of interest include: group:allNonMajor, group:recommended, group:monorepos
+    "group:all",
+    // Apply crowd-sourced package replacement rules. See https://docs.renovatebot.com/presets-replacements/#replacementsall
+    "replacements:all",
+    // Apply crowd-sourced workarounds for known problems with packages. See https://docs.renovatebot.com/presets-workarounds/#workaroundsall
+    "workarounds:all"
+  ],
+  // If we don't specify a timezone then Renovate will use UTC
+  timezone: "America/New_York",
+  // Giving a small window constrains when Renovate will create PRs. The objective here is to only have Renovate create PRs on weekdays in the morning. This setting only affects when PRs are created. Without other configuration Renovate will rebase any PRs that already exist whenever it wants to.
+  // We need an "after" and a "before" because there is other automation that happens earlier that we don't want Renovate to conflict with.
+  schedule: [
+    "after 7am and before 9am every weekday"
+  ],
+  // This will prevent Renovate from automatically rebasing PRs. Without this, Renovate will rebase PRs whenever it wants to. The 'schedule' param is only for creating PRs. Because we are grouping all changes into one PR without this Renovate will be constantly rebasing that PR which we don't want since every time that happens another set of GHA status checks are kicked off.
+  // See https://docs.renovatebot.com/configuration-options/#rebasewhen
+  rebaseWhen: "never",
+  // Labels to set in Pull Request. See https://docs.renovatebot.com/configuration-options/#labels
+  labels: [
+    "renovate"
+  ],
+  // Rate limit PRs to maximum x created per hour. 0 means no limit. See https://docs.renovatebot.com/configuration-options/#prhourlylimit
+  prHourlyLimit: 0,
+  // Limit to a maximum of x concurrent branches/PRs. 0 means no limit. See https://docs.renovatebot.com/configuration-options/#prconcurrentlimit
+  prConcurrentLimit: 0,
+  // Enable updates to the pre-commit-config.yaml file. See https://docs.renovatebot.com/modules/manager/pre-commit/
+  "pre-commit": {
+    enabled: true
+  },
+  "hostRules": [
+    {
+      matchHost: "registry1.dso.mil",
+      hostType: "docker",
+      description: "Encrypted creds for registry1, scoped to this Github org using: https://github.com/renovatebot/renovate/blob/main/docs/usage/configuration-options.md#encrypted",
+      "encrypted": {
+        "username": "wcFMA/xDdHCJBTolARAAiYqwOfwkjFnb7ifSRLxTGwyh5K8sUv4LFnEt9+clanU0hAoab9qY+98XLG9F5q+JuNWW9XSRgEYvg21LPhpux+2n+sF/n5UHNEc0X2C9zPVKBzRBu4RoNlsWNdq+wQaznHuw/iKmcDKddB29GTcXAC27ON78ex4jW4GBBEIY75OYfWUVJl3VM8cbK3t5iPNeldmdtS/1rEe8U2tGRdYvkwbMjM1hscHfc5wK06zt8NKz874jpqDYs9jT3FVrJbG9FHoTsrLvC9cEknu1BR3+LrEEV2UTpN+xkLbkCiI9F3rHwwYrAKpm3VDxjieWP2PbAZcazPvqNrC12pR3QrdbIN+6w7Xc9lIOuCcR+nB1mCTaZv4wGYoHmXat/nW58wAHqGzEnkfgfW7/dXvvZPoV/54CW2B8/iEp3oCf/mHk6tM/nlaN0fOcyFuLthD2t3L8bZEU8v88Bpa9sZgQYTg8vO3zGZeXqTznmq8NfseCXezho0syBize/4c7NI67JoVGJGUtOSZ56cNJkmNEhzH3CCKoD+j6shrojQ1yPLFgfxMa1zkp0tcAJ2dMxBbdMiGRKJcnJLRUi3N0z5I+JdydSZlFFj6Y+w7jWs1cff3mTyFCyhK3USyz+pF/ctTwpWixWWR7Zu/I0lqOr90LMri0bjzOf3xWP0eV3Osbi40BmdjScgG2LbZNVbKesnxaKLqzeubgLz9aTVTjHfHWQ753t4Ge/NPq+618M8JXuujYRc/Hw4bm1G7NHTKxPhiHCmDu+wPsNvt+nUvyk9Wb72XHYNdA8bUjV1gHj/1oSc3yGjOyiyaxDUR+nkPB8B+tr1cMWcVczw",
+        "password": "wcFMA/xDdHCJBTolAQ/9FqgG7wEhIpomA4DpTgDIQdShdkpUHxRCAaOXOaYamKxmyqQgX0N55hVvMt100/JK0AomtTehrWjsyYmvOA5bi2QqkJgEu7Vk/Nyg+CeJj27lZnbZ2wkWhIPUUZKbnGzNg8vmFqeSbI/nhcwwG+1Iiy06pBf/NB1V8KeezD3ICPJAe7HfW5FYDpuAnqo4ktagTEcmKp9bSztAEmNVgS325mE+SB5oGI7zZre4WLDmYCcawCJfwE2HqiWp9E42oiyEgsAa2RNmy/9RLMRq8QmAJY9UuAMDgyRUKh1bVEh2rhg3pV8N8ImqD8a7y/b5HOH5SE1b459K7rUACimJf8GtQtuUmU3bEhhYzafbN8sB6PByOgWEqPKvcCffLghCzsene4lOyie48rC0UZSTRrNiebcLLeJTnkQsUNm8x6GN34mZU4qkBam7Isvdyc7BcSo2rvMbsuMJEuns8Ua3TQlAab1PXofHjwf7aDPee4hLtJsR75IdeWA3mhPKo2hnZ08cBDwhsB7aXYxrH3rXAbPx7FvgcxGA73gCFwNXLf6S2xHb+D7C/ny4z9XhIQk4BrxKlmPFlfpELoijHQ34VBilM/XkeICbtBJghE31X3Ef/LZdLBsR9gvT4nK+zRRLVnEqndO4YkHFOjwKWQxyaGmN+ZE5gSbPx0R1EBo7vM48merSdgGRZxfF5OodxM/b3+xxBe6CXqi5yYVeNf/Op/lH/5baX6LUQCYHSNPXPHMstFYQm9QBwn6rA2aOYXojRehYwj8ymQo0wJ0TgVtGHDu+ODhTiPjZV1Mm7vVkucl63FLCDe7odIAgNVMBRInDbGYhKmA+I7To1gU"
+      }
+    }
+  ],
+  regexManagers: [
+    {
+      fileMatch: [".*\\.ya?ml$"],
+      matchStrings: [
+        "# renovate: datasource=docker( versioning=(?<versioning>.*?))?\n\\s*-\\s+(?<depName>[^:]+):(?<currentValue>.*)"
+      ],
+      datasourceTemplate: "docker"
+    },
+    {
+      fileMatch: ["kustomization.yaml"],
+      matchStrings: [
+        "https:\/\/raw.githubusercontent.com\/metallb\/metallb\/(?<currentValue>.*)\/config\/manifests\/metallb-native.yaml"
+      ],
+      datasourceTemplate: "docker",
+      depNameTemplate: "registry1.dso.mil/ironbank/opensource/metallb/controller",
+      versioningTemplate: "semver"
+    }
+  ]
+}

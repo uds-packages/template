@@ -1,13 +1,15 @@
 resources:
-- https://raw.githubusercontent.com/metallb/metallb/v0.13.11/config/manifests/metallb-native.yaml
+  # NOTE: Renovate looks for this exact string to determine when to update the version that is awkwardly stuck in the middle of the file
+  # If you change this string, you will break renovate unless you go update the renovate.json5 file.
+  - https://raw.githubusercontent.com/metallb/metallb/v0.13.11/config/manifests/metallb-native.yaml
 
 images:
-- name: quay.io/metallb/controller
-  newName: registry1.dso.mil/ironbank/opensource/metallb/controller
-  newTag: v0.13.11
-- name: quay.io/metallb/speaker
-  newName: registry1.dso.mil/ironbank/opensource/metallb/speaker
-  newTag: v0.13.11
+  - name: quay.io/metallb/controller
+    newName: registry1.dso.mil/ironbank/opensource/metallb/controller
+    newTag: v0.13.11
+  - name: quay.io/metallb/speaker
+    newName: registry1.dso.mil/ironbank/opensource/metallb/speaker
+    newTag: v0.13.11
 
 patches:
   - target:
