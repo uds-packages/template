@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.0.5](https://github.com/defenseunicorns/uds-capability-metallb/compare/v0.0.4...v0.0.5) (2023-10-24)
+
+
+### Miscellaneous Chores
+
+* **deps:** update all dependencies ([5e58175](https://github.com/defenseunicorns/uds-capability-metallb/commit/5e5817586c2f1195de6c8ca01326e37f3691defb))
+
 ## [0.0.4](https://github.com/defenseunicorns/uds-package-metallb/compare/v0.0.3...v0.0.4) (2023-10-03)
 
 
