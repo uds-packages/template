@@ -2,8 +2,8 @@
 apiVersion: metallb.io/v1beta1
 kind: IPAddressPool
 metadata:
-  name: keycloak-ingressgateway
-  namespace: metallb-system
+  name: passthrough-ingressgateway
+  namespace: istio-passthrough-gateway
 spec:
   addresses:
     - {{ .Values.ipAddressKeycloakIngressgateway }}/32
@@ -13,5 +13,5 @@ spec:
       - istio-system
     serviceSelectors:
       - matchLabels:
-          app: keycloak-ingressgateway
+          app: passthrough-ingressgateway
 {{- end }}

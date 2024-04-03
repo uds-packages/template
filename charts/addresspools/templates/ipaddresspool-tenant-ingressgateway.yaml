@@ -3,7 +3,7 @@ apiVersion: metallb.io/v1beta1
 kind: IPAddressPool
 metadata:
   name: tenant-ingressgateway
-  namespace: metallb-system
+  namespace: istio-tenant-gateway
 spec:
   addresses:
     - {{ .Values.ipAddressTenantIngressgateway }}/32
