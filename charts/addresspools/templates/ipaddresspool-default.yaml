@@ -6,5 +6,5 @@ metadata:
   namespace: metallb-system
 spec:
   addresses:
-    - {{ .Values.ipAddressPool }}
+    - {{ .Values.ipAddressPoolCIDR }}
 {{- end }}

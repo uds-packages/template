@@ -4,7 +4,7 @@ metadata:
   architecture: amd64
   # This version should stay in sync with the version in the addresspools/Chart.yaml file.
   # x-release-please-start-version
-  version: "0.0.5"
+  version: "0.0.6"
   # x-release-please-end
 
 variables:
@@ -16,7 +16,7 @@ variables:
     description: When using this package in concert with DUBBD, the IP address of the admin-ingressgateway service
     default: ""
     prompt: false
-  - name: IP_ADDRESS_KEYCLOAK_INGRESSGATEWAY
+  - name: IP_ADDRESS_PASSTHROUGH_INGRESSGATEWAY
     description: When using this package in concert with the IDAM package, the IP address of the keycloak-ingressgateway service
     default: ""
     prompt: false
@@ -47,16 +47,16 @@ components:
           - kustomizations/
     images:
       # renovate: datasource=docker versioning=semver
-      - registry1.dso.mil/ironbank/opensource/metallb/controller:v0.13.12
+      - registry1.dso.mil/ironbank/opensource/metallb/controller:v0.14.4
       # renovate: datasource=docker versioning=semver
-      - registry1.dso.mil/ironbank/opensource/metallb/speaker:v0.13.12
+      - registry1.dso.mil/ironbank/opensource/metallb/speaker:v0.14.4
 
   - name: addresspools
     required: true
     charts:
       - name: addresspools
         # x-release-please-start-version
-        version: "0.0.5"
+        version: "0.0.6"
         # x-release-please-end
         namespace: metallb-system
         localPath: charts/addresspools

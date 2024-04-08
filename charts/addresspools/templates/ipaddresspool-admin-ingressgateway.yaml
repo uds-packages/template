@@ -3,14 +3,16 @@ apiVersion: metallb.io/v1beta1
 kind: IPAddressPool
 metadata:
   name: admin-ingressgateway
-  namespace: istio-admin-gateway
+  namespace: metallb-system
 spec:
-  addresses:
-    - {{ .Values.ipAddressAdminIngressgateway }}/32
+  addresses: |-
+    {{- range $.Values.adminIngress.ipAddressPool }}
+    - {{ . }}/32
+    {{- end }}   
   serviceAllocation:
     priority: 50
     namespaces:
-      - istio-system
+      - istio-admin-gateway
     serviceSelectors:
       - matchLabels:
           app: admin-ingressgateway

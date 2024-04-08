@@ -1,19 +1,19 @@
-{{- if .Values.ipAddressTenantIngressgateway }}
+{{- if .Values.passthroughIngress.ipAddressPool }}
 apiVersion: metallb.io/v1beta1
 kind: IPAddressPool
 metadata:
-  name: tenant-ingressgateway
+  name: passthrough-ingressgateway
   namespace: metallb-system
 spec:
   addresses: |-
     {{- range $.Values.passthroughIngress.ipAddressPool }}
-    - {{ . }}/32
-    {{- end }}   
+    - {{ . }}
+    {{- end }}
   serviceAllocation:
     priority: 50
     namespaces:
-      - istio-tenant-gateway
+      - {{ .Values.passthroughIngress.namespace }}
     serviceSelectors:
       - matchLabels:
-          app: tenant-ingressgateway
+          {{ .Values.passthroughIngress.matchLabel }}
 {{- end }}

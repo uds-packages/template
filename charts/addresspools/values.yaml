@@ -2,7 +2,23 @@
 # This is a YAML-formatted file.
 # Declare variables to be passed into your templates.
 
-ipAddressPool: ""
-ipAddressAdminIngressgateway: ""
-ipAddressKeycloakIngressgateway: ""
-ipAddressTenantIngressgateway: ""
+default:
+  ipAddressPoolCIDR: ""
+
+adminIngress:
+  ipAddressPool: []
+  namespace: "istio-admin-gateway"
+  selectorLabel:
+    - app=admin-ingressgateway
+    
+tenantIngress:
+  ipAddressPool: []
+  namespace: "istio-tenant-gateway"
+  selectorLabel:
+    - app=tenant-ingressgateway
+    
+passthroughIngress:
+  ipAddressPool: []
+  namespace: "istio-passthrough-gateway"
+  matchLabel:
+    app=passthrough-ingressgateway

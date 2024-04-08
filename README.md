@@ -40,14 +40,14 @@ Or, in the case of using this package in concert with DUBBD and/or IDAM package:
 $ zarf package deploy oci://ghcr.io/defenseunicorns/packages/metallb:<version> \
     --set IP_ADDRESS_ADMIN_INGRESSGATEWAY=10.0.0.32 \
     --set IP_ADDRESS_TENANT_INGRESSGATEWAY=10.0.0.33 \
-    --set IP_ADDRESS_KEYCLOAK_INGRESSGATEWAY=10.0.0.34 \
+    --set IP_ADDRESS_PASSTHROUGH_INGRESSGATEWAY=10.0.0.34 \
     --confirm
 ```
 
 > Notes:
 >   - The IP addresses used here are placeholders. You can use whatever values you want that work for your environment.
 >   - Package versions can be found [here](https://github.com/defenseunicorns/uds-package-metallb/pkgs/container/packages%2Fmetallb)
->   - If you won't be using Keycloak, you can omit setting the `IP_ADDRESS_KEYCLOAK_INGRESSGATEWAY` variable. The package is smart enough to not create the associated IPAddressPool if the variable is not set.
+>   - If you won't be using Keycloak, you can omit setting the `IP_ADDRESS_PASSTHROUGH_INGRESSGATEWAY` variable. The package is smart enough to not create the associated IPAddressPool if the variable is not set.
 >   - If you also want a 4th default IPAddressPool you can additionally set the `IP_ADDRESS_POOL` variable too. It should be an IP range, not a single address unlike the other variables which are single address. Ranges can be specified in either CIDR notation or "StartAddress-EndAddress" notation.
 
 ## Contributing
