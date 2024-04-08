@@ -1,4 +1,4 @@
-{{- if .Values.ipAddressPool }}
+{{- if .Values.ipAddressPoolCIDR }}
 apiVersion: metallb.io/v1beta1
 kind: IPAddressPool
 metadata:
