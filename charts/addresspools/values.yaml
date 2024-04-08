@@ -8,17 +8,17 @@ default:
 adminIngress:
   ipAddressPool: []
   namespace: "istio-admin-gateway"
-  selectorLabel:
-    - app=admin-ingressgateway
+  matchLabels:
+    app=admin-ingressgateway
     
 tenantIngress:
   ipAddressPool: []
   namespace: "istio-tenant-gateway"
-  selectorLabel:
-    - app=tenant-ingressgateway
+  matchLabels:
+    app=tenant-ingressgateway
     
 passthroughIngress:
   ipAddressPool: []
   namespace: "istio-passthrough-gateway"
-  matchLabel:
+  matchLabels:
     app=passthrough-ingressgateway

@@ -1,19 +1,25 @@
-{{- if .Values.ipAddressTenantIngressgateway }}
+{{- if .Values.tenantIngress.ipAddressPool }}
 apiVersion: metallb.io/v1beta1
 kind: IPAddressPool
 metadata:
   name: tenant-ingressgateway
   namespace: metallb-system
 spec:
-  addresses: |-
-    {{- range $.Values.passthroughIngress.ipAddressPool }}
+  addresses:
+    {{- if not (empty .Values.tenantIngress.ipAddressPool) }}
+    {{- if (kindIs "string" .Values.tenantIngress.ipAddressPool) }}
+    - {{ .Values.tenantIngress.ipAddressPool }}/32
+    {{- else }}
+    {{- range .Values.tenantIngress.ipAddressPool }}
     - {{ . }}/32
-    {{- end }}   
+    {{- end }}
+    {{- end }}
+    {{- end }}
   serviceAllocation:
     priority: 50
     namespaces:
-      - istio-tenant-gateway
+      - {{ .Values.tenantIngress.namespace }}
     serviceSelectors:
       - matchLabels:
-          app: tenant-ingressgateway
+          {{ .Values.tenantIngress.matchLabel }}
 {{- end }}

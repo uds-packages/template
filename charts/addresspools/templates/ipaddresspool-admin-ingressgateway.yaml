@@ -1,19 +1,25 @@
-{{- if .Values.ipAddressAdminIngressgateway }}
+{{- if .Values.adminIngress.ipAddressPool }}
 apiVersion: metallb.io/v1beta1
 kind: IPAddressPool
 metadata:
   name: admin-ingressgateway
   namespace: metallb-system
 spec:
-  addresses: |-
-    {{- range $.Values.adminIngress.ipAddressPool }}
+  addresses:
+    {{- if not (empty .Values.adminIngress.ipAddressPool) }}
+    {{- if (kindIs "string" .Values.adminIngress.ipAddressPool) }}
+    - {{ .Values.adminIngress.ipAddressPool }}/32
+    {{- else }}
+    {{- range .Values.adminIngress.ipAddressPool }}
     - {{ . }}/32
-    {{- end }}   
+    {{- end }}
+    {{- end }}
+    {{- end }}
   serviceAllocation:
     priority: 50
     namespaces:
-      - istio-admin-gateway
+      - {{ .Values.adminIngress.namespace }}
     serviceSelectors:
       - matchLabels:
-          app: admin-ingressgateway
+          {{ .Values.adminIngress.matchLabel }}
 {{- end }}

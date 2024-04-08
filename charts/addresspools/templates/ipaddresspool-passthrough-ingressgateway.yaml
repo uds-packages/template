@@ -5,9 +5,15 @@ metadata:
   name: passthrough-ingressgateway
   namespace: metallb-system
 spec:
-  addresses: |-
-    {{- range $.Values.passthroughIngress.ipAddressPool }}
-    - {{ . }}
+  addresses:
+    {{- if not (empty .Values.passthroughIngress.ipAddressPool) }}
+    {{- if (kindIs "string" .Values.passthroughIngress.ipAddressPool) }}
+    - {{ .Values.passthroughIngress.ipAddressPool }}/32
+    {{- else }}
+    {{- range .Values.passthroughIngress.ipAddressPool }}
+    - {{ . }}/32
+    {{- end }}
+    {{- end }}
     {{- end }}
   serviceAllocation:
     priority: 50
