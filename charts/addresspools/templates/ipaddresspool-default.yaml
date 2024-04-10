@@ -1,4 +1,4 @@
-{{- if .Values.ipAddressPoolCIDR }}
+{{- if .Values.default.ipAddressPoolCIDR }}
 apiVersion: metallb.io/v1beta1
 kind: IPAddressPool
 metadata:
@@ -6,5 +6,5 @@ metadata:
   namespace: metallb-system
 spec:
   addresses:
-    - {{ .Values.ipAddressPoolCIDR }}
+    - {{ .Values.default.ipAddressPoolCIDR }}
 {{- end }}

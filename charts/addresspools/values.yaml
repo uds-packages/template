@@ -9,16 +9,16 @@ adminIngress:
   ipAddressPool: []
   namespace: "istio-admin-gateway"
   matchLabels:
-    app=admin-ingressgateway
+    app: admin-ingressgateway
     
 tenantIngress:
   ipAddressPool: []
   namespace: "istio-tenant-gateway"
   matchLabels:
-    app=tenant-ingressgateway
+    app: tenant-ingressgateway
     
 passthroughIngress:
   ipAddressPool: []
   namespace: "istio-passthrough-gateway"
   matchLabels:
-    app=passthrough-ingressgateway
+    app: passthrough-ingressgateway

@@ -6,15 +6,7 @@ metadata:
   namespace: metallb-system
 spec:
   addresses:
-    {{- if not (empty .Values.tenantIngress.ipAddressPool) }}
-    {{- if (kindIs "string" .Values.tenantIngress.ipAddressPool) }}
     - {{ .Values.tenantIngress.ipAddressPool }}/32
-    {{- else }}
-    {{- range .Values.tenantIngress.ipAddressPool }}
-    - {{ . }}/32
-    {{- end }}
-    {{- end }}
-    {{- end }}
   serviceAllocation:
     priority: 50
     namespaces:
