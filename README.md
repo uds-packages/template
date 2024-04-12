@@ -1,6 +1,6 @@
 # uds-package-metallb
 
-Zarf package containing a standalone version of [MetalLB](https://metallb.org/) to act as a standalone load-balancer or be a pre-req to DUBBD.
+Zarf package containing a standalone version of [MetalLB](https://metallb.org/) to act as a standalone load-balancer or be a pre-req to UDS Core.
 
 ## Prerequisites
 
@@ -34,7 +34,7 @@ $ zarf package deploy oci://ghcr.io/defenseunicorns/packages/metallb:<version> \
     --confirm
 ```
 
-Or, in the case of using this package in concert with DUBBD and/or IDAM package:
+Or, in the case of using this package in concert with UDS Core and/or IDAM package:
 
 ```shell
 $ zarf package deploy oci://ghcr.io/defenseunicorns/packages/metallb:<version> \

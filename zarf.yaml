@@ -13,7 +13,7 @@ variables:
     default: ""
     prompt: false
   - name: IP_ADDRESS_ADMIN_INGRESSGATEWAY
-    description: When using this package in concert with DUBBD, the IP address of the admin-ingressgateway service
+    description: When using this package in concert with UDS Core, the IP address of the admin-ingressgateway service
     default: ""
     prompt: false
   - name: IP_ADDRESS_PASSTHROUGH_INGRESSGATEWAY
@@ -21,7 +21,7 @@ variables:
     default: ""
     prompt: false
   - name: IP_ADDRESS_TENANT_INGRESSGATEWAY
-    description: When using this package in concert with DUBBD, the IP address of the tenant-ingressgateway service
+    description: When using this package in concert with UDS Core, the IP address of the tenant-ingressgateway service
     default: ""
     prompt: false
 
