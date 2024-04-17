@@ -13,5 +13,5 @@ spec:
       - {{ .Values.tenantIngress.namespace }}
     serviceSelectors:
       - matchLabels:
-          {{ .Values.tenantIngress.matchLabel }}
+          {{- toYaml .Values.tenantIngress.matchLabels | nindent 10 }}
 {{- end }}

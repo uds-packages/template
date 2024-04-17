@@ -13,5 +13,5 @@ spec:
       - {{ .Values.passthroughIngress.namespace }}
     serviceSelectors:
       - matchLabels:
-          {{ .Values.passthroughIngress.matchLabel }}
+          {{- toYaml .Values.passthroughIngress.matchLabels | nindent 10 }}
 {{- end }}
