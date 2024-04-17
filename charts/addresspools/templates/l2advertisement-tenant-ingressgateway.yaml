@@ -1,4 +1,4 @@
-{{- if .Values.ipAddressTenantIngressgateway }}
+{{- if .Values.tenantIngress.ipAddressPool }}
 apiVersion: metallb.io/v1beta1
 kind: L2Advertisement
 metadata:
