@@ -1,4 +1,4 @@
-{{- if .Values.ipAddressPool }}
+{{- if .Values.default.ipAddressPoolCIDR }}
 apiVersion: metallb.io/v1beta1
 kind: L2Advertisement
 metadata:
