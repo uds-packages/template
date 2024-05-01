@@ -1,5 +1,27 @@
 # Changelog
 
+## [0.1.0](https://github.com/defenseunicorns/uds-capability-metallb/compare/v0.0.5...v0.1.0) (2024-05-01)
+
+
+### ⚠ BREAKING CHANGES
+
+* align gateways with uds-core, allow config extensibility ([#27](https://github.com/defenseunicorns/uds-capability-metallb/pull/27))
+
+### Features
+
+* align gateways with uds-core, allow config extensibility ([#27](https://github.com/defenseunicorns/uds-capability-metallb/pull/27))
+
+
+### Bug Fixes
+
+* switch to repo scope ([b5ac4f7](https://github.com/defenseunicorns/uds-capability-metallb/commit/b5ac4f7a67a8aa1ef485fbd592c9c42c6709958b))
+
+
+### Miscellaneous Chores
+
+* **deps:** update all dependencies to v0.14.5 ([#26](https://github.com/defenseunicorns/uds-capability-metallb/issues/26)) ([644dba4](https://github.com/defenseunicorns/uds-capability-metallb/commit/644dba4e2d772d9804415f4e499d9d9d0ca7a42a))
+* update IB creds ([3707e38](https://github.com/defenseunicorns/uds-capability-metallb/commit/3707e38544db5afc7f879ce233c979f7bc9ae80d))
+
 ## [0.0.5](https://github.com/defenseunicorns/uds-capability-metallb/compare/v0.0.4...v0.0.5) (2023-10-24)
 
 

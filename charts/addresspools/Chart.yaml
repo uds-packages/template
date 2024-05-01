@@ -17,5 +17,5 @@ type: application
 # Versions are expected to follow Semantic Versioning (https://semver.org/)
 # This version should stay in sync with the version in the zarf.yaml file.
 # x-release-please-start-version
-version: "0.0.5"
+version: "0.1.0"
 # x-release-please-end
