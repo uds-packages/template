@@ -13,15 +13,15 @@ variables:
     default: ""
     prompt: false
   - name: IP_ADDRESS_ADMIN_INGRESSGATEWAY
-    description: When using this package in concert with DUBBD, the IP address of the admin-ingressgateway service
+    description: When using this package in concert with UDS Core, the IP address of the admin-ingressgateway service
     default: ""
     prompt: false
-  - name: IP_ADDRESS_KEYCLOAK_INGRESSGATEWAY
+  - name: IP_ADDRESS_PASSTHROUGH_INGRESSGATEWAY
     description: When using this package in concert with the IDAM package, the IP address of the keycloak-ingressgateway service
     default: ""
     prompt: false
   - name: IP_ADDRESS_TENANT_INGRESSGATEWAY
-    description: When using this package in concert with DUBBD, the IP address of the tenant-ingressgateway service
+    description: When using this package in concert with UDS Core, the IP address of the tenant-ingressgateway service
     default: ""
     prompt: false
 
@@ -47,9 +47,9 @@ components:
           - kustomizations/
     images:
       # renovate: datasource=docker versioning=semver
-      - registry1.dso.mil/ironbank/opensource/metallb/controller:v0.13.12
+      - registry1.dso.mil/ironbank/opensource/metallb/controller:v0.14.4
       # renovate: datasource=docker versioning=semver
-      - registry1.dso.mil/ironbank/opensource/metallb/speaker:v0.13.12
+      - registry1.dso.mil/ironbank/opensource/metallb/speaker:v0.14.4
 
   - name: addresspools
     required: true

@@ -1,0 +1,17 @@
+{{- if .Values.passthroughIngress.ipAddressPool }}
+apiVersion: metallb.io/v1beta1
+kind: IPAddressPool
+metadata:
+  name: passthrough-ingressgateway
+  namespace: metallb-system
+spec:
+  addresses:
+    - {{ .Values.passthroughIngress.ipAddressPool }}/32
+  serviceAllocation:
+    priority: 50
+    namespaces:
+      - {{ .Values.passthroughIngress.namespace }}
+    serviceSelectors:
+      - matchLabels:
+          {{- toYaml .Values.passthroughIngress.matchLabels | nindent 10 }}
+{{- end }}

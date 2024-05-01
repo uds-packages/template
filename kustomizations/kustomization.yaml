@@ -6,10 +6,10 @@ resources:
 images:
   - name: quay.io/metallb/controller
     newName: registry1.dso.mil/ironbank/opensource/metallb/controller
-    newTag: v0.13.12
+    newTag: v0.14.4
   - name: quay.io/metallb/speaker
     newName: registry1.dso.mil/ironbank/opensource/metallb/speaker
-    newTag: v0.13.12
+    newTag: v0.14.4
 
 patches:
   - target:
