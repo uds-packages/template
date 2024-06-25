@@ -1,0 +1,6 @@
+# Values for upstream flavor
+
+# Example variables from UDS package repo template. Update to relevant variables after templating
+image:
+  repository: upstream/image
+  tag: 1.2.3

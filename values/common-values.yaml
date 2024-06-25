@@ -1,0 +1,15 @@
+# Values common to all flavors
+
+# Example variables from UDS package repo template. Update to relevant variables after templating
+imagePullSecrets:
+  - name: "private-registry"
+
+postgresql:
+  enabled: false
+  postgresqlServer: ###ZARF_VAR_EXAMPLE_DB_ENDPOINT###
+  existingSecret: "example-postgres"
+  existingSecretPasswordKey: "password"
+  postgresqlUsername: ###ZARF_VAR_EXAMPLE_DB_USERNAME###
+  postgresqlDatabase: ###ZARF_VAR_EXAMPLE_DB_NAME###
+  service:
+    port: 5432

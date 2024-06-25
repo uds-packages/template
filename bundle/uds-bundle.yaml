@@ -1,0 +1,23 @@
+kind: UDSBundle
+metadata:
+  name: #TEMPLATE_APPLICATION_NAME#-test
+  description: A UDS bundle for deploying #TEMPLATE_APPLICATION_NAME# and its dependencies on a development cluster
+  # x-release-please-start-version
+  version: 0.11.0-uds.0
+  # x-release-please-end
+
+packages:
+  - name: dev-namespace
+    path: ../
+    ref: 0.1.0
+
+  # #TEMPLATE_APPLICATION_NAME# has a dependency on some-application
+  - name: some-application
+    repository: ghcr.io/defenseunicorns/packages/uds/some-application
+    ref: 0.1.3-upstream
+
+  - name: #TEMPLATE_APPLICATION_NAME#
+    path: ../
+    # x-release-please-start-version
+    ref: 0.1.0-uds.0
+    # x-release-please-end

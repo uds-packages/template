@@ -1,0 +1,6 @@
+variables:
+  some-application:
+    EXAMPLE_DEP_PACKAGE_VAR: true
+  #TEMPLATE_APPLICATION_NAME#:
+    EXAMPLE_DB_USERNAME: my-postgres-user
+    EXAMPLE_DB_ENDPOINT: postgres

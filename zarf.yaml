@@ -1,0 +1,50 @@
+# yaml-language-server: $schema=https://raw.githubusercontent.com/defenseunicorns/zarf/main/zarf.schema.json
+kind: ZarfPackageConfig
+metadata:
+  name: #TEMPLATE_APPLICATION_NAME#
+  description: "UDS #TEMPLATE_APPLICATION_NAME# package"
+  # x-release-please-start-version
+  version: "0.1.0-uds.0"
+  # x-release-please-start-version
+  architecture: amd64
+
+variables:
+  - name: EXAMPLE_VARIABLES
+    default: "examples"
+  - name: DOMAIN
+    default: "uds.dev"
+  - name: EXAMPLE_DB_USERNAME
+    default: "example_username"
+  - name: EXAMPLE_DB_ENDPOINT
+    default: "example_db_endpoint"
+
+components:
+  - name: #TEMPLATE_APPLICATION_NAME#
+    required: true
+    description: "Deploy #TEMPLATE_APPLICATION_NAME#"
+    import:
+      path: common
+    only:
+      flavor: upstream
+    charts:
+      - name: #TEMPLATE_APPLICATION_NAME#
+        valuesFiles:
+          - values/upstream-values.yaml
+    images:
+      - upstream/images:1.2.3
+
+  - name: #TEMPLATE_APPLICATION_NAME#
+    required: true
+    description: "Deploy #TEMPLATE_APPLICATION_NAME#"
+    import:
+      path: common
+    only:
+      flavor: registry1
+      cluster:
+        architecture: amd64
+    charts:
+      - name: #TEMPLATE_APPLICATION_NAME#
+        valuesFiles:
+          - values/registry1-values.yaml
+    images:
+      - registry1.dso.mil/images:1.2.3

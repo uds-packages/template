@@ -1,0 +1,32 @@
+{
+  "extends": [
+    "github>defenseunicorns/uds-common//config/renovate.json5",
+    ":semanticCommits",
+    ":semanticPrefixFixDepsChoreOthers",
+    "group:all",
+    "replacements:all",
+    "workarounds:all"
+  ],
+  "schedule": ["after 7am and before 9am every weekday"],
+  "packageRules": [
+    {
+      "groupName": "#TEMPLATE_APPLICATION_NAME# Support Dependencies",
+      "labels": ["support-deps"],
+      "commitMessageTopic": "support-deps",
+      "packagePatterns": ["*"]
+    },
+    {
+      "groupName": "#TEMPLATE_APPLICATION_NAME# Package Dependencies",
+      "labels": ["package-deps"],
+      "commitMessageTopic": "package-deps",
+      "matchDatasources": ["docker", "helm", "git-tags"]
+    },
+    {
+      "groupName": "#TEMPLATE_APPLICATION_NAME# Package Dependencies",
+      "labels": ["package-deps"],
+      "commitMessageTopic": "package-deps",
+      "matchPackageNames": ["https://repo1.dso.mil/path/to/application.git"],
+      "allowedVersions": "/^8.+-bb.+/"
+    }
+  ]
+}

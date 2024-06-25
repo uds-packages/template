@@ -1,0 +1,13 @@
+kind: ZarfPackageConfig
+metadata:
+  name: dev-namespace
+  description: "Create namespace for testing deploying application to"
+  version: 0.1.0
+
+components:
+  - name: deploy-namespace
+    required: true
+    manifests:
+      - name: dev-namespace
+        files:
+          - namespace.yaml

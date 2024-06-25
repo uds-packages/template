@@ -1,0 +1,32 @@
+# yaml-language-server: $schema=https://raw.githubusercontent.com/defenseunicorns/zarf/main/zarf.schema.json
+kind: ZarfPackageConfig
+metadata:
+  name: #TEMPLATE_APPLICATION_NAME#-common
+  description: "UDS #TEMPLATE_APPLICATION_NAME# Common Package"
+
+components:
+  - name: #TEMPLATE_APPLICATION_NAME#
+    required: true
+    charts:
+      - name: uds-#TEMPLATE_APPLICATION_NAME#-config
+        namespace: #TEMPLATE_APPLICATION_NAME#
+        version: 0.1.0
+        localPath: ../chart
+      - name: #TEMPLATE_APPLICATION_NAME#
+        namespace: #TEMPLATE_APPLICATION_NAME#
+        url: #TEMPLATE_CHART_REPO#
+        gitPath: chart
+        version: 1.2.3
+        valuesFiles:
+          - ../values/common-values.yaml
+    actions:
+      onDeploy:
+        after:
+          - description: Validate #TEMPLATE_APPLICATION_NAME# Package
+            maxTotalSeconds: 300
+            wait:
+              cluster:
+                kind: Packages
+                name: #TEMPLATE_APPLICATION_NAME#
+                namespace: #TEMPLATE_APPLICATION_NAME#
+                condition: "'{.status.phase}'=Ready"

@@ -1,0 +1,79 @@
+name: Publish UDS Package #TEMPLATE_APPLICATION_NAME#
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  tag-new-version:
+    name: Tag New Version
+    permissions: write-all
+    runs-on: ubuntu-latest
+    outputs:
+      release_created: ${{ steps.release-flag.outputs.release_created }}
+    steps:
+      - name: Create release tag
+        id: tag
+        uses: google-github-actions/release-please-action@e4dc86ba9405554aeba3c6bb2d169500e7d3b4ee # v4.1.1
+      - id: release-flag
+        run: echo "release_created=${{ steps.tag.outputs.release_created || false }}" >> $GITHUB_OUTPUT
+
+  publish-package:
+    needs: tag-new-version
+    if: ${{ needs.tag-new-version.outputs.release_created == 'true' }}
+    # TODO: (@WSTARR) since we don't run the tests on arm currently we don't need to use the 8 core
+    runs-on: ubuntu-latest
+    name: Publish ${{ matrix.flavor }} ${{ matrix.architecture }}
+    timeout-minutes: 40
+    strategy:
+      matrix:
+        flavor: [upstream, registry1]
+        architecture: [amd64, arm64]
+        exclude:
+          - flavor: registry1
+            architecture: arm64
+
+    permissions:
+      contents: read
+      packages: write
+
+    steps:
+      - uses: actions/checkout@a5ac7e51b41094c92402da3b24376905380afc29 # v4.1.6
+
+      - name: Environment setup
+        uses: defenseunicorns/uds-common/.github/actions/setup@0901c37366f37fea586768c79708e14e964e714e # v0.6.1
+        with:
+          registry1Username: ${{ secrets.IRON_BANK_ROBOT_USERNAME }}
+          registry1Password: ${{ secrets.IRON_BANK_ROBOT_PASSWORD }}
+          ghToken: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Playwright setup
+        uses: defenseunicorns/uds-common/.github/actions/playwright@0901c37366f37fea586768c79708e14e964e714e # v0.6.1
+
+      - name: Build Package
+        run: uds run -f tasks/publish.yaml build-package --set FLAVOR=${{ matrix.flavor }}
+
+      - name: Build Bundle
+        run: uds run -f tasks/publish.yaml build-test-bundle --set FLAVOR=${{ matrix.flavor }}
+
+      - name: Test Package
+        if: ${{ runner.arch != 'ARM64' }}
+        run: uds run -f tasks/publish.yaml test-package --set FLAVOR=${{ matrix.flavor }}
+
+      - name: Publish Package
+        run: uds run -f tasks/publish.yaml publish-package --set FLAVOR=${{ matrix.flavor }}
+
+      - name: Publish Bundle
+        if: ${{ matrix.flavor == 'upstream' }}
+        run: uds run -f tasks/publish.yaml publish-test-bundle --set FLAVOR=${{ matrix.flavor }}
+
+      - name: Debug Output
+        if: ${{ always() }}
+        uses: defenseunicorns/uds-common/.github/actions/debug-output@0901c37366f37fea586768c79708e14e964e714e # v0.6.1
+
+      - name: Save logs
+        if: always()
+        uses: defenseunicorns/uds-common/.github/actions/save-logs@0901c37366f37fea586768c79708e14e964e714e # v0.6.1
+        with:
+          suffix: '${{ matrix.flavor }}-${{ matrix.architecture }}-${{ github.run_id }}-${{ github.run_attempt }}'
