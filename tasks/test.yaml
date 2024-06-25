@@ -9,7 +9,7 @@ tasks:
   # Ensure application deploys successfully and becomes available
   - name: health-check
     actions:
-      - description: #TEMPLATE_APPLICATION_NAME# Health Check
+      - description: #TEMPLATE_APPLICATION_DISPLAY_NAME# Health Check
         wait:
           cluster:
             kind: Deployment
@@ -51,7 +51,7 @@ tasks:
 
   - name: ingress
     actions:
-      - description: #TEMPLATE_APPLICATION_NAME# UI Status Check
+      - description: #TEMPLATE_APPLICATION_DISPLAY_NAME# UI Status Check
         maxRetries: 30
         cmd: |
           STATUS=$(curl -s 'https://#TEMPLATE_APPLICATION_NAME#.uds.dev/api/system/status' | ./uds zarf tools yq '.status')
@@ -62,7 +62,7 @@ tasks:
           fi
 
   - name: ui
-    description: #TEMPLATE_APPLICATION_NAME# UI Checks
+    description: #TEMPLATE_APPLICATION_DISPLAY_NAME# UI Checks
     actions:
       - cmd: npm ci
         dir: tests

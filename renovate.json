@@ -10,19 +10,19 @@
   "schedule": ["after 7am and before 9am every weekday"],
   "packageRules": [
     {
-      "groupName": "#TEMPLATE_APPLICATION_NAME# Support Dependencies",
+      "groupName": "#TEMPLATE_APPLICATION_DISPLAY_NAME# Support Dependencies",
       "labels": ["support-deps"],
       "commitMessageTopic": "support-deps",
       "packagePatterns": ["*"]
     },
     {
-      "groupName": "#TEMPLATE_APPLICATION_NAME# Package Dependencies",
+      "groupName": "#TEMPLATE_APPLICATION_DISPLAY_NAME# Package Dependencies",
       "labels": ["package-deps"],
       "commitMessageTopic": "package-deps",
       "matchDatasources": ["docker", "helm", "git-tags"]
     },
     {
-      "groupName": "#TEMPLATE_APPLICATION_NAME# Package Dependencies",
+      "groupName": "#TEMPLATE_APPLICATION_DISPLAY_NAME# Package Dependencies",
       "labels": ["package-deps"],
       "commitMessageTopic": "package-deps",
       "matchPackageNames": ["https://repo1.dso.mil/path/to/application.git"],

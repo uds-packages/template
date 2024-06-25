@@ -4,7 +4,7 @@ sso:
   enabled: true
   protocol: saml
   secretName: #TEMPLATE_APPLICATION_NAME#-sso
-  adminGroups: ["/#TEMPLATE_APPLICATION_NAME# Admin", "/UDS Core/Admin"]
+  adminGroups: ["/#TEMPLATE_APPLICATION_DISPLAY_NAME# Admin", "/UDS Core/Admin"]
 custom: []
 #    # Notice no `remoteGenerated` field here on custom internal rule
 #   - direction: Ingress

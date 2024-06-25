@@ -1,4 +1,4 @@
-# 🏭 UDS Package #TEMPLATE_APPLICATION_NAME#
+# 🏭 UDS Package #TEMPLATE_APPLICATION_DISPLAY_NAME#
 
 [![Latest Release](https://img.shields.io/github/v/release/defenseunicorns/uds-package-#TEMPLATE_APPLICATION_NAME#)](https://github.com/defenseunicorns/uds-package-#TEMPLATE_APPLICATION_NAME#/releases)
 [![Build Status](https://img.shields.io/github/actions/workflow/status/defenseunicorns/uds-package-#TEMPLATE_APPLICATION_NAME#/tag-and-release.yaml)](https://github.com/defenseunicorns/uds-package-#TEMPLATE_APPLICATION_NAME#/actions/workflows/tag-and-release.yaml)
@@ -8,7 +8,7 @@ This package is designed for use as part of a [UDS Software Factory](https://git
 
 ## Pre-requisites
 
-The #TEMPLATE_APPLICATION_NAME# Package expects to be deployed on top of [UDS Core](https://github.com/defenseunicorns/uds-core) with the dependencies listed below being configured prior to deployment.
+The #TEMPLATE_APPLICATION_DISPLAY_NAME# Package expects to be deployed on top of [UDS Core](https://github.com/defenseunicorns/uds-core) with the dependencies listed below being configured prior to deployment.
 
 #### Dependency information
 

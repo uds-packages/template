@@ -1,4 +1,4 @@
-# Welcome to the #TEMPLATE_APPLICATION_NAME# UDS Package
+# Welcome to the #TEMPLATE_APPLICATION_DISPLAY_NAME# UDS Package
 
 Thank you for your interest in this Defense Unicorns UDS Package!
 

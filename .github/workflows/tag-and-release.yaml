@@ -1,4 +1,4 @@
-name: Publish UDS Package #TEMPLATE_APPLICATION_NAME#
+name: Publish UDS Package #TEMPLATE_APPLICATION_DISPLAY_NAME#
 
 on:
   push:

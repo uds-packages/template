@@ -6,5 +6,5 @@ tasks:
 
   - name: bundle
     actions:
-      - description: Remove the Deployed UDS #TEMPLATE_APPLICATION_NAME# Bundle
+      - description: Remove the Deployed UDS #TEMPLATE_APPLICATION_DISPLAY_NAME# Bundle
         cmd: ./uds remove ./bundle/uds-bundle-#TEMPLATE_APPLICATION_NAME#-test*.tar.zst --confirm --no-progress

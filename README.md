@@ -7,6 +7,7 @@ Some placeholders have been placed throughout the template repo to make it easie
 
 ```
 #TEMPLATE_APPLICATION_NAME# - example values: gitlab, sonarqube
+#TEMPLATE_APPLICATION_DISPLAY_NAME# - example values: Gitlab, Sonarqube
 #TEMPLATE_CHART_REPO# - example value: https://charts.jetstack.io/
 ```
 

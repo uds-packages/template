@@ -2,7 +2,7 @@
 kind: ZarfPackageConfig
 metadata:
   name: #TEMPLATE_APPLICATION_NAME#
-  description: "UDS #TEMPLATE_APPLICATION_NAME# package"
+  description: "UDS #TEMPLATE_APPLICATION_DISPLAY_NAME# package"
   # x-release-please-start-version
   version: "0.1.0-uds.0"
   # x-release-please-start-version
@@ -21,7 +21,7 @@ variables:
 components:
   - name: #TEMPLATE_APPLICATION_NAME#
     required: true
-    description: "Deploy #TEMPLATE_APPLICATION_NAME#"
+    description: "Deploy #TEMPLATE_APPLICATION_DISPLAY_NAME#"
     import:
       path: common
     only:
@@ -35,7 +35,7 @@ components:
 
   - name: #TEMPLATE_APPLICATION_NAME#
     required: true
-    description: "Deploy #TEMPLATE_APPLICATION_NAME#"
+    description: "Deploy #TEMPLATE_APPLICATION_DISPLAY_NAME#"
     import:
       path: common
     only:
