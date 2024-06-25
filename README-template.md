@@ -18,7 +18,7 @@ Add any dependency information here
 
 | Flavor | Description | Example Creation |
 | ------ | ----------- | ---------------- |
-| upstream | Uses upstream images within the package. | `zarf package create . -f upstream` |
+| `upstream` | Uses upstream images within the package. | `zarf package create . -f upstream` |
 | `registry1` | Uses images from registry1.dso.mil within the package | `zarf package create . -f registry1` |
 
 ## Releases
