@@ -1,4 +1,4 @@
-# 🏭 UDS Package #TEMPLATE_APPLICATION_DISPLAY_NAME#
+# UDS Package #TEMPLATE_APPLICATION_DISPLAY_NAME#
 
 [![Latest Release](https://img.shields.io/github/v/release/defenseunicorns/uds-package-#TEMPLATE_APPLICATION_NAME#)](https://github.com/defenseunicorns/uds-package-#TEMPLATE_APPLICATION_NAME#/releases)
 [![Build Status](https://img.shields.io/github/actions/workflow/status/defenseunicorns/uds-package-#TEMPLATE_APPLICATION_NAME#/tag-and-release.yaml)](https://github.com/defenseunicorns/uds-package-#TEMPLATE_APPLICATION_NAME#/actions/workflows/tag-and-release.yaml)
