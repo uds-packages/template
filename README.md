@@ -3,6 +3,7 @@
 After creating a repo from the UDS Package Template, follow this README in order to customize the template for a new application package.
 
 ## Find and replace
+
 Some placeholders have been placed throughout the template repo to make it easier to find and replace with values for application name being packaged. For some applications a simple find and replace for these won't make sense in every location, so doublecheck after doing the replace. This will mostly pop up for applications that use a namespace that doesn't match the application name and locations where it is desired to have a capitalized name instead of a lowercase hyphenated name (example: GitLab Runner instead of gitlab-runner)
 
 ```
@@ -12,6 +13,7 @@ Some placeholders have been placed throughout the template repo to make it easie
 ```
 
 ## Customize Template Files
+
 The following files will need to be customized for the application being packaged and include things like dependencies and application specific helm values. Examples have been included for reference.
 
 ```

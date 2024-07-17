@@ -4,7 +4,7 @@
 [![Build Status](https://img.shields.io/github/actions/workflow/status/defenseunicorns/uds-package-#TEMPLATE_APPLICATION_NAME#/tag-and-release.yaml)](https://github.com/defenseunicorns/uds-package-#TEMPLATE_APPLICATION_NAME#/actions/workflows/tag-and-release.yaml)
 [![OpenSSF Scorecard](https://api.securityscorecards.dev/projects/github.com/defenseunicorns/uds-package-#TEMPLATE_APPLICATION_NAME#/badge)](https://api.securityscorecards.dev/projects/github.com/defenseunicorns/uds-package-#TEMPLATE_APPLICATION_NAME#)
 
-This package is designed for use as part of a [UDS Software Factory](https://github.com/defenseunicorns/uds-software-factory) bundle deployed on [UDS Core](https://github.com/defenseunicorns/uds-core).
+This package is designed to be deployed on [UDS Core](https://github.com/defenseunicorns/uds-core), , and is based on the upstream [#TEMPLATE_APPLICATION_DISPLAY_NAME#]() chart.
 
 ## Pre-requisites
 
@@ -20,6 +20,7 @@ Add any dependency information here
 | ------ | ----------- | ---------------- |
 | `upstream` | Uses upstream images within the package. | `zarf package create . -f upstream` |
 | `registry1` | Uses images from registry1.dso.mil within the package | `zarf package create . -f registry1` |
+| `unicorn` | Uses images from chainguard within the package | `zarf package create . -f unicorn` |
 
 ## Releases
 

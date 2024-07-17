@@ -12,7 +12,7 @@ jobs:
     timeout-minutes: 20
     strategy:
       matrix:
-        flavor: [upstream, registry1]
+        flavor: [upstream, registry1, unicorn]
         type: [install, upgrade]
     steps:
       - name: Shim for ${{ matrix.type }} ${{ matrix.flavor }}

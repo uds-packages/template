@@ -4,7 +4,7 @@ metadata:
   name: #TEMPLATE_APPLICATION_NAME#
   description: "UDS #TEMPLATE_APPLICATION_DISPLAY_NAME# package"
   # x-release-please-start-version
-  version: "0.1.0-uds.0"
+  version: "0.0.1-uds.0"
   # x-release-please-start-version
   architecture: amd64
 
@@ -46,5 +46,19 @@ components:
       - name: #TEMPLATE_APPLICATION_NAME#
         valuesFiles:
           - values/registry1-values.yaml
+
+  - name: #TEMPLATE_APPLICATION_NAME#
+    required: true
+    description: "Deploy #TEMPLATE_APPLICATION_DISPLAY_NAME#"
+    import:
+      path: common
+    only:
+      flavor: unicorn
+      cluster:
+        architecture: amd64
+    charts:
+      - name: #TEMPLATE_APPLICATION_NAME#
+        valuesFiles:
+          - values/unicorn-values.yaml
     images:
-      - registry1.dso.mil/images:1.2.3
+      - cgr.dev/images:1.2.3
