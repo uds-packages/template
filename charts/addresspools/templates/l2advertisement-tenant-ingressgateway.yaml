@@ -7,4 +7,8 @@ metadata:
 spec:
   ipAddressPools:
     - tenant-ingressgateway
+  {{- if .Values.interface }}
+  interfaces:
+    - {{ .Values.interface }}
+  {{- end }}
 {{- end }}

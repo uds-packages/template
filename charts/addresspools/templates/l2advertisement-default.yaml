@@ -7,4 +7,8 @@ metadata:
 spec:
   ipAddressPools:
     - default
+  {{- if .Values.interface }}
+  interfaces:
+    - {{ .Values.interface }}
+  {{- end }}
 {{- end }}

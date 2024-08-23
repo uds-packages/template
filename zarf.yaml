@@ -24,6 +24,10 @@ variables:
     description: When using this package in concert with UDS Core, the IP address of the tenant-ingressgateway service
     default: ""
     prompt: false
+  - name: INTERFACE
+    description: When using this package in concert with UDS Core, the network interface of the K8s nodes which MetalLB should use
+    default: ""
+    prompt: false
 
 components:
   - name: preflight
@@ -60,5 +64,16 @@ components:
         # x-release-please-end
         namespace: metallb-system
         localPath: charts/addresspools
-        valuesFiles:
-          - values/addresspools-values.yaml
+        variables:
+          - name: INTERFACE
+            path: interface
+          - name: IP_ADDRESS_POOL
+            path: default.ipAddressPoolCIDR
+          - name: IP_ADDRESS_ADMIN_INGRESSGATEWAY
+            path: adminIngress.ipAddressPool
+          - name: IP_ADDRESS_PASSTHROUGH_INGRESSGATEWAY
+            path: passthroughIngress.ipAddressPool
+          - name: IP_ADDRESS_TENANT_INGRESSGATEWAY
+            path: tenantIngress.ipAddressPool
+        # valuesFiles:
+        #   - values/addresspools-values.yaml

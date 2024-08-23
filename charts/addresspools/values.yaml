@@ -6,19 +6,21 @@ default:
   ipAddressPoolCIDR: ""
 
 adminIngress:
-  ipAddressPool: []
+  ipAddressPool: ""
   namespace: "istio-admin-gateway"
   matchLabels:
     app: admin-ingressgateway
-    
+
 tenantIngress:
-  ipAddressPool: []
+  ipAddressPool: ""
   namespace: "istio-tenant-gateway"
   matchLabels:
     app: tenant-ingressgateway
-    
+
 passthroughIngress:
-  ipAddressPool: []
+  ipAddressPool: ""
   namespace: "istio-passthrough-gateway"
   matchLabels:
     app: passthrough-ingressgateway
+
+interface: ""

@@ -1,11 +1,13 @@
-default: 
+default:
   ipAddressPoolCIDR: "###ZARF_VAR_IP_ADDRESS_POOL###"
 
 adminIngress:
   ipAddressPool: "###ZARF_VAR_IP_ADDRESS_ADMIN_INGRESSGATEWAY###"
 
-tenantIngress: 
+tenantIngress:
   ipAddressPool: "###ZARF_VAR_IP_ADDRESS_TENANT_INGRESSGATEWAY###"
 
-passthroughIngress: 
+passthroughIngress:
   ipAddressPool: "###ZARF_VAR_IP_ADDRESS_KEYCLOAK_INGRESSGATEWAY###"
+
+interface: "###ZARF_VAR_INTERFACE###"
