@@ -1,5 +1,17 @@
 # Changelog
 
+## [0.1.1](https://github.com/defenseunicorns/uds-capability-metallb/compare/v0.1.0...v0.1.1) (2024-08-23)
+
+
+### Features
+
+* add `interface` value to the Zarf package ([#32](https://github.com/defenseunicorns/uds-capability-metallb/issues/32)) ([7f7fb06](https://github.com/defenseunicorns/uds-capability-metallb/commit/7f7fb06b7513621d31ddd33de7839728c7068d8b))
+
+
+### Miscellaneous Chores
+
+* fix license ([#30](https://github.com/defenseunicorns/uds-capability-metallb/issues/30)) ([1bcac39](https://github.com/defenseunicorns/uds-capability-metallb/commit/1bcac398f285eef3e72eed1a3325830ac83ef2d3))
+
 ## [0.1.0](https://github.com/defenseunicorns/uds-capability-metallb/compare/v0.0.5...v0.1.0) (2024-05-01)
 
 
