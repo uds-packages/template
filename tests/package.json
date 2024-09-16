@@ -1,5 +1,5 @@
 {
-  "name": "uds-package-template",
+  "name": "uds-package-#TEMPLATE_APPLICATION_NAME#",
   "license": "Apache-2.0",
   "devDependencies": {
     "@playwright/test": "^1.43.1",

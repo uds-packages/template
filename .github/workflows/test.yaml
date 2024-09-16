@@ -1,6 +1,5 @@
 name: Test
 
-# This workflow is triggered on pull requests to the main branch.
 on:
   pull_request:
     branches: [main]
@@ -38,40 +37,40 @@ jobs:
     timeout-minutes: 25
     strategy:
       matrix:
-        flavor: [upstream, registry1]
+        flavor: [upstream, registry1, unicorn]
         type: [install, upgrade]
 
     steps:
       - name: Checkout repository
-        uses: actions/checkout@a5ac7e51b41094c92402da3b24376905380afc29 # v4.1.6
+        uses: actions/checkout@692973e3d937129bcbf40652eb9f2f61becf3332 # v4.1.7
 
       - name: Environment setup
-        uses: defenseunicorns/uds-common/.github/actions/setup@0901c37366f37fea586768c79708e14e964e714e # v0.6.1
+        uses: defenseunicorns/uds-common/.github/actions/setup@76287d41ec5f06ecbdd0a6453877a78675aceffe # v0.11.2
         with:
           registry1Username: ${{ secrets.IRON_BANK_ROBOT_USERNAME }}
           registry1Password: ${{ secrets.IRON_BANK_ROBOT_PASSWORD }}
           ghToken: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Playwright setup
-        uses: defenseunicorns/uds-common/.github/actions/playwright@0901c37366f37fea586768c79708e14e964e714e # v0.6.1
+        uses: defenseunicorns/uds-common/.github/actions/playwright@76287d41ec5f06ecbdd0a6453877a78675aceffe # v0.11.2
 
       - name: Test
-        uses: defenseunicorns/uds-common/.github/actions/test@0901c37366f37fea586768c79708e14e964e714e # v0.6.1
+        uses: defenseunicorns/uds-common/.github/actions/test@76287d41ec5f06ecbdd0a6453877a78675aceffe # v0.11.2
         with:
           flavor: ${{ matrix.flavor }}
           type: ${{ matrix.type }}
 
       - name: Debug Output
         if: ${{ always() }}
-        uses: defenseunicorns/uds-common/.github/actions/debug-output@0901c37366f37fea586768c79708e14e964e714e # v0.6.1
+        uses: defenseunicorns/uds-common/.github/actions/debug-output@76287d41ec5f06ecbdd0a6453877a78675aceffe # v0.11.2
 
       - name: Save logs
         if: always()
-        uses: defenseunicorns/uds-common/.github/actions/save-logs@0901c37366f37fea586768c79708e14e964e714e # v0.6.1
+        uses: defenseunicorns/uds-common/.github/actions/save-logs@76287d41ec5f06ecbdd0a6453877a78675aceffe # v0.11.2
         with:
           suffix: ${{ matrix.type }}-${{ matrix.flavor }}-${{ github.run_id }}-${{ github.run_attempt }}
 
-      - uses: actions/upload-artifact@65462800fd760344b1a7b4382951275a0abb4808 # v4.3.3
+      - uses: actions/upload-artifact@834a144ee995460fba8ed112a2fc961b36a5ec5a # v4.3.6
         if: always()
         with:
           name: playwright-report-${{ matrix.type }}-${{ matrix.flavor }}-${{ github.run_id }}-${{ github.run_attempt }}
