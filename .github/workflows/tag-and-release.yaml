@@ -47,20 +47,6 @@ jobs:
           ghToken: ${{ secrets.GITHUB_TOKEN }}
           chainguardIdentity: ${{ secrets.CHAINGUARD_IDENTITY }}
 
-      # Determine repository to publish to
-      - name: Determine destination repository
-        id: repo
-        run: |
-          repo=ghcr.io/defenseunicorns/packages
-          # Publish unicorn flavor to private repository
-          if [ "${{ matrix.flavor }}" = "unicorn" ]; then
-            repo+=/private
-          fi
-          repo+=/uds
-
-          echo "repo=${repo}" >> "$GITHUB_OUTPUT"
-          echo "Publishing packages and bundles to ${repo}"
-
       - name: Playwright setup
         uses: defenseunicorns/uds-common/.github/actions/playwright@76287d41ec5f06ecbdd0a6453877a78675aceffe # v0.11.2
 
@@ -75,7 +61,7 @@ jobs:
         run: uds run -f tasks/publish.yaml test-package --set FLAVOR=${{ matrix.flavor }} --no-progress
 
       - name: Publish Package
-        run: uds run -f tasks/publish.yaml publish-package --set FLAVOR=${{ matrix.flavor }} --set TARGET_REPO=${{ steps.repo.outputs.repo }} --no-progress
+        run: uds run -f tasks/publish.yaml publish-package --set FLAVOR=${{ matrix.flavor }} --no-progress
 
       - name: Debug Output
         if: ${{ always() }}
