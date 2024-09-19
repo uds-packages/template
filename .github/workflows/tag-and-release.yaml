@@ -20,15 +20,14 @@ jobs:
         run: echo "release_created=${{ steps.tag.outputs.release_created || false }}" >> $GITHUB_OUTPUT
 
   publish-package:
+    name: Publish ${{ matrix.flavor }} ${{ matrix.architecture }}
     needs: tag-new-version
     permissions:
       contents: read
       packages: write
       id-token: write
     if: ${{ needs.tag-new-version.outputs.release_created == 'true' }}
-    # TODO: (@WSTARR) since we don't run the tests on arm currently we don't need to use the 8 core
     runs-on: ${{ matrix.architecture == 'arm64' && 'uds-marketplace-ubuntu-arm64-4-core' || 'uds-marketplace-ubuntu-big-boy-4-core' }}
-    name: Publish ${{ matrix.flavor }} ${{ matrix.architecture }}
     timeout-minutes: 40
     strategy:
       matrix:
@@ -37,13 +36,6 @@ jobs:
         exclude:
           - flavor: registry1
             architecture: arm64
-
-    name: Publish ${{ matrix.flavor }} ${{ matrix.architecture }}
-
-    permissions:
-      contents: read
-      packages: write
-
     steps:
       - uses: actions/checkout@692973e3d937129bcbf40652eb9f2f61becf3332 # v4.1.7
 
