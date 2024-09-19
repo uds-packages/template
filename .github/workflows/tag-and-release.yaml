@@ -21,8 +21,15 @@ jobs:
 
   publish-package:
     needs: tag-new-version
+    permissions:
+      contents: read
+      packages: write
+      id-token: write
     if: ${{ needs.tag-new-version.outputs.release_created == 'true' }}
-    runs-on: ubuntu-latest
+    # TODO: (@WSTARR) since we don't run the tests on arm currently we don't need to use the 8 core
+    runs-on: ${{ matrix.architecture == 'arm64' && 'uds-marketplace-ubuntu-arm64-4-core' || 'uds-marketplace-ubuntu-big-boy-4-core' }}
+    name: Publish ${{ matrix.flavor }} ${{ matrix.architecture }}
+    timeout-minutes: 40
     strategy:
       matrix:
         flavor: [upstream, registry1, unicorn]
@@ -46,6 +53,21 @@ jobs:
           registry1Username: ${{ secrets.IRON_BANK_ROBOT_USERNAME }}
           registry1Password: ${{ secrets.IRON_BANK_ROBOT_PASSWORD }}
           ghToken: ${{ secrets.GITHUB_TOKEN }}
+          chainguardIdentity: ${{ secrets.CHAINGUARD_IDENTITY }}
+
+      # Determine repository to publish to
+      - name: Determine destination repository
+        id: repo
+        run: |
+          repo=ghcr.io/defenseunicorns/packages
+          # Publish unicorn flavor to private repository
+          if [ "${{ matrix.flavor }}" = "unicorn" ]; then
+            repo+=/private
+          fi
+          repo+=/uds
+
+          echo "repo=${repo}" >> "$GITHUB_OUTPUT"
+          echo "Publishing packages and bundles to ${repo}"
 
       - name: Playwright setup
         uses: defenseunicorns/uds-common/.github/actions/playwright@76287d41ec5f06ecbdd0a6453877a78675aceffe # v0.11.2
@@ -61,7 +83,7 @@ jobs:
         run: uds run -f tasks/publish.yaml test-package --set FLAVOR=${{ matrix.flavor }} --no-progress
 
       - name: Publish Package
-        run: uds run -f tasks/publish.yaml publish-package --set FLAVOR=${{ matrix.flavor }} --no-progress
+        run: uds run -f tasks/publish.yaml publish-package --set FLAVOR=${{ matrix.flavor }} --set TARGET_REPO=${{ steps.repo.outputs.repo }} --no-progress
 
       - name: Debug Output
         if: ${{ always() }}
