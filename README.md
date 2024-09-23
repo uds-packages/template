@@ -34,3 +34,8 @@ The following files will need to be customized for the application being package
 | renovate.json | **CICD**: Custom rules for renovate to update things. | Add any custom package rules if needed for renovate to properly update things such as repo1 packages. Includes an example.
 | version.txt | **ZARF PACKAGE**: Text file with UDS package version specification. | Update as the UDS package is updated. |
 | zarf.yaml | **ZARF PACKAGE**: top-level Zarf package definition. | Copy from `common/zarf.yaml` the settings you'd like to expose for changes, much like a top-level values.yaml file. Often flavors, images, and variables are also specified primarily here, not in `common/zarf.yaml`. |
+
+
+# Github Runners
+
+When you're ready for the package to run CI in Github, make a request to `@github-admins` in the `#techsupport` channel on Slack asking for the package to be added to the `UDS Marketplace` runner group to get access to the fleet of github runners for this work.
