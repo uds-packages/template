@@ -1,0 +1,8 @@
+variables:
+  - name: APP_NAME
+  - name: APP_DISPLAY_NAME
+
+tasks:
+  - name: find-replace
+    actions:
+      - cmd: grep -R -l -e "#TEMPLATE_APPLICATION_DISPLAY_NAME#" -e "#TEMPLATE_APPLICATION_NAME#" . | grep -v -e '^./tasks/template.yaml$' -e '^./README.md$' -e '^./tasks.yaml$' | xargs sed -i '' -e 's/#TEMPLATE_APPLICATION_DISPLAY_NAME#/${APP_DISPLAY_NAME}/g' -e 's/#TEMPLATE_APPLICATION_NAME#/${APP_NAME}/g'

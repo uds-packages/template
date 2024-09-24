@@ -8,6 +8,7 @@ includes:
   - deploy: https://raw.githubusercontent.com/defenseunicorns/uds-common/v0.13.1/tasks/deploy.yaml
   - setup: https://raw.githubusercontent.com/defenseunicorns/uds-common/v0.13.1/tasks/setup.yaml
   - upgrade: https://raw.githubusercontent.com/defenseunicorns/uds-common/v0.13.1/tasks/upgrade.yaml
+  - template: ./tasks/template.yaml # REMOVE THIS LINE AFTER SETUP
 
 tasks:
   - name: default
@@ -70,3 +71,8 @@ tasks:
       - task: create-test-bundle
       - task: deploy:test-bundle
       - task: test:all
+
+## DELETE THIS SECTION AFTER SETUP
+  - name: find-replace
+    actions:
+      - task: template:find-replace

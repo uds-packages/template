@@ -2,18 +2,17 @@
 
 After creating a repo from the UDS Package Template, follow this README in order to customize the template for a new application package.
 
-## Find and replace
+## Make it your own
 
-Some placeholders have been placed throughout the template repo to make it easier to find and replace with values for application name being packaged. For some applications a simple find and replace for these won't make sense in every location, so doublecheck after doing the replace. This will mostly pop up for applications that use a namespace that doesn't match the application name and locations where it is desired to have a capitalized name instead of a lowercase hyphenated name (example: GitLab Runner instead of gitlab-runner)
+1. Use UDS Tasks runner to replace some common placeholders
+    ```sh
+    uds run find-replace --set APP_NAME=<your app name > --set APP_DISPLAY_NAME=<your app name for humans>
+    # Ex uds run find-replace --set APP_NAME=nginx --set APP_DISPLAY_NAME=NGINX
+    ```
+    > [!TIP]
+    > You may also find and need to update #TEMPLATE_CHART_REPO# - example value: https://charts.jetstack.io/
 
-```
-#TEMPLATE_APPLICATION_NAME# - example values: gitlab, sonarqube
-#TEMPLATE_APPLICATION_DISPLAY_NAME# - example values: Gitlab, Sonarqube
-#TEMPLATE_CHART_REPO# - example value: https://charts.jetstack.io/
-```
-
-## Customize Template Files
-
+2. Review, determine your need, and update
 
 The following files will need to be customized for the application being packaged and include things like dependencies and application specific helm values. Examples have been included for reference.
 
@@ -35,7 +34,15 @@ The following files will need to be customized for the application being package
 | version.txt | **ZARF PACKAGE**: Text file with UDS package version specification. | Update as the UDS package is updated. |
 | zarf.yaml | **ZARF PACKAGE**: top-level Zarf package definition. | Copy from `common/zarf.yaml` the settings you'd like to expose for changes, much like a top-level values.yaml file. Often flavors, images, and variables are also specified primarily here, not in `common/zarf.yaml`. |
 
+3. Request Github Runners
+    Send this message in slack#techsupport
+    ```
+    :msg-question: @github-admins Requesting `UDS Marketplace` runner group for <your app repo url> Thank you!
+    ```
 
-# Github Runners
+4. Almost there...
+    - `mv README-template.md README.md`
+    - `rm -rf tasks/template.yaml`
+    - Remove extra lines from [tasks.yaml](./tasks.yaml)
 
-When you're ready for the package to run CI in Github, make a request to `@github-admins` in the `#techsupport` channel on Slack asking for the package to be added to the `UDS Marketplace` runner group to get access to the fleet of github runners for this work.
+You are ready to start integrating (and testing with CI) your application with UDS Core!
