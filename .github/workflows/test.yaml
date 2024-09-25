@@ -55,7 +55,7 @@ jobs:
           chainguardIdentity: ${{ secrets.CHAINGUARD_IDENTITY }}
 
       - name: Test
-        uses: defenseunicorns/uds-common/.github/actions/test@e3008473beab00b12a94f9fcc7340124338d5c08 # v0.13.1
+        uses: defenseunicorns/uds-common/.github/actions/test-deploy@e3008473beab00b12a94f9fcc7340124338d5c08 # v0.13.1
         with:
           flavor: ${{ matrix.flavor }}
           type: ${{ matrix.type }}
