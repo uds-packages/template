@@ -1,6 +1,5 @@
-# This repository is owned by the Software Factory Team
-/* @team-name
+/* @defenseunicorns/uds-package-maintainers
+# /* @name-of-creator/s #optional during package creation to enable velocity
+# /* @name-of-established-known-team #optional addition to "uds-package-maintainers"
 
-# Additional privileged files
-/CODEOWNERS @jeff-mccoy @austenbryan
-/LICENSE @jeff-mccoy @austenbryan
+/CODEOWNERS @defenseunicorns/uds-package-maintainers

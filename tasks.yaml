@@ -1,5 +1,4 @@
 includes:
-  - cleanup: ./tasks/cleanup.yaml
   - dependencies: ./tasks/dependencies.yaml
   - test: ./tasks/test.yaml
   - create: https://raw.githubusercontent.com/defenseunicorns/uds-common/v0.13.1/tasks/create.yaml
@@ -8,69 +7,112 @@ includes:
   - deploy: https://raw.githubusercontent.com/defenseunicorns/uds-common/v0.13.1/tasks/deploy.yaml
   - setup: https://raw.githubusercontent.com/defenseunicorns/uds-common/v0.13.1/tasks/setup.yaml
   - upgrade: https://raw.githubusercontent.com/defenseunicorns/uds-common/v0.13.1/tasks/upgrade.yaml
+  - badge: https://raw.githubusercontent.com/defenseunicorns/uds-common/v0.13.1/tasks/badge.yaml
+  - remove: https://raw.githubusercontent.com/defenseunicorns/uds-common/v0.13.1/tasks/remove.yaml
   - template: ./tasks/template.yaml # REMOVE THIS LINE AFTER SETUP
 
 tasks:
   - name: default
-    description: Create K3D Cluster with UDS-Core + repo UDS Package
+    description: Create and deploy the package on a fresh cluster
     actions:
       - task: create-test-bundle
       - task: setup:k3d-test-cluster
       - task: deploy:test-bundle
 
+  - name: default-full
+    description: Create and deploy the package on a fresh cluster with full uds-core
+    actions:
+      - task: create-test-bundle
+      - task: setup:k3d-full-cluster
+      - task: deploy:test-bundle
+
   - name: create-package
-    description: Create the UDS Package defined in this repo, No dependencies included
+    description: Create UDS Package
     actions:
       - task: create:package
         with:
-          options: "--skip-sbom"
+          options: --skip-sbom
 
   - name: create-test-bundle
-    description: Create a local UDS bundle defined in the bundle subdirectory with dependencies
+    description: Create a local UDS bundle
     actions:
       - task: create-package
       - task: dependencies:create
       - task: create:test-bundle
 
   - name: create-latest-release-bundle
-    description: Create UDS bundle with dependencies based on the latest release
+    description: Create UDS bundle based on the latest release
     actions:
-      - task: upgrade:create-latest-tag-bundle
+      - task: pull:latest-package-release
         with:
-          dep_commands: uds run dependencies:create
+          spoof_release: "true"
+      - task: create-test-bundle
 
   - name: dev
-    description: deploy against running cluster
+    description: Create and deploy the bundle against an existing cluster
     actions:
       - task: create-test-bundle
       - task: deploy:test-bundle
 
-  - name: cleanup-cluster
-    description: Destroy k3d cluster
+  - name: publish-package
+    description: Build and publish the packages
     actions:
-      - task: cleanup:cluster
+      - description: Create the AMD64 package
+        task: create:package
+        with:
+          architecture: amd64
 
-# CI will execute the following (via uds-common/.github/actions/test) so they need to be here with these names
+      - description: Create the ARM64 package
+        task: create:package
+        with:
+          architecture: arm64
+
+      - description: Publish the packages
+        task: publish:package
+        with:
+          # x-release-please-start-version
+          version: 0.13.1
+          # x-release-please-end
 
   - name: test-package
-    description: Test the UDS package from the current branch
+    description: Test the package from the current branch
     actions:
       - task: create-test-bundle
       - task: setup:k3d-test-cluster
-      # - task: setup:k3d-full-cluster # useful for testing prometheus metrics. Comment out setup:k3d-test-cluster above
       - task: deploy:test-bundle
-      # - task: setup:create-doug-user # useful when needing to login to grafana or our app with sso
       - task: test:all
+      - task: compliance:validate
+        with:
+          assessment_results: /tmp/oscal-assessment-results.yaml
 
   - name: test-upgrade
     description: Test an upgrade from the latest released package to the current branch
     actions:
-      - task: create-latest-release-bundle
+      - task: upgrade:create-latest-tag-bundle
       - task: setup:k3d-test-cluster
       - task: deploy:test-bundle
+      - task: compliance:validate
+        with:
+          assessment_results: /tmp/oscal-assessment-results.yaml
       - task: create-test-bundle
       - task: deploy:test-bundle
-      - task: test:all
+      - task: test
+      - task: compliance:validate
+        with:
+          assessment_results: /tmp/oscal-assessment-results.yaml
+      - task: compliance:evaluate
+        with:
+          assessment_results: /tmp/oscal-assessment-results.yaml
+
+  - name: cleanup-cluster
+    description: Destroy k3d cluster
+    actions:
+      - cmd: k3d cluster delete uds
+
+  - name: remove-bundle
+    description: Remove the Deployed UDS Bundle
+    actions:
+      - task: remove:test-bundle
 
 ## DELETE THIS SECTION AFTER SETUP
   - name: find-replace

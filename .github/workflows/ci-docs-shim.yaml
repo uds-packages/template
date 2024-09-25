@@ -2,13 +2,29 @@ name: CI Docs Shim
 
 on:
   pull_request:
-    branches: [main]
-    types: [milestoned, opened, synchronize]
+    paths:
+      - "**.md"
+      - "**.jpg"
+      - "**.png"
+      - "**.gif"
+      - "**.svg"
+      - adr/**
+      - docs/**
+      - .gitignore
+      - renovate.json
+      - .release-please-config.json
+      - release-please-config.json
+      - oscal-component.yaml
+      - CODEOWNERS
+      - LICENSE
+      - CONTRIBUTING.md
+      - SECURITY.md
+      - config/renovate.json5
 
 jobs:
   run-test:
-    name: ${{ matrix.type }} ${{ matrix.flavor }}
-    runs-on: "ubuntu-latest"
+    name: test-deploy (${{ matrix.type }}, ${{ matrix.flavor }}) / deploy
+    runs-on: ubuntu-latest
     timeout-minutes: 20
     strategy:
       matrix:

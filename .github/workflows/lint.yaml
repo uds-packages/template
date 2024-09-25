@@ -3,8 +3,10 @@ name: Scan
 on:
   # This workflow is triggered on pull requests to the main branch.
   pull_request:
-    branches: [main]
+    # milestoned is added here as a workaround for release-please not triggering PR workflows (PRs should be added to a milestone to trigger the workflow).
     types: [milestoned, opened, synchronize]
+  # This allows other repositories to call this workflow in a reusable way
+  workflow_call:
 
 jobs:
   validate:
@@ -33,3 +35,4 @@ jobs:
       - name: Lint the repository
         run: |
           uds run lint:yaml --no-progress
+          uds run lint:oscal --no-progress --set OSCALFILES=./oscal-component.yaml
