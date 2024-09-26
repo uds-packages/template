@@ -64,9 +64,10 @@ tasks:
   - name: ui
     description: #TEMPLATE_APPLICATION_DISPLAY_NAME# UI Checks
     actions:
-      - cmd: npm ci
-        dir: tests
-      - cmd: npx playwright install --with-deps
-        dir: tests
-      - cmd: npx playwright test
+      - cmd: |
+          docker run --rm --ipc=host --net=host --mount type=bind,source="$(pwd)",target=/app mcr.microsoft.com/playwright:v1.47.2-jammy sh -c " \
+            cd app && \
+            npm ci && \
+            npx playwright test \
+            "
         dir: tests

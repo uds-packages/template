@@ -54,9 +54,6 @@ jobs:
           ghToken: ${{ secrets.GITHUB_TOKEN }}
           chainguardIdentity: ${{ secrets.CHAINGUARD_IDENTITY }}
 
-      - name: Playwright setup
-        uses: defenseunicorns/uds-common/.github/actions/playwright@e3008473beab00b12a94f9fcc7340124338d5c08 # v0.13.1
-
       - name: Test
         uses: defenseunicorns/uds-common/.github/actions/test-deploy@e3008473beab00b12a94f9fcc7340124338d5c08 # v0.13.1
         with:
