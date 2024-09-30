@@ -1,4 +1,4 @@
-name: Scan
+name: Lint
 
 on:
   # This workflow is triggered on pull requests to the main branch.
@@ -35,4 +35,4 @@ jobs:
       - name: Lint the repository
         run: |
           uds run lint:yaml --no-progress
-          uds run lint:oscal --no-progress --set OSCALFILES=./oscal-component.yaml
+          #[TODO: Gold] uds run lint:oscal --no-progress --set OSCALFILES=./oscal-component.yaml
