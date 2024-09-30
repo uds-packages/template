@@ -1,6 +1,11 @@
 # UDS Package Template
 
-After creating a repo from the UDS Package Template, follow this README in order to customize the template for a new application package.
+UDS package template is a starting point for creating a new UDS package. It includes a basic structure for a UDS package and a set of tasks to help you get started.
+
+> [!TIP]
+> Found an issue in this template or looking for how to contribute? Check out the [Contributing Guidelines](#contributing)
+
+After creating a repo from the UDS Package Template, follow [Making it your own](#make-it-your-own) documentation in order to customize the template for a new application package.
 
 ## Make it your own
 
@@ -46,3 +51,11 @@ The following files will need to be customized for the application being package
     - Remove extra lines from [tasks.yaml](./tasks.yaml)
 
 You are ready to start integrating (and testing with CI) your application with UDS Core!
+
+## Contributing
+
+> [!NOTE] As a template repository, the [CONTRIBUTING.md](./CONTRIBUTING.md) file is a part of the template and NOT the contributing guidelines for this repository. The contributing guidelines for this repository are articulated here.
+
+This template repository is part of Defense Unicorns' Unicorn Delivery Service and follows the contributing guidelines outlined in that repositories' [CONTRIBUTING.md](https://github.com/defenseunicorns/uds-common/blob/main/CONTRIBUTING.md) file.
+
+Feel free to [open a new issue](https://github.com/defenseunicorns/uds-package-template/issues/new/choose) for any defects or feature requests.
