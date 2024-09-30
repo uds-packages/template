@@ -35,4 +35,4 @@ jobs:
       - name: Lint the repository
         run: |
           uds run lint:yaml --no-progress
-          #[TODO: Gold] uds run lint:oscal --no-progress --set OSCALFILES=./oscal-component.yaml
+          #[TODO: https://github.com/defenseunicorns/uds-common/issues/257] uds run lint:oscal --no-progress --set OSCALFILES=./oscal-component.yaml
