@@ -54,7 +54,8 @@ You are ready to start integrating (and testing with CI) your application with U
 
 ## Contributing
 
-> [!NOTE] As a template repository, the [CONTRIBUTING.md](./CONTRIBUTING.md) file is a part of the template and NOT the contributing guidelines for this repository. The contributing guidelines for this repository are articulated here.
+> [!NOTE]
+> As a template repository, the [CONTRIBUTING.md](./CONTRIBUTING.md) file is a part of the template and NOT the contributing guidelines for this repository. The contributing guidelines for this repository are articulated here.
 
 This template repository is part of Defense Unicorns' Unicorn Delivery Service and follows the contributing guidelines outlined in that repositories' [CONTRIBUTING.md](https://github.com/defenseunicorns/uds-common/blob/main/CONTRIBUTING.md) file.
 
