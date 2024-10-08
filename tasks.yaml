@@ -9,6 +9,7 @@ includes:
   - upgrade: https://raw.githubusercontent.com/defenseunicorns/uds-common/v0.13.1/tasks/upgrade.yaml
   - badge: https://raw.githubusercontent.com/defenseunicorns/uds-common/v0.13.1/tasks/badge.yaml
   - remove: https://raw.githubusercontent.com/defenseunicorns/uds-common/v0.13.1/tasks/remove.yaml
+  - actions: https://raw.githubusercontent.com/defenseunicorns/uds-common/v1.0.0/tasks/actions.yaml
   - template: ./tasks/template.yaml # REMOVE THIS LINE AFTER SETUP
 
 tasks:
@@ -118,4 +119,3 @@ tasks:
   - name: find-replace
     actions:
       - task: template:find-replace
-      
