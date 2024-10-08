@@ -26,10 +26,6 @@ tasks:
       - task: create:package
         with:
           options: "--skip-sbom"
-      - task: create:package
-        with:
-          path: ./plugins
-          options: "--skip-sbom --flavor ''"
 
   - name: create-deploy-test-bundle
     description: Test and validate cluster is deployed with the package
