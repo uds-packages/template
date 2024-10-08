@@ -14,14 +14,14 @@ includes:
 
 tasks:
   - name: default
-    description: Setup k3d cluster, deploy Mattermost
+    description: Setup k3d cluster, deploy package
     actions:
       - task: create-dev-package
       - task: setup:k3d-test-cluster
       - task: create-deploy-test-bundle
 
   - name: create-dev-package
-    description: Create the Mattermost package
+    description: Create the package
     actions:
       - task: create:package
         with:
@@ -32,7 +32,7 @@ tasks:
           options: "--skip-sbom --flavor ''"
 
   - name: create-deploy-test-bundle
-    description: Test and validate cluster is deployed with Mattermost
+    description: Test and validate cluster is deployed with the package
     actions:
       - task: dependencies:create
       - task: create:test-bundle

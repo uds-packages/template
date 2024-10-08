@@ -11,10 +11,7 @@ tasks:
     description: Build package
     actions:
       - task: create:package
-      - task: create:package
-        with:
-          path: ./plugins
-          options: "--flavor ''"
+
 
   - name: publish-package
     description: Publish the packages
@@ -22,16 +19,5 @@ tasks:
       - task: publish:package
         with:
           # x-release-please-start-version
-          version: "10.0.0-uds.0"
+          version: "0.0.1-uds.0"
           # x-release-please-end
-
-  - name: publish-plugin-package
-    description: Publish the plugin package
-    actions:
-      - task: publish:package
-        with:
-          # x-release-please-start-version
-          version: "10.0.0-uds.0"
-          # x-release-please-end
-          name: mattermost-plugins
-          
