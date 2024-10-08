@@ -79,4 +79,3 @@ tasks:
         if: ${{ and (ne .variables.FLAVOR "upstream") (ne .variables.ARCH "arm64") }}
       - task: publish:publish-package
       - task: publish:publish-plugin-package
-      
