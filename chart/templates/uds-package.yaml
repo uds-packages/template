@@ -7,7 +7,7 @@ spec:
   {{- if .Values.sso.enabled }}
   sso:
     - name: #TEMPLATE_APPLICATION_DISPLAY_NAME# Login
-      clientId: uds-swf-#TEMPLATE_APPLICATION_NAME#
+      clientId: uds-package-#TEMPLATE_APPLICATION_NAME#
       redirectUris:
         - "https://#TEMPLATE_APPLICATION_NAME#.{{ .Values.domain }}/oauth2/callback/saml"
       protocol: saml
