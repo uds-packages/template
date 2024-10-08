@@ -11,6 +11,9 @@ includes:
   - badge: https://raw.githubusercontent.com/defenseunicorns/uds-common/v1.0.0/tasks/badge.yaml
   - upgrade: https://raw.githubusercontent.com/defenseunicorns/uds-common/v1.0.0/tasks/upgrade.yaml
   - compliance: https://raw.githubusercontent.com/defenseunicorns/uds-common/v1.0.0/tasks/compliance.yaml
+  - publish: https://raw.githubusercontent.com/defenseunicorns/uds-common/v1.0.0/tasks/publish.yaml
+  - template: ./tasks/template.yaml
+
 
 tasks:
   - name: default
@@ -69,9 +72,24 @@ tasks:
   - name: publish-package
     description: Build and publish the packages
     actions:
-      - task: actions:determine-arch
-      - task: publish:build-package
-      - task: setup:k3d-test-cluster
-      - task: create-deploy-test-bundle
-      - task: publish:publish-package
-      - task: publish:publish-plugin-package
+      - description: Create the package
+        task: create:package
+
+      - description: Setup the cluster
+        task: setup:k3d-test-cluster
+
+      - description: Create deploy and test the bundle
+        task: create-deploy-test-bundle
+
+      - description: Publish the packages
+        task: publish:package
+        with:
+          # x-release-please-start-version
+          version: 0.0.1-uds.0
+          # x-release-please-end
+
+  # Remove after using
+  - name: find-replace
+    description: Replace templated values in this template
+    actions:
+      - task: template:find-replace
