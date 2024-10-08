@@ -11,5 +11,23 @@ on:
 permissions: read-all
 
 jobs:
-  run:
+  validate:
+    permissions:
+      actions: read
+      attestations: read
+      checks: read
+      contents: read
+      deployments: read
+      discussions: read
+      issues: read
+      packages: read
+      pages: read
+      pull-requests: read
+      repository-projects: read
+      statuses: read
+      # Needed to upload the results to code-scanning dashboard.
+      security-events: write
+      # Used to receive a badge.
+      id-token: write
     uses: defenseunicorns/uds-common/.github/workflows/callable-scorecard.yaml@86886015d1edc43036b3dd000fbd972a384beb8f # v1.0.0
+    secrets: inherit
