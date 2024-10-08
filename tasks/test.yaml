@@ -33,8 +33,8 @@ tasks:
       # Deploy package with test data
       - cmd: |
           ./uds zarf package deploy \
-            --set EXAMPLE_SECRET_VALUE=$(cat testCA.pem | base64 -w 0) \
-            zarf-package-example-zarf-tests-${UDS_ARCH}-0.0.1.tar.zst \
+            --set EXAMPLE_SECRET_VALUE="$(cat testCA.pem | base64 -w 0)" \
+            zarf-package-example-zarf-tests-"${UDS_ARCH}"-0.0.1.tar.zst \
             --confirm
         dir: tests/optional-example-zarf-tests
       # Ensure expected resource is generated in some namespace. In this example it is checking for a configmap
@@ -56,7 +56,7 @@ tasks:
         cmd: |
           STATUS=$(curl -s 'https://#TEMPLATE_APPLICATION_NAME#.uds.dev/api/system/status' | ./uds zarf tools yq '.status')
           echo "#TEMPLATE_APPLICATION_NAME# system status: ${STATUS}"
-          if [ $STATUS != "UP" ]; then
+          if [ "$STATUS" != "UP" ]; then
             sleep 10
             exit 1
           fi

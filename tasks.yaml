@@ -1,72 +1,95 @@
 includes:
-  - cleanup: ./tasks/cleanup.yaml
   - dependencies: ./tasks/dependencies.yaml
   - test: ./tasks/test.yaml
-  - create: https://raw.githubusercontent.com/defenseunicorns/uds-common/v0.13.1/tasks/create.yaml
-  - lint: https://raw.githubusercontent.com/defenseunicorns/uds-common/v0.13.1/tasks/lint.yaml
-  - pull: https://raw.githubusercontent.com/defenseunicorns/uds-common/v0.13.1/tasks/pull.yaml
-  - deploy: https://raw.githubusercontent.com/defenseunicorns/uds-common/v0.13.1/tasks/deploy.yaml
-  - setup: https://raw.githubusercontent.com/defenseunicorns/uds-common/v0.13.1/tasks/setup.yaml
-  - upgrade: https://raw.githubusercontent.com/defenseunicorns/uds-common/v0.13.1/tasks/upgrade.yaml
+  - publish: ./tasks/publish.yaml
+  - create: https://raw.githubusercontent.com/defenseunicorns/uds-common/v1.0.0/tasks/create.yaml
+  - lint: https://raw.githubusercontent.com/defenseunicorns/uds-common/v1.0.0/tasks/lint.yaml
+  - pull: https://raw.githubusercontent.com/defenseunicorns/uds-common/v1.0.0/tasks/pull.yaml
+  - deploy: https://raw.githubusercontent.com/defenseunicorns/uds-common/v1.0.0/tasks/deploy.yaml
+  - setup: https://raw.githubusercontent.com/defenseunicorns/uds-common/v1.0.0/tasks/setup.yaml
+  - actions: https://raw.githubusercontent.com/defenseunicorns/uds-common/v1.0.0/tasks/actions.yaml
+  - badge: https://raw.githubusercontent.com/defenseunicorns/uds-common/v1.0.0/tasks/badge.yaml
+  - upgrade: https://raw.githubusercontent.com/defenseunicorns/uds-common/v1.0.0/tasks/upgrade.yaml
+  - compliance: https://raw.githubusercontent.com/defenseunicorns/uds-common/v1.0.0/tasks/compliance.yaml
+  - publish: https://raw.githubusercontent.com/defenseunicorns/uds-common/v1.0.0/tasks/publish.yaml
+  - template: ./tasks/template.yaml
+
 
 tasks:
   - name: default
-    description: Create K3D Cluster with UDS-Core + repo UDS Package
+    description: Setup k3d cluster, deploy package
     actions:
-      - task: create-test-bundle
+      - task: create-dev-package
       - task: setup:k3d-test-cluster
-      - task: deploy:test-bundle
+      - task: create-deploy-test-bundle
 
-  - name: create-package
-    description: Create the UDS Package defined in this repo, No dependencies included
+  - name: create-dev-package
+    description: Create the package
     actions:
       - task: create:package
         with:
           options: "--skip-sbom"
 
-  - name: create-test-bundle
-    description: Create a local UDS bundle defined in the bundle subdirectory with dependencies
+  - name: create-deploy-test-bundle
+    description: Test and validate cluster is deployed with the package
     actions:
-      - task: create-package
       - task: dependencies:create
       - task: create:test-bundle
-
-  - name: create-latest-release-bundle
-    description: Create UDS bundle with dependencies based on the latest release
-    actions:
-      - task: upgrade:create-latest-tag-bundle
-        with:
-          dep_commands: uds run dependencies:create
+      - task: deploy:test-bundle
+      - task: setup:create-doug-user
+      - task: test:all
 
   - name: dev
-    description: deploy against running cluster
+    description: Create and deploy the bundle on an existing cluster (for iteration/dev speed)
     actions:
-      - task: create-test-bundle
+      - task: create-dev-package
+      - task: create:test-bundle
       - task: deploy:test-bundle
 
-  - name: cleanup-cluster
-    description: Destroy k3d cluster
-    actions:
-      - task: cleanup:cluster
-
-# CI will execute the following (via uds-common/.github/actions/test) so they need to be here with these names
+# CI will execute the following (via uds-common/.github/workflows/callable-test.yaml) so they need to be here with these names
 
   - name: test-package
-    description: Test the UDS package from the current branch
+    description: Test deploying the current branch to a new cluster
     actions:
-      - task: create-test-bundle
+      - task: create-dev-package
       - task: setup:k3d-test-cluster
-      # - task: setup:k3d-full-cluster # useful for testing prometheus metrics. Comment out setup:k3d-test-cluster above
-      - task: deploy:test-bundle
-      # - task: setup:create-doug-user # useful when needing to login to grafana or our app with sso
-      - task: test:all
+      - task: create-deploy-test-bundle
+      - task: compliance:validate
 
   - name: test-upgrade
     description: Test an upgrade from the latest released package to the current branch
     actions:
-      - task: create-latest-release-bundle
+      - task: upgrade:create-latest-tag-bundle
+        with:
+          dep_commands: "./uds run dependencies:create"
       - task: setup:k3d-test-cluster
       - task: deploy:test-bundle
-      - task: create-test-bundle
-      - task: deploy:test-bundle
-      - task: test:all
+      - task: compliance:validate
+      - task: create-deploy-test-bundle
+      - task: compliance:validate
+      - task: compliance:evaluate
+
+  - name: publish-package
+    description: Build and publish the packages
+    actions:
+      - description: Create the package
+        task: create:package
+
+      - description: Setup the cluster
+        task: setup:k3d-test-cluster
+
+      - description: Create deploy and test the bundle
+        task: create-deploy-test-bundle
+
+      - description: Publish the packages
+        task: publish:package
+        with:
+          # x-release-please-start-version
+          version: 0.0.1-uds.0
+          # x-release-please-end
+
+  # Remove after using
+  - name: find-replace
+    description: Replace templated values in this template
+    actions:
+      - task: template:find-replace

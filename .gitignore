@@ -19,6 +19,7 @@ zarf-sbom
 tmp/
 values-*.yaml
 overlay-values-*
+.tool-versions
 
 # Terraform
 test/tf/public-ec2-instance/.test-data

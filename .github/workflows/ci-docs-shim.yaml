@@ -1,20 +1,33 @@
-name: CI Docs Shim
+name: CI Doc Shim
 
 on:
   pull_request:
-    branches: [main]
-    types: [milestoned, opened, synchronize]
+    paths:
+      - "**.md"
+      - "**.jpg"
+      - "**.png"
+      - "**.gif"
+      - "**.svg"
+      - adr/**
+      - docs/**
+      - .gitignore
+      - renovate.json
+      - .release-please-config.json
+      - release-please-config.json
+      - oscal-component.yaml
+      - CODEOWNERS
+      - LICENSE
+      - CONTRIBUTING.md
+      - SECURITY.md
 
 jobs:
-  run-test:
-    name: ${{ matrix.type }} ${{ matrix.flavor }}
-    runs-on: "ubuntu-latest"
-    timeout-minutes: 20
+  validate:
     strategy:
       matrix:
-        flavor: [upstream, registry1, unicorn]
         type: [install, upgrade]
-    steps:
-      - name: Shim for ${{ matrix.type }} ${{ matrix.flavor }}
-        run: |
-          echo "Documentation-only change detected; marking ${{ matrix.type }} ${{ matrix.flavor }} as successful."
+        flavor: [upstream, registry1, unicorn]
+    uses: defenseunicorns/uds-common/.github/workflows/callable-ci-docs-shim.yaml@86886015d1edc43036b3dd000fbd972a384beb8f # v1.0.0
+    with:
+      flavor: ${{ matrix.flavor }}
+      type: ${{ matrix.type }}
+    secrets: inherit # Inherits all secrets from the parent workflow.
