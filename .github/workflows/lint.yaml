@@ -3,36 +3,10 @@ name: Lint
 on:
   # This workflow is triggered on pull requests to the main branch.
   pull_request:
+    branches: [main]
     # milestoned is added here as a workaround for release-please not triggering PR workflows (PRs should be added to a milestone to trigger the workflow).
-    types: [milestoned, opened, synchronize]
-  # This allows other repositories to call this workflow in a reusable way
-  workflow_call:
+    types: [milestoned, opened, edited, synchronize]
 
 jobs:
-  validate:
-    runs-on: ubuntu-latest
-    name: Lint
-    permissions:
-      contents: read # Allows reading the repo contents
-
-    steps:
-      - name: Checkout
-        uses: actions/checkout@692973e3d937129bcbf40652eb9f2f61becf3332 # v4.1.7
-        with:
-          fetch-depth: 0
-
-      - name: Environment setup
-        uses: defenseunicorns/uds-common/.github/actions/setup@e3008473beab00b12a94f9fcc7340124338d5c08 # v0.13.1
-        with:
-          registry1Username: ${{ secrets.IRON_BANK_ROBOT_USERNAME }}
-          registry1Password: ${{ secrets.IRON_BANK_ROBOT_PASSWORD }}
-          ghToken: ${{ secrets.GITHUB_TOKEN }}
-
-      - name: Install lint deps
-        run: |
-          uds run lint:deps --no-progress
-
-      - name: Lint the repository
-        run: |
-          uds run lint:yaml --no-progress
-          #[TODO: https://github.com/defenseunicorns/uds-common/issues/257] uds run lint:oscal --no-progress --set OSCALFILES=./oscal-component.yaml
+  run:
+    uses: defenseunicorns/uds-common/.github/workflows/callable-lint.yaml@879295b9714bc7fa5fe7db7b4de2c245f1b406e7 # v1.0.0
