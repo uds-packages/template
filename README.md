@@ -9,17 +9,18 @@ After creating a repo from the UDS Package Template, follow [Making it your own]
 
 ## Make it your own
 
-1. Use UDS Tasks runner to replace some common placeholders
-    ```sh
-    uds run find-replace --set APP_NAME=<your app name > --set APP_DISPLAY_NAME=<your app name for humans>
-    # Ex uds run find-replace --set APP_NAME=nginx --set APP_DISPLAY_NAME=NGINX
-    ```
-    > [!WARNING]
-    > `uds run find-replace` may fail - if it does, manually replace #TEMPLATE_APPLICATION_NAME# and #TEMPLATE_APPLICATION_DISPLAY_NAME#
+Replace some common placeholders
 
-    > [!TIP]
-    > 1. Find and update #TEMPLATE_CHART_REPO# - example value: https://charts.jetstack.io/
-    > 2. Find and update #UDS_PACKAGE_REPO# - example value: https://github.com/defenseunicorns/uds-package-nginx
+## Make it your own
+
+1. Replace some common placeholders
+
+| value                                 | replace_with                  | example                                               |
+|---------------------------------------|-------------------------------|-------------------------------------------------------|
+| `#TEMPLATE_APPLICATION_NAME#`         | application name              | nginx, mattermost, cert-manager, etc...               |
+| `#TEMPLATE_APPLICATION_DISPLAY_NAME#` | application name for humans   | NGINX, Mattermost Cert Manager, etc...                |
+| `#TEMPLATE_CHART_REPO#`               | chart repository URL          | `https://charts.jetstack.io/`                         |
+| `#UDS_PACKAGE_REPO#`                  | package repository URL        | `https://github.com/defenseunicorns/uds-package-nginx`|
 
 2. Review, determine your need, and update
 
