@@ -11,8 +11,6 @@ includes:
   - upgrade: https://raw.githubusercontent.com/defenseunicorns/uds-common/v1.0.0/tasks/upgrade.yaml
   - compliance: https://raw.githubusercontent.com/defenseunicorns/uds-common/v1.0.0/tasks/compliance.yaml
   - publish: https://raw.githubusercontent.com/defenseunicorns/uds-common/v1.0.0/tasks/publish.yaml
-  - template: ./tasks/template.yaml
-
 
 tasks:
   - name: default
@@ -86,9 +84,3 @@ tasks:
           # x-release-please-start-version
           version: 0.0.1-uds.0
           # x-release-please-end
-
-  # Remove after using
-  - name: find-replace
-    description: Replace templated values in this template
-    actions:
-      - task: template:find-replace
