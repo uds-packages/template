@@ -67,13 +67,18 @@ components:
         variables:
           - name: INTERFACE
             path: interface
+            description: The network interface of the K8s nodes which MetalLB should use
           - name: IP_ADDRESS_POOL
             path: default.ipAddressPoolCIDR
+            description: The pool of IP addresses to use for ingress to the cluster
           - name: IP_ADDRESS_ADMIN_INGRESSGATEWAY
             path: adminIngress.ipAddressPool
+            description: When using this package in concert with UDS Core, the IP address of the admin-ingressgateway service
           - name: IP_ADDRESS_PASSTHROUGH_INGRESSGATEWAY
             path: passthroughIngress.ipAddressPool
+            description: When using this package in concert with the IDAM package, the IP address of the keycloak-ingressgateway service
           - name: IP_ADDRESS_TENANT_INGRESSGATEWAY
             path: tenantIngress.ipAddressPool
+            description: When using this package in concert with UDS Core, the IP address of the tenant-ingressgateway service
         # valuesFiles:
         #   - values/addresspools-values.yaml
