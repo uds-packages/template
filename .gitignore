@@ -31,3 +31,6 @@ terraform.tfstate.backup
 # Tests
 node_modules/
 .playwright/
+
+# VSCode
+.vscode/

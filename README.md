@@ -11,12 +11,12 @@ After creating a repo from the UDS Package Template, follow [Making it your own]
 
 1. Replace some common placeholders
 
-| value                                 | replace_with                | example                                                |
-| ------------------------------------- | --------------------------- | ------------------------------------------------------ |
-| `#TEMPLATE_APPLICATION_NAME#`         | application name            | nginx, mattermost, cert-manager, etc...                |
-| `#TEMPLATE_APPLICATION_DISPLAY_NAME#` | application name for humans | NGINX, Mattermost Cert Manager, etc...                 |
-| `#TEMPLATE_CHART_REPO#`               | chart repository URL        | `https://charts.jetstack.io/`                          |
-| `#UDS_PACKAGE_REPO#`                  | package repository URL      | `https://github.com/defenseunicorns/uds-package-nginx` |
+| value                                 | replace_with                                                                                                                                              | example                                                |
+| ------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------ |
+| `#TEMPLATE_APPLICATION_NAME#`         | application name                                                                                                                                          | nginx, mattermost, cert-manager, etc...                |
+| `#TEMPLATE_APPLICATION_DISPLAY_NAME#` | application name for humans                                                                                                                               | NGINX, Mattermost Cert Manager, etc...                 |
+| `#TEMPLATE_CHART_REPO#`               | chart repository URL                                                                                                                                      | `https://charts.jetstack.io/`                          |
+| `#UDS_PACKAGE_REPO#`                  | package repository URL                                                                                                                                    | `https://github.com/defenseunicorns/uds-package-nginx` |
 
 2. Review, determine your need, and update
 
@@ -53,6 +53,14 @@ The following files will need to be customized for the application being package
    - Remove extra lines from [tasks.yaml](./tasks.yaml)
 
 You are ready to start integrating (and testing with CI) your application with UDS Core!
+
+## Tips
+
+When you're ready to create your first release, here is an easy command to get release-please on the version you want (instead of modifying the files manually):
+
+```bash
+git commit --allow-empty -m "chore: release <upstream-app-version>-uds.<uds-sub-version>" -m "Release-As: <upstream-app-version>-uds.<uds-sub-version>"
+```
 
 ## Contributing
 
