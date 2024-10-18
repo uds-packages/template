@@ -7,7 +7,7 @@ metadata:
   name: #TEMPLATE_APPLICATION_NAME#
   description: "UDS #TEMPLATE_APPLICATION_DISPLAY_NAME# package"
   # x-release-please-start-version
-  version: "0.0.1-uds.0"
+  version: "0.0.1-uds.1"
   # x-release-please-end
   architecture: amd64
 
