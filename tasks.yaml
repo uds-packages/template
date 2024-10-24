@@ -26,6 +26,7 @@ tasks:
   - name: create-dev-package
     description: Create the package
     actions:
+      - task: dependencies:create
       - task: create:package
         with:
           options: "--skip-sbom"
