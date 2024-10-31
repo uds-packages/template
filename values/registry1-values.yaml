@@ -4,6 +4,6 @@
 # Values for registry1 flavor
 
 # Example variables from UDS package repo template. Update to relevant variables after templating
-image:
-  repository: registry1.dso.mil/image
-  tag: 1.2.3
+# image:
+#   repository: registry1.dso.mil/image
+#   tag: 1.2.3

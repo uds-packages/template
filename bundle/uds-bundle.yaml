@@ -15,9 +15,9 @@ packages:
     ref: 0.1.0
 
   # #TEMPLATE_APPLICATION_NAME# has a dependency on some-application
-  - name: some-application
-    repository: ghcr.io/defenseunicorns/packages/uds/some-application
-    ref: 0.1.3-upstream
+  # - name: some-application
+  #   repository: ghcr.io/defenseunicorns/packages/uds/some-application
+  #   ref: 0.1.3-upstream
 
   - name: #TEMPLATE_APPLICATION_NAME#
     path: ../

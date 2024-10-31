@@ -4,10 +4,12 @@
 # Example values from UDS package repo template
 domain: "###ZARF_VAR_DOMAIN###"
 sso:
-  enabled: true
+  enabled: false
   protocol: saml
   secretName: #TEMPLATE_APPLICATION_NAME#-sso
   adminGroups: ["/#TEMPLATE_APPLICATION_DISPLAY_NAME# Admin", "/UDS Core/Admin"]
+  saml:
+    providerName: "#TEMPLATE_APPLICATION_DISPLAY_NAME#"
 custom: []
 #    # Notice no `remoteGenerated` field here on custom internal rule
 #   - direction: Ingress

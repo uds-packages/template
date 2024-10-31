@@ -33,8 +33,7 @@ components:
       - name: #TEMPLATE_APPLICATION_NAME#
         valuesFiles:
           - values/upstream-values.yaml
-    images:
-      - upstream/images:1.2.3
+    images: []
 
   - name: #TEMPLATE_APPLICATION_NAME#
     required: true
@@ -63,5 +62,4 @@ components:
       - name: #TEMPLATE_APPLICATION_NAME#
         valuesFiles:
           - values/unicorn-values.yaml
-    images:
-      - cgr.dev/images:1.2.3
+    images: []

@@ -35,6 +35,7 @@ tasks:
     description: Test and validate cluster is deployed with the package
     actions:
       - task: dependencies:create
+      - task: create:package
       - task: create:test-bundle
       - task: deploy:test-bundle
       - task: setup:create-doug-user

@@ -54,6 +54,14 @@ The following files will need to be customized for the application being package
 
 You are ready to start integrating (and testing with CI) your application with UDS Core!
 
+## Tips
+
+When you're ready to create your first release, here is an easy command to get release-please on the version you want (instead of modifying the files manually):
+
+```bash
+git commit --allow-empty -m "chore: release <upstream-app-version>-uds.<uds-sub-version>" -m "Release-As: <upstream-app-version>-uds.<uds-sub-version>"
+```
+
 ## Contributing
 
 > [!NOTE]
