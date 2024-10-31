@@ -4,7 +4,7 @@ metadata:
   architecture: amd64
   # This version should stay in sync with the version in the addresspools/Chart.yaml file.
   # x-release-please-start-version
-  version: "0.1.1"
+  version: "0.1.2"
   # x-release-please-end
 
 variables:
@@ -60,7 +60,7 @@ components:
     charts:
       - name: addresspools
         # x-release-please-start-version
-        version: "0.1.1"
+        version: "0.1.2"
         # x-release-please-end
         namespace: metallb-system
         localPath: charts/addresspools

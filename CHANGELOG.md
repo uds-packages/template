@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.1.2](https://github.com/defenseunicorns/uds-package-metallb/compare/v0.1.1...v0.1.2) (2024-10-16)
+
+
+### Bug Fixes
+
+* update Zarf dependency to v1.0.1 ([#34](https://github.com/defenseunicorns/uds-package-metallb/issues/34)) ([66d2a43](https://github.com/defenseunicorns/uds-package-metallb/commit/66d2a43637c6be6591a969c0a910a5b806bd93cd))
+
 ## [0.1.1](https://github.com/defenseunicorns/uds-capability-metallb/compare/v0.1.0...v0.1.1) (2024-08-23)
 
 
