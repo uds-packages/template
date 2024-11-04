@@ -14,7 +14,12 @@ Zarf package containing a standalone version of [MetalLB](https://metallb.org/) 
 
 ### Deploy
 
-Deploy this package by first determining what IP addresses you are able to use:
+| value                                 | replace_with                | example                                                |
+| ------------------------------------- | --------------------------- | ------------------------------------------------------ |
+| `metallb`         | application name            | nginx, mattermost, cert-manager, etc...                |
+| `MetalLB` | application name for humans | NGINX, Mattermost Cert Manager, etc...                 |
+| `https://metallb.github.io/metallb`               | chart repository URL        | `https://charts.jetstack.io/`                          |
+| `#UDS_PACKAGE_REPO#`                  | package repository URL      | `https://github.com/defenseunicorns/uds-package-nginx` |
 
 ```shell
 $ ip addr

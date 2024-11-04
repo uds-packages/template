@@ -1,0 +1,14 @@
+{{- if .Values.tenantIngress.ipAddressPool }}
+apiVersion: metallb.io/v1beta1
+kind: L2Advertisement
+metadata:
+  name: tenant-ingressgateway
+  namespace: metallb-system
+spec:
+  ipAddressPools:
+    - tenant-ingressgateway
+  {{- if .Values.interface }}
+  interfaces:
+    - {{ .Values.interface }}
+  {{- end }}
+{{- end }}

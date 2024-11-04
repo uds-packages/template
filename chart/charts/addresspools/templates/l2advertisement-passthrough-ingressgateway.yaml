@@ -1,0 +1,14 @@
+{{- if .Values.passthroughIngress.ipAddressPool }}
+apiVersion: metallb.io/v1beta1
+kind: L2Advertisement
+metadata:
+  name: keycloak-ingressgateway
+  namespace: metallb-system
+spec:
+  ipAddressPools:
+    - keycloak-ingressgateway
+  {{- if .Values.interface }}
+  interfaces:
+    - {{ .Values.interface }}
+  {{- end }}
+{{- end }}

@@ -1,0 +1,17 @@
+{{- if .Values.adminIngress.ipAddressPool }}
+apiVersion: metallb.io/v1beta1
+kind: IPAddressPool
+metadata:
+  name: admin-ingressgateway
+  namespace: metallb-system
+spec:
+  addresses:
+    - {{ .Values.adminIngress.ipAddressPool }}/32
+  serviceAllocation:
+    priority: 50
+    namespaces:
+      - {{ .Values.adminIngress.namespace }}
+    serviceSelectors:
+      - matchLabels:
+          {{- toYaml .Values.adminIngress.matchLabels | nindent 10 }}
+{{- end }}

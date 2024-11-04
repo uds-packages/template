@@ -1,0 +1,5 @@
+apiVersion: v2
+name: addresspools
+description: Create the IpAddressPool resources needed
+type: application
+version: 0.1.2

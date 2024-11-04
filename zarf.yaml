@@ -1,6 +1,10 @@
 kind: ZarfPackageConfig
 metadata:
   name: metallb
+  description: "UDS MetalLB package"
+  # x-release-please-start-version
+  version: "0.0.1-uds.0"
+  # x-release-please-end
   architecture: amd64
   # This version should stay in sync with the version in the addresspools/Chart.yaml file.
   # x-release-please-start-version
@@ -30,55 +34,44 @@ variables:
     prompt: false
 
 components:
-  - name: preflight
+  - name: metallb
     required: true
-    actions:
-      onDeploy:
-        before:
-          # Pass the check if:
-          #   IP_ADDRESS_POOL is set
-          #   OR
-          #   IP_ADDRESS_ADMIN_INGRESSGATEWAY AND IP_ADDRESS_TENANT_INGRESSGATEWAY are set
-          - description: Validating input variables...
-            cmd: |
-              [ -n "$ZARF_VAR_IP_ADDRESS_POOL" ] || { [ -n "$ZARF_VAR_IP_ADDRESS_ADMIN_INGRESSGATEWAY" ] && [ -n "$ZARF_VAR_IP_ADDRESS_TENANT_INGRESSGATEWAY" ]; } || { echo "Invalid input variables. You are required to at least set either IP_ADDRESS_POOL or IP_ADDRESS_ADMIN_INGRESSGATEWAY and IP_ADDRESS_TENANT_INGRESSGATEWAY"; exit 1; }
+    description: "Deploy MetalLB"
+    import:
+      path: common
+    only:
+      flavor: upstream
+    charts:
+      - name: metallb
+        valuesFiles:
+          - values/upstream-values.yaml
+    images: []
 
   - name: metallb
     required: true
-    manifests:
-      - name: metallb
-        kustomizations:
-          - kustomizations/
-    images:
-      # renovate: datasource=docker versioning=semver
-      - registry1.dso.mil/ironbank/opensource/metallb/controller:v0.14.5
-      # renovate: datasource=docker versioning=semver
-      - registry1.dso.mil/ironbank/opensource/metallb/speaker:v0.14.5
-
-  - name: addresspools
-    required: true
+    description: "Deploy MetalLB"
+    import:
+      path: common
+    only:
+      flavor: registry1
+      cluster:
+        architecture: amd64
     charts:
-      - name: addresspools
-        # x-release-please-start-version
-        version: "0.1.2"
-        # x-release-please-end
-        namespace: metallb-system
-        localPath: charts/addresspools
-        variables:
-          - name: INTERFACE
-            path: interface
-            description: The network interface of the K8s nodes which MetalLB should use
-          - name: IP_ADDRESS_POOL
-            path: default.ipAddressPoolCIDR
-            description: The pool of IP addresses to use for ingress to the cluster
-          - name: IP_ADDRESS_ADMIN_INGRESSGATEWAY
-            path: adminIngress.ipAddressPool
-            description: When using this package in concert with UDS Core, the IP address of the admin-ingressgateway service
-          - name: IP_ADDRESS_PASSTHROUGH_INGRESSGATEWAY
-            path: passthroughIngress.ipAddressPool
-            description: When using this package in concert with the IDAM package, the IP address of the keycloak-ingressgateway service
-          - name: IP_ADDRESS_TENANT_INGRESSGATEWAY
-            path: tenantIngress.ipAddressPool
-            description: When using this package in concert with UDS Core, the IP address of the tenant-ingressgateway service
-        # valuesFiles:
-        #   - values/addresspools-values.yaml
+      - name: metallb
+        valuesFiles:
+          - values/registry1-values.yaml
+
+  - name: metallb
+    required: true
+    description: "Deploy MetalLB"
+    import:
+      path: common
+    only:
+      flavor: unicorn
+      cluster:
+        architecture: amd64
+    charts:
+      - name: metallb
+        valuesFiles:
+          - values/unicorn-values.yaml
+    images: []
