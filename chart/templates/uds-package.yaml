@@ -53,7 +53,7 @@ spec:
         remoteGenerated: IntraNamespace
 
       # Custom rules for unanticipated scenarios
-      {{- range .Values.custom }}
+      {{- range .Values.additionalNetworkAllow }}
       - direction: {{ .direction }}
         selector:
           {{ .selector | toYaml | nindent 10 }}
