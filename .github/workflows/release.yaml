@@ -17,7 +17,7 @@ permissions:
 jobs:
   tag-new-version:
     permissions: write-all
-    runs-on: ubuntu-latest
+    runs-on: uds-marketplace-ubuntu-big-boy-8-core
     outputs:
       release_created: ${{ steps.release-flag.outputs.release_created }}
     steps:
@@ -44,5 +44,5 @@ jobs:
     uses: defenseunicorns/uds-common/.github/workflows/callable-publish.yaml@f0164622ffc2007e96a0e1deaa3f5064db04b148 # v1.1.0
     with:
       flavor: ${{ matrix.flavor }}
-      runsOn: ${{ matrix.architecture == 'arm64' && 'uds-marketplace-ubuntu-arm64-4-core' || 'ubuntu-latest' }}
+      runsOn: ${{ matrix.architecture == 'arm64' && 'uds-marketplace-ubuntu-arm64-8-core' || 'uds-marketplace-ubuntu-big-boy-8-core' }}
     secrets: inherit # Inherits all secrets from the parent workflow.
