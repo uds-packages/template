@@ -10,7 +10,8 @@ sso:
   adminGroups: ["/#TEMPLATE_APPLICATION_DISPLAY_NAME# Admin", "/UDS Core/Admin"]
   saml:
     providerName: "#TEMPLATE_APPLICATION_DISPLAY_NAME#"
-custom: []
+# Support for custom `network.allow` entries on the Package CR
+additionalNetworkAllow: []
 #    # Notice no `remoteGenerated` field here on custom internal rule
 #   - direction: Ingress
 #     selector:
