@@ -1,0 +1,12 @@
+constants:
+  protocols:
+  - name: https
+    title: frontend traffic
+    portranges:
+    - start: 443
+      end: 443
+      transport: TCP
+  component:
+    title: my-app
+    description: this is my app description
+    
