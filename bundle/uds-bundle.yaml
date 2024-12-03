@@ -10,10 +10,6 @@ metadata:
   # x-release-please-end
 
 packages:
-  - name: dev-namespace
-    path: ../
-    ref: 0.1.0
-
   # #TEMPLATE_APPLICATION_NAME# has a dependency on some-application
   # - name: some-application
   #   repository: ghcr.io/defenseunicorns/packages/uds/some-application
