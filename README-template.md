@@ -2,7 +2,6 @@
 
 [![Latest Release](https://img.shields.io/github/v/release/defenseunicorns/uds-package-#TEMPLATE_APPLICATION_NAME#)](https://github.com/defenseunicorns/uds-package-#TEMPLATE_APPLICATION_NAME#/releases)
 [![Build Status](https://img.shields.io/github/actions/workflow/status/defenseunicorns/uds-package-#TEMPLATE_APPLICATION_NAME#/tag-and-release.yaml)](https://github.com/defenseunicorns/uds-package-#TEMPLATE_APPLICATION_NAME#/actions/workflows/tag-and-release.yaml)
-[![OpenSSF Scorecard](https://api.securityscorecards.dev/projects/github.com/defenseunicorns/uds-package-#TEMPLATE_APPLICATION_NAME#/badge)](https://api.securityscorecards.dev/projects/github.com/defenseunicorns/uds-package-#TEMPLATE_APPLICATION_NAME#)
 
 This package is designed to be deployed on [UDS Core](https://github.com/defenseunicorns/uds-core) and is based on the upstream [#TEMPLATE_APPLICATION_DISPLAY_NAME#](#TEMPLATE_CHART_REPO#) chart.
 
