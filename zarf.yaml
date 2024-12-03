@@ -56,8 +56,6 @@ components:
       path: common
     only:
       flavor: unicorn
-      cluster:
-        architecture: amd64
     charts:
       - name: #TEMPLATE_APPLICATION_NAME#
         valuesFiles:
