@@ -58,6 +58,8 @@ jobs:
         flavor: [upstream, unicorn, registry1]
     uses: defenseunicorns/uds-common/.github/workflows/callable-test.yaml@f0164622ffc2007e96a0e1deaa3f5064db04b148 # v1.1.0
     with:
+      timeout: 30
+      runsOn: uds-marketplace-ubuntu-big-boy-8-core
       upgrade-flavors: ${{ needs.check-flavor.outputs.upgrade-flavors }}
       flavor: ${{ matrix.flavor }}
       type: ${{ matrix.type }}
