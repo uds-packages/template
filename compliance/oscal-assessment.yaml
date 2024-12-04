@@ -1,3 +1,4 @@
+{{ $healthcheck := print .const.component.title "-healthcheck"}}
 component-definition:
   components:
     - control-implementations:
@@ -9,8 +10,13 @@ component-definition:
                 ASSESSMENT-OBJECTIVE:
                 the execution of privileged functions is logged.
               uuid: {{ uuid }}
+              {{- if .const.validation.enabled }}
+              links:
+              - href: {{ printf "'%s%s'" "#" (uuid (printf "%s-healthcheck" .const.component.title)) }}
+                rel: lula
+              {{ end }}
             - control-id: au-12
-              description: <how the specified control may be implemented if the containing component or capability is instantiated in a system security plan>
+              description: provides audit recording capabilities to capture the following events <List All Event Types from AU-2 and AU-3>
               remarks: |
                 ASSESSMENT-OBJECTIVE:
                 AU-12a. audit record generation capability for the event types the system is capable of auditing (defined in AU-02_ODP[01]) is provided by [Assignment: organization-defined system components];
@@ -18,7 +24,7 @@ component-definition:
                 AU-12c. audit records for the event types defined in AU-02_ODP[02] that include the audit record content defined in AU-03 are generated.
               uuid: {{ uuid }}
             - control-id: au-2
-              description: <how the specified control may be implemented if the containing component or capability is instantiated in a system security plan>
+              description: {{ .const.component.title }} provides the capability to log 
               remarks: |
                 ASSESSMENT-OBJECTIVE:
                 AU-02a.  [Assignment: organization-defined event types] that the system is capable of logging are identified in support of the audit logging function;
@@ -30,7 +36,7 @@ component-definition:
                 AU-02e. the event types selected for logging are reviewed and updated [Assignment: organization-defined frequency].
               uuid: {{ uuid }}
             - control-id: au-3
-              description: <how the specified control may be implemented if the containing component or capability is instantiated in a system security plan>
+              description: logs the event type, when the event occurred, where the event occurred, source of the event, outcome of event, and identities involved with the event.
               remarks: |
                 ASSESSMENT-OBJECTIVE:
                 AU-03a. audit records contain information that establishes what type of event occurred;
@@ -40,21 +46,15 @@ component-definition:
                 AU-03e. audit records contain information that establishes the outcome of the event;
                 AU-03f. audit records contain information that establishes the identity of any individuals, subjects, or objects/entities associated with the event.
               uuid: {{ uuid }}
-            - control-id: au-3.1
-              description: <how the specified control may be implemented if the containing component or capability is instantiated in a system security plan>
-              remarks: |-
-                ASSESSMENT-OBJECTIVE:
-                generated audit records contain the following [Assignment: organization-defined additional information].
-              uuid: {{ uuid }}
             - control-id: au-8
-              description: 
+              description: {{ .const.component.title }} uses timestamps on event logs.
               remarks: |
                 ASSESSMENT-OBJECTIVE:
                 AU-08a. internal system clocks are used to generate timestamps for audit records;
                 AU-08b. timestamps are recorded for audit records that meet [Assignment: organization-defined granularity of time measurement] and that use Coordinated Universal Time, have a fixed local time offset from Coordinated Universal Time, or include the local time offset as part of the timestamp.
               uuid: {{ uuid }}
             - control-id: sc-13
-              description: <how the specified control may be implemented if the containing component or capability is instantiated in a system security plan>
+              description: {{ .const.component.title }} uses the following <List FIPS Modules> FIPS modules for all cryptography actions.
               remarks: |
                 ASSESSMENT-OBJECTIVE:
                 SC-13a.  [Assignment: organization-defined cryptographic uses] are identified;
@@ -85,10 +85,91 @@ component-definition:
           title: {{ .title }}
           uuid: {{ uuid }}
       {{ end -}}
-      {{ end -}}
+      {{ end }}
       title: {{ .const.component.title }}
       type: software
       uuid: {{ uuid }}
+  {{- if .const.validation.enabled }}
+  back-matter: 
+    resources:
+    - uuid: {{ uuid (printf "%s-healthcheck" .const.component.title) }}
+      rlinks:
+        - href: lula.dev
+      description: >-
+        domain:
+          type: kubernetes
+          kubernetes-spec:
+            resources:
+            {{- range .const.validation.resources }}
+            {{- if eq .type "deployment" }}
+            - name: {{ .name }}
+              resource-rule:
+                group: apps
+                name: {{ .name }}
+                namespaces:
+                - {{ .namespace }}
+                resource: deployments
+                version: v1
+            {{- else if eq .type "statefulset" }}
+            - name: {{ .name }}
+              resource-rule:
+                group: apps
+                name: {{ .name }}
+                namespaces:
+                - {{ .namespace }}
+                resource: statefulsets
+                version: v1
+            {{- else if eq .type "daemonset" }}
+            - name: {{ .name }}
+              resource-rule:
+                group: apps
+                name: {{ .name }}
+                namespaces:
+                - {{ .namespace }}
+                resource: daemonsets
+                version: v1 
+            {{ end -}}
+            {{ end }}
+        provider:
+          type: opa
+          opa-spec:
+            output:
+              validation: validate.validate
+              observations:
+                - validate.msg
+            rego: |
+              package validate
+              import rego.v1
+
+              # Default values
+              default validate := false
+              default msg := "Not evaluated"
+
+              # Check if the Istio Deployment is healthy
+              validate if {
+                  {{- range .const.validation.resources }}
+                  check_{{ .type }}_{{ .name }}_health.result
+                  {{ end }}
+              }
+
+              {{- range .const.validation.resources }}
+              {{- if or (eq .type "statefulset") (eq .type "deployment") }}
+              check_{{ .type }}_{{ .name }}_health = {"result": true, "msg": msg} if {
+                input.{{ .name }}.status.readyReplicas == input.{{ .name }}.status.replicas
+                msg := "{{ .name }} {{ .type }} is healthy."
+              } else = {"result": false, "msg": msg} if {
+                msg := "{{ .name }} {{ .type }} is not healthy."
+              }
+              {{- else if eq .type "daemonset" }}
+              check_{{ .type }}_{{ .name }}_health = {"result": true, "msg": msg} if {
+                input.{{ .name }}.status.numberReady == input.{{ .name }}.status.desiredNumberScheduled
+                msg := "{{ .name }} {{ .type }} is healthy."
+              } else = {"result": false, "msg": msg} if {
+                msg := "{{ .name }} {{ .type }} is not healthy."
+              }
+              {{ end -}}
+              {{ end }}
+  {{ end }}
   metadata:
     last-modified: {{ timestamp }}
     oscal-version: 1.1.2
