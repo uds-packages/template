@@ -29,7 +29,7 @@ jobs:
 
   publish:
     permissions:
-      contents: read # Allows reading the content of the repository.
+      contents: write # Allows writing the content of the repository.
       packages: write # Allows reading the content of the repository's packages.
       id-token: write
     needs: tag-new-version
