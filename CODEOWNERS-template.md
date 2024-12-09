@@ -1,4 +1,4 @@
-The current `CODEOWNERS` file that exsits, is to denote who owns this `uds-package-template`. If you are creating a new package from this template, you can copy / paste one of the below examples into the `CODEOWNERS` file, then modify the string to fit your needs. After updating the `CODEOWNERS` file to your liking, you can delete this file. 
+The current `CODEOWNERS` file that exists, is to denote who owns this `uds-package-template`. If you are creating a new package from this template, you can copy / paste one of the below examples into the `CODEOWNERS` file, then modify the string to fit your needs. After updating the `CODEOWNERS` file to your liking, you can delete this file. 
 
 The `CODEOWNERS` file should follow the below format, you can even just copy / paste the exact text into the `CODEOWNERS` file. 
 
