@@ -8,20 +8,10 @@ assignees: ''
 
 ### CVE Details
 - **CVE ID**: 
-- **Package/Container Name**: 
-- **Affected Versions**: 
-- **CVE Description**: 
-
-### Environment
-- **Device and OS**: 
-- **App/Package Versions**: 
-- **Kubernetes Distro Being Used**: 
-- **Other**: 
+- **Vulnerable Software / Dependency**: 
 
 ### Mitigation Steps
 Steps that can be taken to mitigate the CVE.
-
-### Visual Proof (screenshots, videos, text, etc)
 
 ### Severity/Priority
 
