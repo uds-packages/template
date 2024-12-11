@@ -47,7 +47,7 @@ tasks:
 
 # CI will execute the following (via uds-common/.github/workflows/callable-test.yaml) so they need to be here with these names
 
-  - name: test-package
+  - name: test-install
     description: Test deploying the current branch to a new cluster
     actions:
       - task: create-dev-package
