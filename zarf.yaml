@@ -6,9 +6,7 @@ kind: ZarfPackageConfig
 metadata:
   name: #TEMPLATE_APPLICATION_NAME#
   description: "UDS #TEMPLATE_APPLICATION_DISPLAY_NAME# package"
-  # x-release-please-start-version
-  version: "0.0.1-uds.0"
-  # x-release-please-end
+  version: "dev"
   architecture: amd64
 
 variables:

@@ -15,8 +15,7 @@ on:
       - docs/**
       - .gitignore
       - renovate.json
-      - .release-please-config.json
-      - release-please-config.json
+      - releaser.yaml
       - oscal-component.yaml
       - CODEOWNERS
       - LICENSE
