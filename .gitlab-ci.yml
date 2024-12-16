@@ -1,0 +1,29 @@
+# Copyright 2024 Defense Unicorns
+# SPDX-License-Identifier: AGPL-3.0-or-later OR LicenseRef-Defense-Unicorns-Commercial
+
+include:
+  - component: $CI_SERVER_FQDN/defenseunicorns/uds/uds-common/commitlint@v1.6.0
+  - component: $CI_SERVER_FQDN/defenseunicorns/uds/uds-common/lint@v1.6.0
+  - component: $CI_SERVER_FQDN/defenseunicorns/uds/uds-common/test@v1.6.0
+    inputs:
+      runs-on: gitlab-runner-8c-${ARCH}
+      flavor: $FLAVOR
+      type: $TYPE
+  - component: $CI_SERVER_FQDN/defenseunicorns/uds/uds-common/publish@v1.6.0
+    inputs:
+      runs-on: gitlab-runner-8c-${ARCH}
+      flavor: $FLAVOR
+      target-repo: ${CI_REGISTRY}/${CI_PROJECT_NAMESPACE}/${CI_PROJECT_NAME}
+
+test:
+  parallel:
+    matrix:
+      - FLAVOR: [upstream, registry1, unicorn]
+        ARCH: [amd64]
+        TYPE: [install, upgrade]
+
+publish:
+  parallel:
+    matrix:
+      - FLAVOR: [upstream, registry1, unicorn]
+        ARCH: [amd64, arm64]
