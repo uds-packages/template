@@ -77,11 +77,11 @@ tasks:
 
   # # If docker isn't working/being a pain, you can run the tests locally instead with the following:
   # - name: ui
-  #   description: Concourse CI UI Checks
+  #   description: #TEMPLATE_APPLICATION_DISPLAY_NAME# CI UI Checks
   #   actions:
   #     - cmd: npm ci
   #       dir: tests
   #     - cmd: npx playwright install --with-deps
   #       dir: tests
-  #     - cmd: npx playwright test concourse.test.ts
+  #     - cmd: npx playwright test #TEMPLATE_APPLICATION_NAME#.test.ts
   #       dir: tests
