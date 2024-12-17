@@ -68,10 +68,9 @@ tasks:
     description: #TEMPLATE_APPLICATION_DISPLAY_NAME# UI Checks
     actions:
       - cmd: |
-          docker run --user $(id -u) --rm --ipc=host --net=host --mount type=bind,source="$(pwd)",target=/app mcr.microsoft.com/playwright:v1.49.0-jammy sh -c " \
+          docker run --user="$(id -u)" --rm --ipc=host --net=host --mount type=bind,source="$(pwd)",target=/app mcr.microsoft.com/playwright:v1.49.0-jammy sh -c " \
             cd app && \
             npm ci && \
             npx playwright test \
             "
         dir: tests
-
