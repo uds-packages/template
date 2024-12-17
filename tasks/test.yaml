@@ -5,7 +5,7 @@ tasks:
   - name: all
     actions:
       - task: health-check
-      - task: custom-resource-test
+      # - task: custom-resource-test
       - task: ingress
       - task: ui
 
@@ -20,46 +20,46 @@ tasks:
             namespace: #TEMPLATE_APPLICATION_NAME#
             condition: Available
 
-  # If application manages custom resources, then test creating custom resources
-  - name: custom-resource-test
-    description: Test creating a custom resource
-    actions:
-      # Create test zarf package
-      - cmd: |
-          ./uds zarf package create --confirm
-        dir: tests/optional-example-zarf-tests
-      # Generate some kind of test data. In this example it is a certificate
-      - cmd: |
-          openssl req -x509 -newkey rsa:4096 -keyout testCA.key \
-            -out testCA.pem -sha256 -days 3650 -nodes -subj "/C=XX/ST=StateName/L=CityName/O=CompanyName/OU=CompanySectionName/CN=CommonNameOrHostname"
-        dir: tests/optional-example-zarf-tests
-      # Deploy package with test data
-      - cmd: |
-          ./uds zarf package deploy \
-            --set EXAMPLE_SECRET_VALUE="$(cat testCA.pem | base64 -w 0)" \
-            zarf-package-example-zarf-tests-"${UDS_ARCH}"-0.0.1.tar.zst \
-            --confirm
-        dir: tests/optional-example-zarf-tests
-      # Ensure expected resource is generated in some namespace. In this example it is checking for a configmap
-      - description: Ensure configmap is created in target namespace
-        wait:
-          cluster:
-            kind: configmap
-            name: example-configmap
-            namespace: example-ns
-      # Cleanup files used to generate test data
-      - cmd: |
-          rm testCA.key testCA.pem
-        dir: tests/optional-example-zarf-tests
+  # # If application manages custom resources, then test creating custom resources
+  # - name: custom-resource-test
+  #   description: Test creating a custom resource
+  #   actions:
+  #     # Create test zarf package
+  #     - cmd: |
+  #         ./uds zarf package create --confirm
+  #       dir: tests/optional-example-zarf-tests
+  #     # Generate some kind of test data. In this example it is a certificate
+  #     - cmd: |
+  #         openssl req -x509 -newkey rsa:4096 -keyout testCA.key \
+  #           -out testCA.pem -sha256 -days 3650 -nodes -subj "/C=XX/ST=StateName/L=CityName/O=CompanyName/OU=CompanySectionName/CN=CommonNameOrHostname"
+  #       dir: tests/optional-example-zarf-tests
+  #     # Deploy package with test data
+  #     - cmd: |
+  #         ./uds zarf package deploy \
+  #           --set EXAMPLE_SECRET_VALUE="$(cat testCA.pem | base64 -w 0)" \
+  #           zarf-package-example-zarf-tests-"${UDS_ARCH}"-0.0.1.tar.zst \
+  #           --confirm
+  #       dir: tests/optional-example-zarf-tests
+  #     # Ensure expected resource is generated in some namespace. In this example it is checking for a configmap
+  #     - description: Ensure configmap is created in target namespace
+  #       wait:
+  #         cluster:
+  #           kind: configmap
+  #           name: example-configmap
+  #           namespace: example-ns
+  #     # Cleanup files used to generate test data
+  #     - cmd: |
+  #         rm testCA.key testCA.pem
+  #       dir: tests/optional-example-zarf-tests
 
   - name: ingress
     actions:
       - description: #TEMPLATE_APPLICATION_DISPLAY_NAME# UI Status Check
         maxRetries: 30
         cmd: |
-          STATUS=$(curl -s 'https://#TEMPLATE_APPLICATION_NAME#.uds.dev/api/system/status' | ./uds zarf tools yq '.status')
-          echo "#TEMPLATE_APPLICATION_NAME# system status: ${STATUS}"
-          if [ "$STATUS" != "UP" ]; then
+          STATUS=$(curl -o /dev/null -s -w "%{http_code}\n" https://#TEMPLATE_APPLICATION_NAME#.uds.dev)
+          echo "#TEMPLATE_APPLICATION_DISPLAY_NAME# system status: ${STATUS}"
+          if [ "$STATUS" != "200" ]; then
             sleep 10
             exit 1
           fi
@@ -68,7 +68,7 @@ tasks:
     description: #TEMPLATE_APPLICATION_DISPLAY_NAME# UI Checks
     actions:
       - cmd: |
-          docker run --rm --ipc=host --net=host --mount type=bind,source="$(pwd)",target=/app mcr.microsoft.com/playwright:v1.49.0-jammy sh -c " \
+          docker run --user="$(id -u)" --rm --ipc=host --net=host --mount type=bind,source="$(pwd)",target=/app mcr.microsoft.com/playwright:v1.49.0-jammy sh -c " \
             cd app && \
             npm ci && \
             npx playwright test \

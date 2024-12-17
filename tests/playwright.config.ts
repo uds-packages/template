@@ -26,6 +26,7 @@ export default defineConfig({
   outputDir: `${playwrightDir}/output`,
 
   use: {
+    // video: 'on',
     baseURL: process.env.BASE_URL || 'https://#TEMPLATE_APPLICATION_NAME#.uds.dev', // for `await page.goto('/')` etc
     trace: 'on-first-retry', // collect trace when retrying the failed test. See https://playwright.dev/docs/trace-viewer
   },
