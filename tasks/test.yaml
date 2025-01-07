@@ -57,7 +57,7 @@ tasks:
       - description: #TEMPLATE_APPLICATION_DISPLAY_NAME# UI Status Check
         maxRetries: 30
         cmd: |
-          STATUS=$(curl -o /dev/null -s -w "%{http_code}\n" https://#TEMPLATE_APPLICATION_NAME#.uds.dev)
+          STATUS=$(curl -L -o /dev/null -s -w "%{http_code}\n" https://#TEMPLATE_APPLICATION_NAME#.uds.dev)
           echo "#TEMPLATE_APPLICATION_DISPLAY_NAME# system status: ${STATUS}"
           if [ "$STATUS" != "200" ]; then
             sleep 10
