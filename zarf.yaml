@@ -7,7 +7,6 @@ metadata:
   name: #TEMPLATE_APPLICATION_NAME#
   description: "UDS #TEMPLATE_APPLICATION_DISPLAY_NAME# package"
   version: "dev"
-  architecture: amd64
 
 variables:
   - name: EXAMPLE_VARIABLES
