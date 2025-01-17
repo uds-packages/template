@@ -49,8 +49,6 @@ The following files will need to be customized for the application being package
 
 4. Almost there...
    - `mv README-template.md README.md`
-   - `rm -rf tasks/template.yaml`
-   - Remove extra lines from [tasks.yaml](./tasks.yaml)
    - Follow the `CODEOWNERS-template.md` to update your `CODEOWNERS` file.
 
 You are ready to start integrating (and testing with CI) your application with UDS Core!
