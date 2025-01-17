@@ -8,7 +8,7 @@ The `CODEOWNERS` file should follow the below format, you can even just copy / p
 /CODEOWNERS @jeff-mccoy @daveworth 
 /LICENS* @jeff-mccoy @austenbryan
 ```
-*NOTE:* You will need to add `uds-package-maintainers` to the repository with a minimum of write access for the `CODEOWNERS` file to be valid
+*NOTE:* You will need to add `uds-package-maintainers` to the repository with admin access for the `CODEOWNERS` file to be valid
 
 If you would like to add optional package reviewers, such as the creator of the app, you can append creators after `uds-package-maintainers`
 
