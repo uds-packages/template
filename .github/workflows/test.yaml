@@ -59,7 +59,7 @@ jobs:
     uses: defenseunicorns/uds-common/.github/workflows/callable-test.yaml@7381e2081c60c745855a95646372165eae4de41a # v1.6.0
     with:
       timeout: 30
-      runsOn: uds-marketplace-ubuntu-big-boy-8-core
+      runsOn: appstore-8-core-amd64
       upgrade-flavors: ${{ needs.check-flavor.outputs.upgrade-flavors }}
       flavor: ${{ matrix.flavor }}
       type: ${{ matrix.type }}
