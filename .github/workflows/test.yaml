@@ -59,6 +59,7 @@ jobs:
     uses: defenseunicorns/uds-common/.github/workflows/callable-test.yaml@7826099a1ceb4657f9cd502968dea8e0e7753ac6 # v1.7.0
     with:
       timeout: 30
+      options: --set BASE_REPO="ghcr.io/uds-packages"
       runsOn: appstore-8-core-amd64
       upgrade-flavors: ${{ needs.check-flavor.outputs.upgrade-flavors }}
       flavor: ${{ matrix.flavor }}

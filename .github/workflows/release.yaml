@@ -30,6 +30,7 @@ jobs:
     uses: defenseunicorns/uds-common/.github/workflows/callable-publish.yaml@7826099a1ceb4657f9cd502968dea8e0e7753ac6 # v1.7.0
     with:
       flavor: ${{ matrix.flavor }}
+      options: --set BASE_REPO="ghcr.io/uds-packages"
       runsOn: ${{ matrix.architecture == 'arm64' && 'appstore-8-core-arm64' || 'appstore-8-core-amd64' }}
       uds-releaser: true
     secrets: inherit # Inherits all secrets from the parent workflow.
