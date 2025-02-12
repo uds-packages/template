@@ -1,7 +1,7 @@
 # UDS Package #TEMPLATE_APPLICATION_DISPLAY_NAME#
 
-[![Latest Release](https://img.shields.io/github/v/release/uds-packages/uds-package-#TEMPLATE_APPLICATION_NAME#)](https://github.com/uds-packages/uds-package-#TEMPLATE_APPLICATION_NAME#/releases)
-[![Build Status](https://img.shields.io/github/actions/workflow/status/uds-packages/uds-package-#TEMPLATE_APPLICATION_NAME#/tag-and-release.yaml)](https://github.com/uds-packages/uds-package-#TEMPLATE_APPLICATION_NAME#/actions/workflows/tag-and-release.yaml)
+[![Latest Release](https://img.shields.io/github/v/release/uds-packages/#TEMPLATE_APPLICATION_NAME#)](https://github.com/uds-packages/#TEMPLATE_APPLICATION_NAME#/releases)
+[![Build Status](https://img.shields.io/github/actions/workflow/status/uds-packages/#TEMPLATE_APPLICATION_NAME#/tag-and-release.yaml)](https://github.com/uds-packages/#TEMPLATE_APPLICATION_NAME#/actions/workflows/tag-and-release.yaml)
 
 This package is designed to be deployed on [UDS Core](https://github.com/defenseunicorns/uds-core) and is based on the upstream [#TEMPLATE_APPLICATION_DISPLAY_NAME#](#TEMPLATE_CHART_REPO#) chart.
 
@@ -25,7 +25,7 @@ Add any dependency information here
 
 ## Releases
 
-The released packages can be found in [ghcr](https://github.com/uds-packages/uds-package-#TEMPLATE_APPLICATION_NAME#/pkgs/container/packages%2Fuds%2F#TEMPLATE_APPLICATION_NAME#).
+The released packages can be found in [ghcr](https://github.com/uds-packages/#TEMPLATE_APPLICATION_NAME#/pkgs/container/packages%2Fuds%2F#TEMPLATE_APPLICATION_NAME#).
 
 ## UDS Tasks (for local dev and CI)
 

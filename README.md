@@ -40,14 +40,7 @@ The following files will need to be customized for the application being package
 | renovate.json                 | **CICD**: Custom rules for renovate to update things.                                                                                                                                                                                                                                                                                                                                         | Add any custom package rules if needed for renovate to properly update things such as repo1 packages. Includes an example.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        |
 | zarf.yaml                     | **ZARF PACKAGE**: top-level Zarf package definition.                                                                                                                                                                                                                                                                                                                                          | Copy from `common/zarf.yaml` the settings you'd like to expose for changes, much like a top-level values.yaml file. Often flavors, images, and variables are also specified primarily here, not in `common/zarf.yaml`.                                                                                                                                                                                                                                                                                                                                                                                                            |
 
-3. Request Github Runners
-   Send this message in slack#techsupport
-
-   ```
-   :msg-question: @github-admins Requesting `UDS Marketplace` runner group for <your app repo url> Thank you!
-   ```
-
-4. Almost there...
+3. Almost there...
    - `mv README-template.md README.md`
    - `rm -rf tasks/template.yaml`
    - Remove extra lines from [tasks.yaml](./tasks.yaml)
