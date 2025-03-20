@@ -12,10 +12,7 @@ zarf-sbom
 .cache/
 .idea/
 build/
-.DS_Store
-*.tar.zst
 test/tf/public-ec2-instance/.tool-versions
-zarf-sbom
 tmp/
 values-*.yaml
 overlay-values-*
