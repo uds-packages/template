@@ -45,6 +45,7 @@ components:
       - name: #TEMPLATE_APPLICATION_NAME#
         valuesFiles:
           - values/registry1-values.yaml
+    images: []
 
   - name: #TEMPLATE_APPLICATION_NAME#
     required: true
