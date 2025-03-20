@@ -3,7 +3,11 @@
 
 include:
   - component: $CI_SERVER_FQDN/defenseunicorns/uds/uds-common/commitlint@v1.6.0
+    inputs:
+      runs-on: gitlab-runner-8c-${ARCH}
   - component: $CI_SERVER_FQDN/defenseunicorns/uds/uds-common/lint@v1.6.0
+    inputs:
+      runs-on: gitlab-runner-8c-${ARCH}
   - component: $CI_SERVER_FQDN/defenseunicorns/uds/uds-common/test@v1.6.0
     inputs:
       runs-on: gitlab-runner-8c-${ARCH}
