@@ -4,6 +4,7 @@ yaml-files:
 
 ignore:
   - '**/chart/templates**'
+  - '**/compliance/**'
 
 rules:
   anchors: enable
