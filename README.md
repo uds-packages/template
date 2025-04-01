@@ -52,6 +52,14 @@ You are ready to start integrating (and testing with CI) your application with U
 
 When you're ready to release your package, you'll need to modify the `releaser.yaml` file to include the correct versions of your package's flavors. If your package doesn't have a flavor, just delete it from the releaser.yaml file. When you're actually ready to have a release tagged and a package pushed to GHCR, uncomment the contents of the file.
 
+## Engineers External to Defense Unicorns
+
+For engineers that are external to the Defense Unicorns organization, the following files may not be applicable to your situation, and can be modified or removed. 
+   - releaser.yaml
+   - .gitlab-ci.yml
+   - renovate.json
+   - .github/workflows (the workflows are still applicable, but the runners, tokens, and secrets will have to be updated to reflect your environment.)
+
 ## Contributing
 
 > [!NOTE]
