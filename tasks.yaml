@@ -3,16 +3,16 @@
 
 includes:
   - test: ./tasks/test.yaml
-  - create: https://raw.githubusercontent.com/defenseunicorns/uds-common/v1.10.3/tasks/create.yaml
-  - lint: https://raw.githubusercontent.com/defenseunicorns/uds-common/v1.10.3/tasks/lint.yaml
-  - pull: https://raw.githubusercontent.com/defenseunicorns/uds-common/v1.10.3/tasks/pull.yaml
-  - deploy: https://raw.githubusercontent.com/defenseunicorns/uds-common/v1.10.3/tasks/deploy.yaml
-  - setup: https://raw.githubusercontent.com/defenseunicorns/uds-common/v1.10.3/tasks/setup.yaml
-  - actions: https://raw.githubusercontent.com/defenseunicorns/uds-common/v1.10.3/tasks/actions.yaml
-  - badge: https://raw.githubusercontent.com/defenseunicorns/uds-common/v1.10.3/tasks/badge.yaml
-  - upgrade: https://raw.githubusercontent.com/defenseunicorns/uds-common/v1.10.3/tasks/upgrade.yaml
-  - compliance: https://raw.githubusercontent.com/defenseunicorns/uds-common/v1.10.3/tasks/compliance.yaml
-  - publish: https://raw.githubusercontent.com/defenseunicorns/uds-common/v1.10.3/tasks/publish.yaml
+  - create: https://raw.githubusercontent.com/defenseunicorns/uds-common/v1.11.2/tasks/create.yaml
+  - lint: https://raw.githubusercontent.com/defenseunicorns/uds-common/v1.11.2/tasks/lint.yaml
+  - pull: https://raw.githubusercontent.com/defenseunicorns/uds-common/v1.11.2/tasks/pull.yaml
+  - deploy: https://raw.githubusercontent.com/defenseunicorns/uds-common/v1.11.2/tasks/deploy.yaml
+  - setup: https://raw.githubusercontent.com/defenseunicorns/uds-common/v1.11.2/tasks/setup.yaml
+  - actions: https://raw.githubusercontent.com/defenseunicorns/uds-common/v1.11.2/tasks/actions.yaml
+  - badge: https://raw.githubusercontent.com/defenseunicorns/uds-common/v1.11.2/tasks/badge.yaml
+  - upgrade: https://raw.githubusercontent.com/defenseunicorns/uds-common/v1.11.2/tasks/upgrade.yaml
+  - compliance: https://raw.githubusercontent.com/defenseunicorns/uds-common/v1.11.2/tasks/compliance.yaml
+  - publish: https://raw.githubusercontent.com/defenseunicorns/uds-common/v1.11.2/tasks/publish.yaml
 
 tasks:
   - name: default
@@ -53,7 +53,6 @@ tasks:
       - task: create-dev-package
       - task: setup:k3d-test-cluster
       - task: create-deploy-test-bundle
-      # - task: compliance:validate
 
   - name: test-upgrade
     description: Test an upgrade from the latest released package to the current branch
@@ -61,10 +60,7 @@ tasks:
       - task: upgrade:create-latest-tag-bundle
       - task: setup:k3d-test-cluster
       - task: deploy:test-bundle
-      # - task: compliance:validate
       - task: create-deploy-test-bundle
-      # - task: compliance:validate
-      # - task: compliance:evaluate
 
   - name: publish-package
     description: Build and publish the packages
