@@ -28,7 +28,7 @@ jobs:
       matrix:
         type: [install, upgrade]
         flavor: [upstream, registry1, unicorn]
-    uses: defenseunicorns/uds-common/.github/workflows/callable-ci-docs-shim.yaml@2b06435fe0f72809892f7b0f128b1df433b865f7 # v1.11.2
+    uses: defenseunicorns/uds-common/.github/workflows/callable-ci-docs-shim.yaml@42696c5ffcf030a506709f1101df1c9f49e96783 # v1.14.0
     with:
       flavor: ${{ matrix.flavor }}
       type: ${{ matrix.type }}
