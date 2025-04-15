@@ -1,0 +1,24 @@
+constants:
+  protocols: []
+  # - name: https # list potential options here
+  #   title: frontend traffic # what role does this port play in network traffic
+  #   portranges: # list all ports 
+  #   - start: 443 
+  #     end: 443
+  #     transport: TCP
+  component:
+    title: my-app # title of the application - IE Istio
+    description: this is my app description # short description for the purpose of this application - IE Service Mesh
+  validation: # pre-templated validation for healthcheck
+    enabled: false
+    # resources:
+    # - name: velero
+    #   type: deployment
+    #   namespace: velero
+    # - name: keycloak
+    #   type: statefulset
+    #   namespace: keycloak
+    # - name: vector
+    #   type: daemonset
+    #   namespace: vector
+    
