@@ -8,6 +8,6 @@ Details about the #TEMPLATE_APPLICATION_DISPLAY_NAME# package and requirements o
 Example: "The Upstream implementation of APP_XYZ does not expose a metrics endpoint, issue [#123](https://upstream.project/issue/123) has been opened to track this feature request."
 -->
 
-## <Requirement X> 
+## <Requirement X>
 
 ### Additional Information
