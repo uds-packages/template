@@ -18,7 +18,6 @@ tasks:
   - name: default
     description: Setup k3d cluster, deploy package
     actions:
-      - task: create-dev-package
       - task: setup:k3d-test-cluster
       - task: create-deploy-test-bundle
 
@@ -50,7 +49,6 @@ tasks:
   - name: test-install
     description: Test deploying the current branch to a new cluster
     actions:
-      - task: create-dev-package
       - task: setup:k3d-test-cluster
       - task: create-deploy-test-bundle
 
@@ -65,9 +63,6 @@ tasks:
   - name: publish-package
     description: Build and publish the packages
     actions:
-      - description: Create the package
-        task: create:package
-
       - description: Setup the cluster
         task: setup:k3d-test-cluster
 
