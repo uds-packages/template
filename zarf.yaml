@@ -7,6 +7,12 @@ metadata:
   name: #TEMPLATE_APPLICATION_NAME#
   description: "UDS #TEMPLATE_APPLICATION_DISPLAY_NAME# package"
   version: "dev"
+  annotations:
+    dev.uds.title: #TEMPLATE_APPLICATION_DISPLAY_NAME#
+    dev.uds.tagline: ""
+    dev.uds.categories: ""
+    dev.uds.keywords: ""
+    dev.uds.icon: ""
 
 variables:
   - name: EXAMPLE_VARIABLES
