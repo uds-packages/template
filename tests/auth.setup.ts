@@ -11,7 +11,7 @@ setup('authenticate', async ({ page, context }) => {
   await page.goto('/example/endpoint');
 
   await page.getByLabel('Username or email').fill('doug');
-  await page.getByLabel('Password').fill('unicorn123!@#');
+  await page.getByLabel('Password').fill('unicorn123!@#UN');
   await page.getByRole('button', { name: "Log In" }).click();
 
   await page.waitForURL('/example/endpoint');  // successful redirect
