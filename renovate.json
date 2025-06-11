@@ -19,6 +19,7 @@
       "groupName": "#TEMPLATE_APPLICATION_DISPLAY_NAME# Package Dependencies",
       "labels": ["package-deps"],
       "commitMessageTopic": "package-deps",
+      "matchPackageNames": ["!/^mcr\\.microsoft\\.com\\/playwright$/"],
       "matchDatasources": ["docker", "helm", "git-tags"]
     },
     {
