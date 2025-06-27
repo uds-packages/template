@@ -13,7 +13,7 @@ export const authFile = `${playwrightDir}/auth/user.json`;
  */
 export default defineConfig({
   fullyParallel: true,
-  forbidOnly: !!process.env.CI, // fail CI if you accidently leave `test.only` in source
+  forbidOnly: !!process.env.CI, // fail CI if you accidentally leave `test.only` in source
   retries: process.env.CI ? 1 : 0,
   workers: 1,
   reporter: [
