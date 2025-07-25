@@ -8,22 +8,6 @@ on:
   pull_request:
     # milestoned is added here so that a PR can be re-triggered if it is milestoned.
     types: [milestoned, opened, reopened, synchronize]
-    paths-ignore:
-      - "**.md"
-      - "**.jpg"
-      - "**.png"
-      - "**.gif"
-      - "**.svg"
-      - adr/**
-      - docs/**
-      - .gitignore
-      - renovate.json
-      - .release-please-config.json
-      - release-please-config.json
-      - CODEOWNERS
-      - LICENSE
-      - CONTRIBUTING.md
-      - SECURITY.md
 
 # Permissions for the GITHUB_TOKEN used by the workflow.
 permissions:
@@ -65,3 +49,10 @@ jobs:
       flavor: ${{ matrix.flavor }}
       type: ${{ matrix.type }}
     secrets: inherit # Inherits all secrets from the parent workflow.
+
+  verify-test:
+    runs-on: ubuntu-latest
+    needs: validate
+    steps:
+      - name: Success
+        run: echo "All tests passed successfully!"
