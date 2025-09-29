@@ -7,26 +7,44 @@
     "replacements:all",
     "workarounds:all"
   ],
-  "schedule": ["after 7am and before 9am every weekday"],
+  "schedule": [
+    "after 7am and before 9am every weekday"
+  ],
   "packageRules": [
     {
       "groupName": "#TEMPLATE_APPLICATION_DISPLAY_NAME# Support Dependencies",
-      "labels": ["support-deps"],
+      "labels": [
+        "support-deps"
+      ],
       "commitMessageTopic": "support-deps",
-      "packagePatterns": ["*"]
+      "matchPackageNames": [
+        "*"
+      ]
     },
     {
       "groupName": "#TEMPLATE_APPLICATION_DISPLAY_NAME# Package Dependencies",
-      "labels": ["package-deps"],
+      "labels": [
+        "package-deps"
+      ],
       "commitMessageTopic": "package-deps",
-      "matchPackageNames": ["!/^mcr\\.microsoft\\.com\\/playwright$/"],
-      "matchDatasources": ["docker", "helm", "git-tags"]
+      "matchPackageNames": [
+        "!/^mcr\\.microsoft\\.com\\/playwright$/"
+      ],
+      "matchDatasources": [
+        "docker",
+        "helm",
+        "git-tags"
+      ]
     },
     {
       "groupName": "#TEMPLATE_APPLICATION_DISPLAY_NAME# Package Dependencies",
-      "labels": ["package-deps"],
+      "labels": [
+        "package-deps"
+      ],
       "commitMessageTopic": "package-deps",
-      "matchPackageNames": ["https://repo1.dso.mil/path/to/application.git"],
+      "matchPackageNames": [
+        "https://repo1.dso.mil/path/to/application.git"
+      ],
       "allowedVersions": "/^8.+-bb.+/"
     }
   ]
