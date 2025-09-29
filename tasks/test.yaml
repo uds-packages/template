@@ -68,10 +68,14 @@ tasks:
     description: #TEMPLATE_APPLICATION_DISPLAY_NAME# UI Checks
     actions:
       - cmd: |
-          docker run --user="$(id -u)" --rm --ipc=host --net=host --mount type=bind,source="$(pwd)",target=/app mcr.microsoft.com/playwright:v1.55.0-jammy sh -c " \
-            export npm_config_cache=/tmp/.npm && \
-            cd app && \
-            npm ci && \
-            npx playwright test \
-            "
+          docker run --rm \
+            --network=host \
+            --shm-size=1g \
+            --security-opt seccomp=unconfined \
+            --user "$(id -u):$(id -g)" \
+            -e HOME=/tmp \
+            -e NPM_CONFIG_CACHE=/tmp/.npm \
+            -v "$(pwd)":/app -w /app \
+            mcr.microsoft.com/playwright:v1.55.1 \
+            bash -lc "npm ci && npx playwright test"
         dir: tests

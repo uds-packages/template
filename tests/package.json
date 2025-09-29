@@ -2,7 +2,7 @@
   "name": "uds-package-#TEMPLATE_APPLICATION_NAME#",
   "license": "Apache-2.0",
   "devDependencies": {
-    "@playwright/test": "^1.49.0",
+    "@playwright/test": "1.55.1",
     "@types/node": "^22.0.0",
     "typescript": "^5.4.5"
   }
