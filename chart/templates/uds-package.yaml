@@ -38,6 +38,8 @@ spec:
   {{- end }}
   # Customize network policies and expose services via istio
   network:
+    serviceMesh:
+      mode: ambient
     expose:
       - service: #TEMPLATE_APPLICATION_NAME#
         podLabels:
