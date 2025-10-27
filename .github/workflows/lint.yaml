@@ -12,5 +12,5 @@ on:
 
 jobs:
   run:
-    uses: defenseunicorns/uds-common/.github/workflows/callable-lint.yaml@95b9051838b182b7b08033e1c2a2c32fb750532f # v1.20.4
+    uses: defenseunicorns/uds-common/.github/workflows/callable-lint.yaml@4f46bb2110abc2c994ad242b099822de71de1ecc # v1.20.5
     secrets: inherit
