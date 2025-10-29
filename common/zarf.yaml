@@ -23,8 +23,8 @@ components:
         valuesFiles:
           - ../values/common-values.yaml
     # This validation is still needed in some cases, just NOT for the *.uds.dev Custom Resources.
-    # Currently the UDS Operator handles this through Zarf by default - using kstatus standard checks 
-    # Other operators/CR wait actions may need it. 
+    # Currently the UDS Operator handles this through Zarf by default - using kstatus standard checks
+    # Other operators/CR wait actions may need it.
     # actions:
     #   onDeploy:
     #     after:
