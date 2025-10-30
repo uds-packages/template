@@ -22,9 +22,10 @@ components:
         version: 1.2.3
         valuesFiles:
           - ../values/common-values.yaml
-    # This validation is still needed in some cases, just NOT for the *.uds.dev Custom Resources.
-    # Currently the UDS Operator handles this through Zarf by default - using kstatus standard checks
-    # Other operators/CR wait actions may need it.
+    # Below is an example validation waiting for a custom resource to be ready and deploy successfully, often needed for operators/custom resources
+    # This is NOT needed for the *.uds.dev Custom Resources.
+    # The UDS Operator handles this through Zarf by default - using kstatus standard checks
+
     # actions:
     #   onDeploy:
     #     after:
