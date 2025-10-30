@@ -18,7 +18,7 @@ Add any dependency information here
 | ------ | ----------- | ---------------- |
 | `upstream` | Uses upstream images within the package. | `zarf package create . -f upstream` |
 | `registry1` | Uses images from registry1.dso.mil within the package | `zarf package create . -f registry1` |
-| `unicorn` | Uses images from chainguard within the package | `zarf package create . -f unicorn` |
+| `unicorn` | Uses images from rapidfort within the package | `zarf package create . -f unicorn` |
 
 ## Releases
 
