@@ -22,10 +22,10 @@ components:
         version: 1.2.3
         valuesFiles:
           - ../values/common-values.yaml
-    # Below is an example validation waiting for a custom resource to be ready and deploy successfully, often needed for operators/custom resources
-    # This is NOT needed for the *.uds.dev Custom Resources.
+    
+    # Example validation action needed for operators or custom resources that waits for a custom resource to become ready after deployment.
+    # This action is NOT needed for the *.uds.dev custom resources.
     # The UDS Operator handles this through Zarf by default - using kstatus standard checks
-
     # actions:
     #   onDeploy:
     #     after:
