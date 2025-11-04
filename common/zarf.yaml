@@ -26,4 +26,4 @@ components:
 # You only need onDeploy.after.wait.cluster actions for non-UDS resources — items Zarf can’t automatically interpret, such as:
 # Custom CRDs from third-party operators that don’t use kstatus
 # External systems like databases, services, or Helm hooks
-# Reference: https://docs.zarf.dev/ref/actions/#wait-action-configuration
+# Reference example implementation: https://docs.zarf.dev/ref/actions/#wait-action-configuration
