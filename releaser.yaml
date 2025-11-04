@@ -9,5 +9,5 @@
 #     # renovate-uds: datasource=docker depName=registry1.dso.mil/ironbank/image
 #     version: 0.1.0-uds.0
 #   - name: unicorn
-#     # renovate-uds: datasource=docker depName=cgr.dev/du-uds-defenseunicorns/image
+#     # renovate-uds: datasource=docker depName=quay.io/rfcurated/image extractVersion=^(?<version>\d+\.\d+\.\d+)(?:-.*)?$
 #     version: 0.1.0-uds.0
