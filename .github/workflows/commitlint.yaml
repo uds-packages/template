@@ -11,5 +11,5 @@ on:
     types: [milestoned, opened, edited, synchronize]
 
 jobs:
-  run:
+  validate:
     uses: defenseunicorns/uds-common/.github/workflows/callable-commitlint.yaml@0727b33c41023f2d382b6d4680bc306bd6ca25c7 # v1.21.5
