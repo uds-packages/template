@@ -13,8 +13,8 @@ For more information on UDS Registry requirements, see the [UDS Package Requirem
 
 UDS Package integrates with the main features of the UDS Operator, is documented, maintained, and can be confidently operated in production:
 
-- [ ] **Must** minimize the scope and number of the exemptions to only what is absolutely required by the application
-UDS Packages may make use of the [UDS Exemption custom resource](https://github.com/defenseunicorns/uds-core/blob/main/src/pepr/operator/README.md#example-uds-exemption-cr) for exempting any Pepr policies, but in doing so they Must document rationale for the exemptions
+- [ ] **Must** minimize the scope and number exemptions to only what is absolutely required by the application. 
+UDS Packages may make use of the [UDS Exemption custom resource](https://github.com/defenseunicorns/uds-core/blob/main/src/pepr/operator/README.md#example-uds-exemption-cr) for exempting any Pepr policies, but in doing so they **Must** document rationale for the exemptions
 - [ ] **Must** declaratively implement any available application hardening guidelines by default (Example: [GitLab Hardening guidelines](https://docs.gitlab.com/ee/security/hardening.html))
 - [ ] **Must** define network policies under the `allow` key as required in the [UDS Package Custom Resource](https://uds.defenseunicorns.com/reference/configuration/uds-operator/package/#example-uds-package-cr)
 - [ ] **Must** (except if the application provides no end user login) use and create a Keycloak client through the `sso` key. [UDS Package Custom Resource](https://uds.defenseunicorns.com/reference/configuration/uds-operator/package/#example-uds-package-cr)
