@@ -76,6 +76,6 @@ tasks:
             -e HOME=/tmp \
             -e NPM_CONFIG_CACHE=/tmp/.npm \
             -v "$(pwd)":/app -w /app \
-            mcr.microsoft.com/playwright:v1.57.0 \
+            mcr.microsoft.com/playwright:v1.58.2 \
             bash -lc "npm ci && npx playwright test"
         dir: tests
