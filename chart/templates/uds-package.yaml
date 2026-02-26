@@ -7,35 +7,6 @@ metadata:
   name: #TEMPLATE_APPLICATION_NAME#
   namespace: {{ .Release.Namespace }}
 spec:
-  {{- if .Values.sso.enabled }}
-  sso:
-    - name: #TEMPLATE_APPLICATION_DISPLAY_NAME# Login
-      clientId: uds-package-#TEMPLATE_APPLICATION_NAME#
-      redirectUris:
-        - "https://#TEMPLATE_APPLICATION_NAME#.{{ .Values.domain }}/oauth2/callback/saml"
-      protocol: saml
-      defaultClientScopes:
-        - "mapper-saml-email-email"
-        - "mapper-saml-username-login"
-        - "mapper-saml-username-name"
-
-      attributes:
-        saml.client.signature: "false"
-
-      secretName: {{ .Values.sso.secretName }}
-      # This secret template configures sso for the application. Will need updated based on application required configuration
-      secretTemplate:
-        #TEMPLATE_APPLICATION_NAME#.sso.config.key: |
-            example.auth.saml.enabled: {{ .Values.sso.enabled }}
-            example.auth.saml.applicationId: clientField(clientId)
-            example.auth.saml.providerName: {{ .Values.sso.saml.providerName }}
-            example.auth.saml.providerId: https://sso.{{ .Values.domain }}/realms/uds
-            example.auth.saml.loginUrl: https://sso.{{ .Values.domain }}/realms/uds/protocol/saml
-            example.auth.saml.user.login: login
-            example.auth.saml.user.name: name
-            example.auth.saml.user.email: email
-            example.auth.saml.certificate.secured: clientField(samlIdpCertificate)
-  {{- end }}
   # Customize network policies and expose services via istio
   network:
     serviceMesh:

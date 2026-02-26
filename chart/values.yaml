@@ -1,29 +1,7 @@
 # Copyright 2024 Defense Unicorns
 # SPDX-License-Identifier: AGPL-3.0-or-later OR LicenseRef-Defense-Unicorns-Commercial
 
-# Example values from UDS package repo template
-domain: "###ZARF_VAR_DOMAIN###"
-sso:
-  enabled: false
-  protocol: saml
-  secretName: #TEMPLATE_APPLICATION_NAME#-sso
-  adminGroups: ["/#TEMPLATE_APPLICATION_DISPLAY_NAME# Admin", "/UDS Core/Admin"]
-  saml:
-    providerName: "#TEMPLATE_APPLICATION_DISPLAY_NAME#"
-# Support for custom `network.allow` entries on the Package CR
+
+# Support for custom `network.allow` entries on the Package CR 
+# https://uds.defenseunicorns.com/reference/configuration/uds-networking-configuration/#additional-network-allowances
 additionalNetworkAllow: []
-#    # Notice no `remoteGenerated` field here on custom internal rule
-#   - direction: Ingress
-#     selector:
-#       app: jenkins
-#     remoteNamespace: jenkins
-#     remoteSelector:
-#       app: jenkins
-#     port: 8180
-#     description: "Ingress from Jenkins"
-#   # No `remoteNamespace`, `remoteSelector`, or `port` fields on rule to `remoteGenerated`
-#   - direction: Egress
-#     selector:
-#       app: webservice
-#     remoteGenerated: Anywhere
-#     description: "Egress from #TEMPLATE_APPLICATION_NAME#"
