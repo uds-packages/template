@@ -59,6 +59,7 @@ tasks:
       - task: upgrade:create-latest-tag-bundle
       - task: setup:k3d-test-cluster
       - task: deploy:test-bundle
+      - task: create-dev-package
       - task: create-deploy-test-bundle
 
   - name: publish-package
