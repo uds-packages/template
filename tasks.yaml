@@ -65,10 +65,8 @@ tasks:
             xargs -0 perl -pi -e "
               s/#TEMPLATE_APPLICATION_NAME#/${APP_NAME}/g;
               s/#TEMPLATE_APPLICATION_DISPLAY_NAME#/${DISPLAY_NAME}/g;
-              s/podinfo/${APP_NAME}/g;
-              s/Podinfo/${DISPLAY_NAME}/g;
-              s|oci://ghcr.io/stefanprodan/charts/podinfo|${CHART_URL}|g;
-              s|https://github.com/stefanprodan/podinfo|https://github.com/stefanprodan/podinfo|g;
+              s|#TEMPLATE_CHART_REPO#|${CHART_URL}|g;
+              s|#UDS_PACKAGE_REPO#|https://github.com/stefanprodan/podinfo|g;
             "
 
           # ── Patch common/zarf.yaml: real chart version, remove gitPath (OCI doesn't use it) ──
@@ -89,6 +87,7 @@ tasks:
           mv tests/template-application-name.test.ts "tests/${APP_NAME}.test.ts" 2>/dev/null || true
 
           echo "CI setup complete: template populated with ${APP_NAME} values"
+
 #### Template CI: Remove this comment, the above block, and the `ci-setup` under `test-install` when building a package ####
 
   - name: test-install
