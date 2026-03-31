@@ -18,6 +18,10 @@ spec:
         gateway: tenant
         host: #TEMPLATE_APPLICATION_NAME#
         port: 1234
+        uptime:
+          checks:
+            paths:
+              - /
     allow:
       - direction: Ingress
         remoteGenerated: IntraNamespace
