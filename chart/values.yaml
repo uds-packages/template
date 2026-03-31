@@ -1,7 +1,6 @@
 # Copyright 2024 Defense Unicorns
 # SPDX-License-Identifier: AGPL-3.0-or-later OR LicenseRef-Defense-Unicorns-Commercial
 
-
-# Support for custom `network.allow` entries on the Package CR 
+# Support for custom `network.allow` entries on the Package CR
 # https://uds.defenseunicorns.com/reference/configuration/uds-networking-configuration/#additional-network-allowances
 additionalNetworkAllow: []
