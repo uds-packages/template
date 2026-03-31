@@ -63,6 +63,8 @@ tasks:
           find . -type f \( -name "*.yaml" -o -name "*.yml" -o -name "*.ts" -o -name "*.json" -o -name "*.md" \) \
             -not -path "./.git/*" -not -path "*/node_modules/*" -print0 | \
             xargs -0 perl -pi -e "
+              s/#TEMPLATE_APPLICATION_NAME#/${APP_NAME}/g;
+              s/#TEMPLATE_APPLICATION_DISPLAY_NAME#/${DISPLAY_NAME}/g;
               s/podinfo/${APP_NAME}/g;
               s/Podinfo/${DISPLAY_NAME}/g;
               s|oci://ghcr.io/stefanprodan/charts/podinfo|${CHART_URL}|g;
