@@ -31,3 +31,8 @@ node_modules/
 
 # VSCode
 .vscode/
+
+# MCP server configs
+.mcp.json
+.cursor/mcp.json
+mcp_config.json
