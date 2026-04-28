@@ -20,6 +20,7 @@ These items are specific to this template repo and aren't covered in the canonic
   - Delete the `- task: ci-setup` line under the `test-install` task.
 - [ ] `mv README-template.md README.md` and customize for your package.
 - [ ] Update `CODEOWNERS` following the guidance in `CODEOWNERS-template.md`, then `rm CODEOWNERS-template.md`.
+- [ ] If your application has a UI, rename `tests/template-application-name.test.ts` to `tests/<app-name>.test.ts` and customize it for your app. If your application has no UI, delete `tests/template-application-name.test.ts`, `tests/auth.setup.ts`, and the `ui` task in [`tasks/test.yaml`](./tasks/test.yaml).
 - [ ] When ready to publish your first release, uncomment [`releaser.yaml`](./releaser.yaml) and set the version. Add `registry1` / `unicorn` entries if you've added those flavors.
 
 ## Engineers external to Defense Unicorns

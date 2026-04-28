@@ -5,8 +5,8 @@ tasks:
   - name: all
     actions:
       - task: health-check
-      # - task: ingress
-      # - task: ui
+      - task: ingress
+      - task: ui
 
   # Ensure application deploys successfully and becomes available
   - name: health-check
@@ -19,17 +19,17 @@ tasks:
             namespace: #TEMPLATE_APPLICATION_NAME#
             condition: Available
 
-  # - name: ingress
-  #   actions:
-  #     - description: #TEMPLATE_APPLICATION_DISPLAY_NAME# Ingress Status Check
-  #       maxRetries: 30
-  #       cmd: |
-  #         STATUS=$(curl -L -o /dev/null -s -w "%{http_code}\n" https://#TEMPLATE_APPLICATION_NAME#.uds.dev)
-  #         echo "#TEMPLATE_APPLICATION_DISPLAY_NAME# system status: ${STATUS}"
-  #         if [ "$STATUS" != "200" ]; then
-  #           sleep 10
-  #           exit 1
-  #         fi
+  - name: ingress
+    actions:
+      - description: "#TEMPLATE_APPLICATION_DISPLAY_NAME# Ingress Status Check"
+        maxRetries: 30
+        cmd: |
+          STATUS=$(curl -L -o /dev/null -s -w "%{http_code}\n" https://#TEMPLATE_APPLICATION_NAME#.uds.dev)
+          echo "#TEMPLATE_APPLICATION_DISPLAY_NAME# system status: ${STATUS}"
+          if [ "$STATUS" != "200" ]; then
+            sleep 10
+            exit 1
+          fi
 
   - name: ui
     description: #TEMPLATE_APPLICATION_DISPLAY_NAME# UI Checks
