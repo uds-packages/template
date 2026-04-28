@@ -32,7 +32,7 @@ tasks:
     actions:
       - task: create:test-bundle
       - task: deploy:test-bundle
-      - task: setup:create-doug-user
+      - task: setup:keycloak-user
       - task: test:all
 
   - name: dev

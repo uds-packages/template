@@ -22,7 +22,7 @@ jobs:
       id-token: write
     strategy:
       matrix:
-        flavor: [upstream, registry1, unicorn]
+        flavor: [upstream]
         architecture: [amd64, arm64]
         exclude:
           - flavor: registry1

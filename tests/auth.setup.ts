@@ -8,13 +8,13 @@ import { authFile } from './playwright.config';
 
 // Customize endpoints for application being tested
 setup('authenticate', async ({ page, context }) => {
-  await page.goto('/example/endpoint');
+  await page.goto("/example/endpoint");
 
-  await page.getByLabel('Username or email').fill('doug');
-  await page.getByLabel('Password').fill('unicorn123!@#UN');
-  await page.getByRole('button', { name: "Sign In" }).click();
+  await page.getByLabel("Username or email").fill("doug");
+  await page.getByLabel("Password").fill("unicorn123!@#UN"); // password is from the setup:keycloak-user task
+  await page.getByRole("button", { name: "Sign In" }).click();
 
-  await page.waitForURL('/example/endpoint');  // successful redirect
+  await page.waitForURL("/example/endpoint"); // successful redirect
 
   // ensure auth cookies were set
   const cookies = await context.cookies();
@@ -28,5 +28,5 @@ setup('authenticate', async ({ page, context }) => {
 
   await page.context().storageState({ path: authFile });
 
-  await expect(page).toHaveURL('/example/endpoint');
+  await expect(page).toHaveURL("/example/endpoint");
 })

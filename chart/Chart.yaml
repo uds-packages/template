@@ -3,7 +3,7 @@
 
 apiVersion: v2
 name: uds-#TEMPLATE_APPLICATION_NAME#-config
-description: uds-#TEMPLATE_APPLICATION_NAME#-config
+description: UDS configuration chart for uds-#TEMPLATE_APPLICATION_NAME#-config
 
 # A chart can be either an 'application' or a 'library' chart.
 #

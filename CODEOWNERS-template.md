@@ -1,37 +1,32 @@
-The current `CODEOWNERS` file that exists, is to denote who owns this `uds-package-template`. If you are creating a new package from this template, you can copy / paste one of the below examples into the `CODEOWNERS` file, then modify the string to fit your needs. After updating the `CODEOWNERS` file to your liking, you can delete this file. 
+# Configuring CODEOWNERS for your package
 
-The `CODEOWNERS` file should follow the below format, you can even just copy / paste the exact text into the `CODEOWNERS` file. 
+The `CODEOWNERS` file in this repo denotes who owns the template itself. When creating a new package, replace its contents with one of the patterns below, then delete this file.
+
+> [!IMPORTANT]
+> Use GitHub team handles (e.g., `@uds-packages/uds-foundry`), not individual user handles. Teams stay current as people join and leave; pinning to individuals leaves reviews orphaned and creates approval bottlenecks.
+
+## Standard pattern
 
 ```
-* @uds-packages/uds-foundry
-# * @additional-team - as appropriate
+* @uds-packages/uds-foundry @creator-team
 
 /CODEOWNERS @jeff-mccoy @daveworth
 /LICENS* @jeff-mccoy @austenbryan
 ```
 
-If you would like to add optional package reviewers, such as the creator of the app, you can append creators after `uds-foundry`
+This combines `uds-foundry` with the package's creator team on a single line — either team can approve a PR (OR semantics). Replace `@creator-team` with the GitHub team handle for the group that built the package.
 
-For instance, you could handle this like below: 
+The `/CODEOWNERS` and `/LICENS*` lines pin those files to Defense Unicorns release engineering — keep them as-is.
 
-```
-* @defenseunicorns/uds-foundry @name-of-creator/s @name-of-established-known-team
+## Requiring approval from every group (AND)
 
-/CODEOWNERS @jeff-mccoy @daveworth 
-/LICENS* @jeff-mccoy @austenbryan
-```
-
-Keeping the reviewers on one line, like the above format, makes it easier on Bullpen to approve Support / Maintenance PRs on a package. 
-This format with everything on one line, enables an `OR` for package approvers. So, `uds-foundry` OR `@name-of-creator/s` could approve a PR. 
-
-
-If you break the lines up like the below, then it becomes an `AND`. So, it would take both `uds-foundry` AND `@name-or-creator/s` to approve a PR. 
+If every team must weigh in before a PR can merge, put each owner on its own `*` line.
 
 ```
-* @defenseunicorns/uds-foundry
-* @name-of-creator/s #optional during package creation to enable velocity
-* @name-of-established-known-team #optional addition to "uds-foundry"
+* @uds-packages/uds-foundry
+* @creator-team
+* @other-team
 
-/CODEOWNERS @jeff-mccoy @daveworth 
+/CODEOWNERS @jeff-mccoy @daveworth
 /LICENS* @jeff-mccoy @austenbryan
 ```
