@@ -77,8 +77,12 @@ tasks:
           yq -i 'del(.components[] | select(.only.flavor == "registry1"))' zarf.yaml
           yq -i '.variables = [{"name": "DOMAIN", "default": "uds.dev"}]' zarf.yaml
 
-          # Patch uds-package.yaml, allow-all network policy
+          # Patch uds-package.yaml: add SSO + Authservice (podinfo has no native OIDC), allow-all network policy
+          perl -i -0pe 's|(  # Customize network policies and expose services via istio)|  sso:\n    - name: Podinfo\n      clientId: uds-podinfo\n      redirectUris:\n        - "https://podinfo.uds.dev/login"\n      enableAuthserviceSelector:\n        app.kubernetes.io/name: podinfo\n$1|' chart/templates/uds-package.yaml
           perl -pi -e 's/remoteGenerated: IntraNamespace/remoteGenerated: Anywhere/g' chart/templates/uds-package.yaml
+
+          # Point auth.setup.ts at the root path (Authservice intercepts all routes)
+          perl -pi -e 's|/example/endpoint|/|g' tests/auth.setup.ts
 
           # Rename template test file
           mv tests/template-application-name.test.ts "tests/${APP_NAME}.test.ts" 2>/dev/null || true
