@@ -6,6 +6,8 @@ kind: Package
 metadata:
   name: #TEMPLATE_APPLICATION_NAME#
   namespace: {{ .Release.Namespace }}
+# Full Package CR spec reference:
+# https://docs.defenseunicorns.com/core/reference/operator--crds/packages-v1alpha1-cr/
 spec:
   # Customize network policies and expose services via istio
   network:
