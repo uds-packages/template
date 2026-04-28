@@ -15,6 +15,7 @@ After creating a repo from the UDS Package Template, follow [Making it your own]
 | ------------------------------------- | --------------------------- | ------------------------------------------------------ |
 | `#TEMPLATE_APPLICATION_NAME#`         | application name            | nginx, mattermost, cert-manager, etc...                |
 | `#TEMPLATE_APPLICATION_DISPLAY_NAME#` | application name for humans | NGINX, Mattermost Cert Manager, etc...                 |
+| `#TEMPLATE_APPLICATION_PORT#`         | application service port    | `8080`                                                 |
 | `#TEMPLATE_CHART_REPO#`               | chart repository URL        | `https://charts.jetstack.io/`                          |
 | `#UDS_PACKAGE_REPO#`                  | package repository URL      | `https://github.com/defenseunicorns/uds-package-nginx` |
 
@@ -42,8 +43,9 @@ The following files will need to be customized for the application being package
 
 3. Almost there...
    - `mv README-template.md README.md`
-   - `rm -rf tasks/template.yaml`
-   - Remove extra lines from [tasks.yaml](./tasks.yaml)
+   - Remove the `ci-setup` task from [tasks.yaml](./tasks.yaml). This task only exists to populate this template repo with sample values (podinfo) so CI can validate the template itself — it is not needed in your package. Specifically:
+     - Delete the entire `ci-setup` task block, including the two `#### Template CI: Remove ... ####` comment markers that wrap it.
+     - Delete the `- task: ci-setup` line under the `test-install` task.
    - Follow the `CODEOWNERS-template.md` to update your `CODEOWNERS` file.
 
 You are ready to start integrating (and testing with CI) your application with UDS Core!

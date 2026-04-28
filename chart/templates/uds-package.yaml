@@ -17,7 +17,7 @@ spec:
           app: #TEMPLATE_APPLICATION_NAME#
         gateway: tenant
         host: #TEMPLATE_APPLICATION_NAME#
-        port: 1234
+        port: #TEMPLATE_APPLICATION_PORT#
         uptime:
           checks:
             paths:

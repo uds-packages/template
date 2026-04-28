@@ -42,7 +42,6 @@ tasks:
       - task: create:test-bundle
       - task: deploy:test-bundle
 
-# CI will execute the following (via uds-common/.github/workflows/callable-test.yaml) so they need to be here with these names
 #### Template CI: Remove this comment, the below block, and the `ci-setup` under `test-install` when building a package ####
   - name: ci-setup
     description: Populate template with podinfo values for CI validation
@@ -63,6 +62,7 @@ tasks:
             xargs -0 perl -pi -e "
               s/#TEMPLATE_APPLICATION_NAME#/${APP_NAME}/g;
               s/#TEMPLATE_APPLICATION_DISPLAY_NAME#/${DISPLAY_NAME}/g;
+              s/#TEMPLATE_APPLICATION_PORT#/${APP_PORT}/g;
               s|#TEMPLATE_CHART_REPO#|${CHART_URL}|g;
               s|#UDS_PACKAGE_REPO#|https://github.com/stefanprodan/podinfo|g;
             "
@@ -77,8 +77,7 @@ tasks:
           yq -i 'del(.components[] | select(.only.flavor == "registry1"))' zarf.yaml
           yq -i '.variables = [{"name": "DOMAIN", "default": "uds.dev"}]' zarf.yaml
 
-          # Patch uds-package.yaml, set port and allow-all network policy
-          perl -pi -e "s/port: 1234/port: ${APP_PORT}/" chart/templates/uds-package.yaml
+          # Patch uds-package.yaml, allow-all network policy
           perl -pi -e 's/remoteGenerated: IntraNamespace/remoteGenerated: Anywhere/g' chart/templates/uds-package.yaml
 
           # Rename template test file
@@ -88,10 +87,11 @@ tasks:
 
 #### Template CI: Remove this comment, the above block, and the `ci-setup` under `test-install` when building a package ####
 
+# CI will execute the following (via uds-common/.github/workflows/callable-test.yaml) so they need to be here with these names
   - name: test-install
     description: Test deploying the current branch to a new cluster
     actions:
-      - task: ci-setup
+      - task: ci-setup # remove this when building a package
       - task: create-dev-package
       - task: setup:k3d-test-cluster
       - task: create-deploy-test-bundle
