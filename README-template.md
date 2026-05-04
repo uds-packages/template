@@ -1,36 +1,31 @@
 # UDS Package #TEMPLATE_APPLICATION_DISPLAY_NAME#
 
-This package is designed to be deployed on [UDS Core](https://github.com/defenseunicorns/uds-core) and is based on the upstream [#TEMPLATE_APPLICATION_DISPLAY_NAME#](#TEMPLATE_CHART_REPO#) chart.
+This package deploys [#TEMPLATE_APPLICATION_DISPLAY_NAME#](#TEMPLATE_CHART_REPO#) on [UDS Core](https://github.com/defenseunicorns/uds-core).
 
-> INSERT HERE 1-2 sentence summary of what the application does.
+> 1-2 sentence summary of what the application does.
 
-## Pre-requisites
+## Prerequisites
 
-The #TEMPLATE_APPLICATION_DISPLAY_NAME# Package expects to be deployed on top of [UDS Core](https://github.com/defenseunicorns/uds-core) with the dependencies listed below being configured prior to deployment.
-
-#### Dependency information
-
-Add any dependency information here
+This package expects to be deployed on top of [UDS Core](https://github.com/defenseunicorns/uds-core). Document any additional dependencies (databases, operators, etc.) here.
 
 ## Flavors
 
-| Flavor | Description | Example Creation |
-| ------ | ----------- | ---------------- |
-| `upstream` | Uses upstream images within the package. | `zarf package create . -f upstream` |
-| `registry1` | Uses images from registry1.dso.mil within the package | `zarf package create . -f registry1` |
-| `unicorn` | Uses images from rapidfort within the package | `zarf package create . -f unicorn` |
+This package ships an `upstream` flavor by default. Add `registry1` or `unicorn` flavors as needed — see [`zarf.yaml`](./zarf.yaml).
 
 ## Releases
 
-The released packages can be found in [ghcr](https://github.com/uds-packages/#TEMPLATE_APPLICATION_NAME#/pkgs/container/#TEMPLATE_APPLICATION_NAME#).
+Released packages are available in [GHCR](https://github.com/uds-packages/#TEMPLATE_APPLICATION_NAME#/pkgs/container/#TEMPLATE_APPLICATION_NAME#).
 
-## UDS Tasks (for local dev and CI)
+## Local development
 
-*For local dev, this requires you install [uds-cli](https://github.com/defenseunicorns/uds-cli?tab=readme-ov-file#install)
+Requires the [UDS CLI](https://github.com/defenseunicorns/uds-cli?tab=readme-ov-file#install).
 
-> [!TIP]
-> To get a list of tasks to run you can use `uds run --list`!
+```bash
+uds run default     # spin up a local k3d cluster, build, and deploy
+uds run dev         # iterate on an existing cluster
+uds run --list      # show all available tasks
+```
 
 ## Contributing
 
-Please see the [CONTRIBUTING.md](./CONTRIBUTING.md)
+See [CONTRIBUTING.md](./CONTRIBUTING.md).

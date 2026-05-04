@@ -9,9 +9,7 @@ includes:
   - deploy: https://raw.githubusercontent.com/defenseunicorns/uds-common/v1.24.5/tasks/deploy.yaml
   - setup: https://raw.githubusercontent.com/defenseunicorns/uds-common/v1.24.5/tasks/setup.yaml
   - actions: https://raw.githubusercontent.com/defenseunicorns/uds-common/v1.24.5/tasks/actions.yaml
-  - badge: https://raw.githubusercontent.com/defenseunicorns/uds-common/v1.24.5/tasks/badge.yaml
   - upgrade: https://raw.githubusercontent.com/defenseunicorns/uds-common/v1.24.5/tasks/upgrade.yaml
-  - compliance: https://raw.githubusercontent.com/defenseunicorns/uds-common/v1.24.5/tasks/compliance.yaml
   - publish: https://raw.githubusercontent.com/defenseunicorns/uds-common/v1.24.5/tasks/publish.yaml
 
 tasks:
@@ -34,7 +32,7 @@ tasks:
     actions:
       - task: create:test-bundle
       - task: deploy:test-bundle
-      - task: setup:create-doug-user
+      - task: setup:keycloak-user
       - task: test:all
 
   - name: dev
@@ -44,11 +42,60 @@ tasks:
       - task: create:test-bundle
       - task: deploy:test-bundle
 
-# CI will execute the following (via uds-common/.github/workflows/callable-test.yaml) so they need to be here with these names
+#### Template CI: Remove this comment, the below block, and the `ci-setup` under `test-install` when building a package ####
+  - name: ci-setup
+    description: Populate template with podinfo values for CI validation
+    actions:
+      - cmd: |
+          set -e
 
+          APP_NAME="podinfo"
+          DISPLAY_NAME="Podinfo"
+          CHART_URL="oci://ghcr.io/stefanprodan/charts/podinfo"
+          CHART_VERSION="6.7.1"
+          APP_IMAGE="ghcr.io/stefanprodan/podinfo:6.7.1"
+          APP_PORT="9898"
+
+          # Replace template placeholders across files
+          find . -type f \( -name "*.yaml" -o -name "*.yml" -o -name "*.ts" -o -name "*.json" -o -name "*.md" \) \
+            -not -path "./.git/*" -not -path "*/node_modules/*" -print0 | \
+            xargs -0 perl -pi -e "
+              s/#TEMPLATE_APPLICATION_NAME#/${APP_NAME}/g;
+              s/#TEMPLATE_APPLICATION_DISPLAY_NAME#/${DISPLAY_NAME}/g;
+              s/#TEMPLATE_APPLICATION_PORT#/${APP_PORT}/g;
+              s|#TEMPLATE_CHART_REPO#|${CHART_URL}|g;
+              s|#UDS_PACKAGE_REPO#|https://github.com/stefanprodan/podinfo|g;
+            "
+
+          # Patch common/zarf.yaml
+          yq -i ".components[0].charts[1].version = \"${CHART_VERSION}\"" common/zarf.yaml
+          yq -i 'del(.components[0].charts[1].gitPath)' common/zarf.yaml
+
+          # Patch zarf.yaml, set podinfo image
+          yq -i "(.components[] | select(.only.flavor == \"upstream\")).images = [\"${APP_IMAGE}\"]" zarf.yaml
+          yq -i 'del(.components[] | select(.only.flavor == "unicorn"))' zarf.yaml
+          yq -i 'del(.components[] | select(.only.flavor == "registry1"))' zarf.yaml
+          yq -i '.variables = [{"name": "DOMAIN", "default": "uds.dev"}]' zarf.yaml
+
+          # Patch uds-package.yaml: add SSO + Authservice (podinfo has no native OIDC), allow-all network policy
+          perl -i -0pe 's|(  # Customize network policies and expose services via istio)|  sso:\n    - name: Podinfo\n      clientId: uds-podinfo\n      redirectUris:\n        - "https://podinfo.uds.dev/login"\n      enableAuthserviceSelector:\n        app.kubernetes.io/name: podinfo\n$1|' chart/templates/uds-package.yaml
+          perl -pi -e 's/remoteGenerated: IntraNamespace/remoteGenerated: Anywhere/g' chart/templates/uds-package.yaml
+
+          # Point auth.setup.ts at the root path (Authservice intercepts all routes)
+          perl -pi -e 's|/example/endpoint|/|g' tests/auth.setup.ts
+
+          # Rename template test file
+          mv tests/template-application-name.test.ts "tests/${APP_NAME}.test.ts" 2>/dev/null || true
+
+          echo "CI setup complete: template populated with ${APP_NAME} values"
+
+#### Template CI: Remove this comment, the above block, and the `ci-setup` under `test-install` when building a package ####
+
+# CI will execute the following (via uds-common/.github/workflows/callable-test.yaml) so they need to be here with these names
   - name: test-install
     description: Test deploying the current branch to a new cluster
     actions:
+      - task: ci-setup # remove this when building a package
       - task: create-dev-package
       - task: setup:k3d-test-cluster
       - task: create-deploy-test-bundle

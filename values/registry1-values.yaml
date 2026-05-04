@@ -1,9 +1,0 @@
-# Copyright 2024 Defense Unicorns
-# SPDX-License-Identifier: AGPL-3.0-or-later OR LicenseRef-Defense-Unicorns-Commercial
-
-# Values for registry1 flavor
-
-# Example variables from UDS package repo template. Update to relevant variables after templating
-# image:
-#   repository: registry1.dso.mil/image
-#   tag: 1.2.3

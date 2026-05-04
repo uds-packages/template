@@ -17,4 +17,4 @@ Relates to #
 ## Checklist before merging
 
 - [ ] Test, docs, adr added or updated as needed
-- [ ] [Contributor Guide Steps](https://github.com/uds-packages/#TEMPLATE_APPLICATION_NAME#/blob/main/CONTRIBUTING.md#developer-workflow) followed
+- [ ] [Contributor Guide Steps](https://github.com/uds-packages/#TEMPLATE_APPLICATION_NAME#/blob/main/CONTRIBUTING.md) followed

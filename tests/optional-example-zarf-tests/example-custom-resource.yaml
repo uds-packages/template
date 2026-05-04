@@ -1,9 +1,0 @@
-# Copyright 2024 Defense Unicorns
-# SPDX-License-Identifier: AGPL-3.0-or-later OR LicenseRef-Defense-Unicorns-Commercial
-
-apiVersion: example-custom-resource.io/v1alpha1
-kind: example-custom-resource
-metadata:
-  name: example-custom-resource
-spec:
-# custom resource spec
