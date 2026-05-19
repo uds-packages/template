@@ -18,5 +18,5 @@ jobs:
       packages: read # Allows reading the content of the repository's packages.
       id-token: write # Allows authentication to Rapidfort via OIDC.
       pull-requests: write # Allows writing the scan results comment to the pull request.
-    uses: defenseunicorns/uds-common/.github/workflows/callable-scan.yaml@86fcadc2845a318761276a8754e47e33c0d6ae31 # v1.24.10
+    uses: defenseunicorns/uds-common/.github/workflows/callable-scan.yaml@ba03e5bec6704a54466a94a3fdee9741b755630b # v1.24.11
     secrets: inherit # Inherits all secrets from the parent workflow.
