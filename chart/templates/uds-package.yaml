@@ -15,7 +15,7 @@ spec:
       mode: ambient
     expose:
       - service: #TEMPLATE_APPLICATION_NAME#
-        podLabels:
+        selector:
           app: #TEMPLATE_APPLICATION_NAME#
         gateway: tenant
         host: #TEMPLATE_APPLICATION_NAME#
