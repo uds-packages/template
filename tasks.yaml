@@ -3,14 +3,14 @@
 # yaml-language-server: $schema=https://raw.githubusercontent.com/defenseunicorns/uds-cli/refs/heads/main/tasks.schema.json
 includes:
   - test: ./tasks/test.yaml
-  - create: https://raw.githubusercontent.com/defenseunicorns/uds-common/v1.26.2/tasks/create.yaml
-  - lint: https://raw.githubusercontent.com/defenseunicorns/uds-common/v1.26.2/tasks/lint.yaml
-  - pull: https://raw.githubusercontent.com/defenseunicorns/uds-common/v1.26.2/tasks/pull.yaml
-  - deploy: https://raw.githubusercontent.com/defenseunicorns/uds-common/v1.26.2/tasks/deploy.yaml
-  - setup: https://raw.githubusercontent.com/defenseunicorns/uds-common/v1.26.2/tasks/setup.yaml
-  - actions: https://raw.githubusercontent.com/defenseunicorns/uds-common/v1.26.2/tasks/actions.yaml
-  - upgrade: https://raw.githubusercontent.com/defenseunicorns/uds-common/v1.26.2/tasks/upgrade.yaml
-  - publish: https://raw.githubusercontent.com/defenseunicorns/uds-common/v1.26.2/tasks/publish.yaml
+  - create: https://raw.githubusercontent.com/defenseunicorns/uds-common/v1.26.3/tasks/create.yaml
+  - lint: https://raw.githubusercontent.com/defenseunicorns/uds-common/v1.26.3/tasks/lint.yaml
+  - pull: https://raw.githubusercontent.com/defenseunicorns/uds-common/v1.26.3/tasks/pull.yaml
+  - deploy: https://raw.githubusercontent.com/defenseunicorns/uds-common/v1.26.3/tasks/deploy.yaml
+  - setup: https://raw.githubusercontent.com/defenseunicorns/uds-common/v1.26.3/tasks/setup.yaml
+  - actions: https://raw.githubusercontent.com/defenseunicorns/uds-common/v1.26.3/tasks/actions.yaml
+  - upgrade: https://raw.githubusercontent.com/defenseunicorns/uds-common/v1.26.3/tasks/upgrade.yaml
+  - publish: https://raw.githubusercontent.com/defenseunicorns/uds-common/v1.26.3/tasks/publish.yaml
 
 tasks:
   - name: default
