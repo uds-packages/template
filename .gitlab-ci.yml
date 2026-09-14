@@ -1,0 +1,43 @@
+# Copyright 2024 Defense Unicorns
+# SPDX-License-Identifier: AGPL-3.0-or-later OR LicenseRef-Defense-Unicorns-Commercial
+
+# UDS Common must be available at this path on the same GitLab instance.
+include:
+  - component: $CI_SERVER_FQDN/defenseunicorns/uds/uds-common/commitlint@v1.28.3
+    inputs:
+      runs-on: gitlab-runner-4c-amd64
+  - component: $CI_SERVER_FQDN/defenseunicorns/uds/uds-common/lint@v1.28.3
+    inputs:
+      runs-on: gitlab-runner-4c-amd64
+  - component: $CI_SERVER_FQDN/defenseunicorns/uds/uds-common/test@v1.28.3
+    inputs:
+      runs-on: gitlab-runner-8c-${ARCH}
+      flavor: $FLAVOR
+      type: $TYPE
+      options: --set BASE_REPO="${CI_REGISTRY_IMAGE}"
+  - component: $CI_SERVER_FQDN/defenseunicorns/uds/uds-common/publish@v1.28.3
+    inputs:
+      runs-on: gitlab-runner-8c-${ARCH}
+      flavor: $FLAVOR
+      base-repo: ${CI_REGISTRY_IMAGE}
+      mirror: "false"
+
+# Defining merge request rules here is required for GitLab to create merge
+# request pipelines when the jobs themselves come from included components.
+workflow:
+  rules:
+    - if: $CI_PIPELINE_SOURCE == "merge_request_event"
+    - if: $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH
+
+test:
+  parallel:
+    matrix:
+      - FLAVOR: [upstream]
+        ARCH: [amd64]
+        TYPE: [install, upgrade]
+
+publish:
+  parallel:
+    matrix:
+      - FLAVOR: [upstream]
+        ARCH: [amd64, arm64]

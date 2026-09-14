@@ -14,7 +14,7 @@ This package ships an `upstream` flavor by default. Add `registry1` or `unicorn`
 
 ## Releases
 
-Released packages are available in [GHCR](https://github.com/uds-packages/#TEMPLATE_APPLICATION_NAME#/pkgs/container/#TEMPLATE_APPLICATION_NAME#).
+Released packages are available in this project's GitLab container registry under `uds/#TEMPLATE_APPLICATION_NAME#`.
 
 ## Local development
 
