@@ -36,6 +36,6 @@ These files are specific to Defense Unicorns infrastructure and may not apply to
 > [!NOTE]
 > As a template repository, the [CONTRIBUTING.md](./CONTRIBUTING.md) file is part of the *template* — not the contributing guidelines for this repository itself.
 
-This template repository is part of Defense Unicorns' Unicorn Delivery Service and follows the contributing guidelines in [`uds-common/CONTRIBUTING.md`](https://github.com/defenseunicorns/uds-common/blob/main/CONTRIBUTING.md).
+This template repository is part of Defense Unicorns' Unified Defense Stack and follows the contributing guidelines in [`uds-common/CONTRIBUTING.md`](https://github.com/defenseunicorns/uds-common/blob/main/CONTRIBUTING.md).
 
 [Open an issue](https://github.com/uds-packages/template/issues/new/choose) for defects or feature requests.
