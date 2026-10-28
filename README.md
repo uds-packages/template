@@ -9,6 +9,8 @@ A starting point for creating a new [UDS Package](https://docs.defenseunicorns.c
 
 The canonical guide for turning this scaffolding into a working package is [Create a UDS Package](https://docs.defenseunicorns.com/core/how-to-guides/packaging-applications/create-uds-package/). It walks through the placeholder substitution, Zarf and chart configuration, the `Package` CR, and the dev/test bundle.
 
+Replace `#TEMPLATE_COPYRIGHT_YEAR#` with the UTC year when creating the package (for example, `date -u +%Y`). Scaffolding tools should substitute this placeholder along with the application name and URLs. Existing packages retain their copyright notices.
+
 After working through that guide, finish the template-specific cleanup below.
 
 ## Template cleanup checklist
