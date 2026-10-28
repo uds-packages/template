@@ -9,14 +9,13 @@ A starting point for creating a new [UDS Package](https://docs.defenseunicorns.c
 
 The canonical guide for turning this scaffolding into a working package is [Create a UDS Package](https://docs.defenseunicorns.com/core/how-to-guides/packaging-applications/create-uds-package/). It walks through the placeholder substitution, Zarf and chart configuration, the `Package` CR, and the dev/test bundle.
 
-Replace `#TEMPLATE_COPYRIGHT_YEAR#` with the UTC year when creating the package (for example, `date -u +%Y`). Scaffolding tools should substitute this placeholder along with the application name and URLs. Existing packages retain their copyright notices.
-
 After working through that guide, finish the template-specific cleanup below.
 
 ## Template cleanup checklist
 
 These items are specific to this template repo and aren't covered in the canonical doc:
 
+- [ ] Replace `#TEMPLATE_COPYRIGHT_YEAR#` throughout the package with the current UTC year (`date -u +%Y`) if your scaffolding tool has not already filled it in.
 - [ ] Remove the `ci-setup` task from [`tasks.yaml`](./tasks.yaml). It exists only so this template's own CI can validate the scaffolding using podinfo. To remove:
   - Delete the `ci-setup` task block, including the two `#### Template CI: Remove ... ####` comment markers that wrap it.
   - Delete the `- task: ci-setup` line under the `test-install` task.
