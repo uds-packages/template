@@ -46,7 +46,7 @@ tasks:
       - task: create:test-bundle
       - task: deploy:test-bundle
 
-#### Template CI: Remove this comment, the below block, and the `ci-setup` under `test-install` when building a package ####
+#### Template CI: Remove this block and all ci-setup / ci-test-values calls when building a package ####
   - name: ci-setup
     description: Populate template with podinfo values for CI validation
     actions:
@@ -74,14 +74,17 @@ tasks:
             "
 
           # Patch common/zarf.yaml
-          yq -i ".components[0].charts[1].version = \"${CHART_VERSION}\"" common/zarf.yaml
-          yq -i 'del(.components[0].charts[1].gitPath)' common/zarf.yaml
+          ./zarf tools yq -i ".components[0].charts[1].version = \"${CHART_VERSION}\"" common/zarf.yaml
+          ./zarf tools yq -i 'del(.components[0].charts[1].gitPath)' common/zarf.yaml
+          ./zarf tools yq -i '.components[0].charts[1].values[0].excludePaths |= (. + [".podinfo.redis", ".podinfo.serviceAccount.imagePullSecrets"] | unique)' common/zarf.yaml
 
           # Patch zarf.yaml, set podinfo image
-          yq -i "(.components[] | select(.only.flavor == \"upstream\")).images = [\"${APP_IMAGE}\"]" zarf.yaml
-          yq -i 'del(.components[] | select(.only.flavor == "unicorn"))' zarf.yaml
-          yq -i 'del(.components[] | select(.only.flavor == "registry1"))' zarf.yaml
-          yq -i '.variables = [{"name": "DOMAIN", "default": "uds.dev"}]' zarf.yaml
+          ./zarf tools yq -i "(.components[] | select(.only.flavor == \"upstream\")).images = [\"${APP_IMAGE}\"]" zarf.yaml
+          ./zarf tools yq -i 'del(.components[] | select(.only.flavor == "unicorn"))' zarf.yaml
+          ./zarf tools yq -i 'del(.components[] | select(.only.flavor == "registry1"))' zarf.yaml
+          ./zarf tools yq -i '.variables = [{"name": "DOMAIN", "default": "uds.dev"}]' zarf.yaml
+
+          ./zarf tools yq -i '.podinfo.replicaCount = 2 | ."uds-podinfo-config".additionalNetworkAllow = [{"direction": "Egress", "remoteNamespace": "kube-system", "remoteSelector": {"k8s-app": "kube-dns"}, "port": 53, "protocol": "UDP", "description": "Template values passthrough test"}]' bundle/values/application.yaml
 
           # Patch uds-package.yaml: add SSO + Authservice (podinfo has no native OIDC), allow-all network policy
           perl -i -0pe 's|(  # Customize network policies and expose services via istio)|  sso:\n    - name: Podinfo\n      clientId: uds-podinfo\n      redirectUris:\n        - "https://podinfo.uds.dev/login"\n      enableAuthserviceSelector:\n        app.kubernetes.io/name: podinfo\n$1|' chart/templates/uds-package.yaml
@@ -95,7 +98,17 @@ tasks:
 
           echo "CI setup complete: template populated with ${APP_NAME} values"
 
-#### Template CI: Remove this comment, the above block, and the `ci-setup` under `test-install` when building a package ####
+      - task: lint:values-generate
+
+  - name: ci-test-values
+    description: Verify the template CI values reached both charts
+    actions:
+      - cmd: ./zarf tools kubectl get deployment podinfo -n podinfo -o json | ./zarf tools yq -e '.spec.replicas == 2'
+      - cmd: >-
+          ./zarf tools kubectl get packages.uds.dev podinfo -n podinfo -o json |
+          ./zarf tools yq -e '.spec.network.allow | any_c(.description == "Template values passthrough test" and .direction == "Egress" and .remoteNamespace == "kube-system" and .remoteSelector."k8s-app" == "kube-dns" and .port == 53 and .protocol == "UDP")'
+
+#### Template CI: Remove this block and all ci-setup / ci-test-values calls when building a package ####
 
 # CI will execute the following (via uds-common/.github/workflows/callable-test.yaml) so they need to be here with these names
   - name: test-install
@@ -105,6 +118,7 @@ tasks:
       - task: create-dev-package
       - task: setup:k3d-test-cluster
       - task: create-deploy-test-bundle
+      - task: ci-test-values # remove this when building a package
 
   - name: test-upgrade
     description: Test an upgrade from the latest released package to the current branch
@@ -114,6 +128,7 @@ tasks:
       - task: deploy:test-bundle
       - task: create-dev-package
       - task: create-deploy-test-bundle
+      - task: ci-test-values # remove this when building a package
 
   - name: publish-package
     description: Build and publish the packages

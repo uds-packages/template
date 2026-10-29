@@ -18,6 +18,11 @@ variables:
   - name: DOMAIN
     default: "uds.dev"
 
+values:
+  files:
+    - zarf-values.yaml
+  schema: zarf-values.schema.json
+
 components:
   - name: #TEMPLATE_APPLICATION_NAME#
     required: true

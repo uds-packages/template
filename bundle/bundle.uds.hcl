@@ -12,7 +12,8 @@ metadata {
 }
 
 package "#TEMPLATE_APPLICATION_NAME#" {
-  source = "../zarf-package-#TEMPLATE_APPLICATION_NAME#-${sys.arch}-dev.tar.zst"
+  source       = "../zarf-package-#TEMPLATE_APPLICATION_NAME#-${sys.arch}-dev.tar.zst"
+  values_files = ["values/application.yaml"]
 
   # The test bundle consumes an unsigned package built from this checkout.
   signature_verification {

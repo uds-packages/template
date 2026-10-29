@@ -12,6 +12,10 @@ This package expects to be deployed on top of [UDS Core](https://github.com/defe
 
 This package ships an `upstream` flavor by default. Add `registry1` or `unicorn` flavors as needed — see [`zarf.yaml`](./zarf.yaml).
 
+## Configuration
+
+See [configuration](./docs/configuration.md) for Zarf package values, defaults, and deploy-time overrides.
+
 ## Releases
 
 Released packages are available in [GHCR](https://github.com/uds-packages/#TEMPLATE_APPLICATION_NAME#/pkgs/container/#TEMPLATE_APPLICATION_NAME#).

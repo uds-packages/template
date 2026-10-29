@@ -13,4 +13,6 @@ on:
 jobs:
   validate:
     uses: defenseunicorns/uds-common/.github/workflows/callable-lint.yaml@9cb4ebfd9f9a5efd1dbc454bf3aae843d0b57b9f # v1.32.2
+    with:
+      values-check: true
     secrets: inherit
