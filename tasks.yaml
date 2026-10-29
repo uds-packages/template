@@ -12,6 +12,10 @@ includes:
   - upgrade: https://raw.githubusercontent.com/defenseunicorns/uds-common/v1.32.2/tasks/upgrade.yaml
   - publish: https://raw.githubusercontent.com/defenseunicorns/uds-common/v1.32.2/tasks/publish.yaml
 
+variables:
+  - name: NEXT_MODE
+    default: "true"
+
 tasks:
   - name: default
     description: Setup k3d cluster, deploy package
@@ -58,7 +62,7 @@ tasks:
           COPYRIGHT_YEAR="$(date -u +%Y)"
 
           # Replace template placeholders across files
-          find . -type f \( -name "*.yaml" -o -name "*.yml" -o -name "*.ts" -o -name "*.json" -o -name "*.md" \) \
+          find . -type f \( -name "*.yaml" -o -name "*.yml" -o -name "*.hcl" -o -name "*.ts" -o -name "*.json" -o -name "*.md" \) \
             -not -path "./.git/*" -not -path "*/node_modules/*" -print0 | \
             xargs -0 perl -pi -e "
               s/#TEMPLATE_COPYRIGHT_YEAR#/${COPYRIGHT_YEAR}/g;

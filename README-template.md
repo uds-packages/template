@@ -18,7 +18,8 @@ Released packages are available in [GHCR](https://github.com/uds-packages/#TEMPL
 
 ## Local development
 
-Requires the [UDS CLI](https://github.com/defenseunicorns/uds-cli?tab=readme-ov-file#install).
+Requires [UDS CLI](https://github.com/defenseunicorns/uds-cli?tab=readme-ov-file#install) v0.40.0 or newer.
+See the [UDS CLI Next documentation](https://docs.defenseunicorns.com/cli/v0-40/reference/next-mode/) for usage and configuration.
 
 ```bash
 uds run default     # spin up a local k3d cluster, build, and deploy
