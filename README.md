@@ -15,6 +15,7 @@ After working through that guide, finish the template-specific cleanup below.
 
 These items are specific to this template repo and aren't covered in the canonical doc:
 
+- [ ] Replace `#TEMPLATE_COPYRIGHT_YEAR#` throughout the package with the current UTC year (`date -u +%Y`) if your scaffolding tool has not already filled it in.
 - [ ] Remove the `ci-setup` task from [`tasks.yaml`](./tasks.yaml). It exists only so this template's own CI can validate the scaffolding using podinfo. To remove:
   - Delete the `ci-setup` task block, including the two `#### Template CI: Remove ... ####` comment markers that wrap it.
   - Delete the `- task: ci-setup` line under the `test-install` task.

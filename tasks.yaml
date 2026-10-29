@@ -1,4 +1,4 @@
-# Copyright 2024 Defense Unicorns
+# Copyright #TEMPLATE_COPYRIGHT_YEAR# Defense Unicorns
 # SPDX-License-Identifier: AGPL-3.0-or-later OR LicenseRef-Defense-Unicorns-Commercial
 # yaml-language-server: $schema=https://raw.githubusercontent.com/defenseunicorns/uds-cli/refs/heads/main/tasks.schema.json
 includes:
@@ -55,11 +55,13 @@ tasks:
           CHART_VERSION="6.7.1"
           APP_IMAGE="ghcr.io/stefanprodan/podinfo:6.7.1"
           APP_PORT="9898"
+          COPYRIGHT_YEAR="$(date -u +%Y)"
 
           # Replace template placeholders across files
           find . -type f \( -name "*.yaml" -o -name "*.yml" -o -name "*.ts" -o -name "*.json" -o -name "*.md" \) \
             -not -path "./.git/*" -not -path "*/node_modules/*" -print0 | \
             xargs -0 perl -pi -e "
+              s/#TEMPLATE_COPYRIGHT_YEAR#/${COPYRIGHT_YEAR}/g;
               s/#TEMPLATE_APPLICATION_NAME#/${APP_NAME}/g;
               s/#TEMPLATE_APPLICATION_DISPLAY_NAME#/${DISPLAY_NAME}/g;
               s/#TEMPLATE_APPLICATION_PORT#/${APP_PORT}/g;
