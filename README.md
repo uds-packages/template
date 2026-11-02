@@ -24,9 +24,9 @@ These items are specific to this template repo and aren't covered in the canonic
 - [ ] Review `excludePaths` in [`common/zarf.yaml`](./common/zarf.yaml) against the chosen application chart. Protect chart-specific image references, pull secrets, security settings, CRD installation, and settings controlled by UDS integration.
 - [ ] Generate and review `zarf-values.schema.json` after selecting the chart and replacing placeholders. The bootstrap schema intentionally rejects package values until generation. Run `uds run lint:values-generate --with flavor=upstream`, then `uds run lint:values-check --with flavor=upstream`. Repeat for any additional flavors and review differences before publishing.
 - [ ] Customize [`docs/configuration.md`](./docs/configuration.md) with supported application settings and deployment examples.
-- [ ] Remove the `ci-setup` and `ci-test-values` tasks from [`tasks.yaml`](./tasks.yaml). They exist only so this template's own CI can validate the scaffolding using podinfo. To remove:
+- [ ] Remove the `ci-setup` task from [`tasks.yaml`](./tasks.yaml). It exists only so this template's own CI can validate the scaffolding using podinfo. To remove:
   - Delete the block between the two `#### Template CI: Remove ... ####` comment markers, including the markers.
-  - Delete the `- task: ci-setup` call under `test-install` and the `- task: ci-test-values` calls under `test-install` and `test-upgrade`.
+  - Delete the `- task: ci-setup` call under `test-install`.
 - [ ] `mv README-template.md README.md` and customize for your package.
 - [ ] Update `CODEOWNERS` following the guidance in `CODEOWNERS-template.md`, then `rm CODEOWNERS-template.md`.
 - [ ] If your application has a UI, rename `tests/template-application-name.test.ts` to `tests/<app-name>.test.ts` and customize it for your app. If your application has no UI, delete `tests/template-application-name.test.ts`, `tests/auth.setup.ts`, and the `ui` task in [`tasks/test.yaml`](./tasks/test.yaml).
