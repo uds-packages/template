@@ -29,7 +29,6 @@ const { basename } = require('node:path');
 appendFileSync(process.env.COMMAND_LOG, JSON.stringify({
   command: basename(process.argv[1]), args: process.argv.slice(2),
   browsers: process.env.PLAYWRIGHT_BROWSERS,
-  version: process.env.PLAYWRIGHT_VERSION,
   browserPath: process.env.PLAYWRIGHT_BROWSERS_PATH,
   cwd: process.cwd(),
 }) + '\\n');
@@ -41,7 +40,7 @@ process.exit(Number(process.env.COMMAND_EXIT_CODE ?? 0));
 
   return {
     directory,
-    run({ name = 'ui', settings = {}, exitCode = 0 } = {}) {
+    run({ settings = {}, exitCode = 0 } = {}) {
       const env = { ...process.env };
       for (const key of Object.keys(env)) {
         if (key.startsWith('PLAYWRIGHT_')) delete env[key];
@@ -52,7 +51,7 @@ process.exit(Number(process.env.COMMAND_EXIT_CODE ?? 0));
         COMMAND_EXIT_CODE: String(exitCode),
         PLAYWRIGHT_BROWSERS_PATH: '/installed/browsers',
       });
-      const args = ['run', `test:${name}`];
+      const args = ['run', 'test:ui'];
       for (const [key, value] of Object.entries(settings)) args.push('--set', `${key}=${value}`);
       const result = spawnSync('uds', args, { cwd: directory, env, encoding: 'utf8', timeout: 30_000 });
       assert.ifError(result.error);
@@ -110,29 +109,6 @@ describe('Playwright UDS tasks', () => {
     const result = fixture.run();
     assertSuccess(result);
     assert.ok(result.calls[0].args.includes('mcr.microsoft.com/playwright:v1.63.0'));
-  });
-
-  it('configures the exact dependency and lockfile through npm', () => {
-    const result = fixture.run({ name: 'configure', settings: { PLAYWRIGHT_EXECUTOR: 'direct', PLAYWRIGHT_VERSION: '1.63.0' } });
-    assertSuccess(result);
-    assert.equal(result.calls[0].command, 'npm');
-    assert.deepEqual(result.calls[0].args, [
-      'install', '--package-lock-only', '--ignore-scripts', '--save-dev', '--save-exact', '@playwright/test@1.63.0',
-    ]);
-  });
-
-  it('configures through Docker without host npm', () => {
-    const result = fixture.run({ name: 'configure', settings: { PLAYWRIGHT_VERSION: '1.63.0' } });
-    assertSuccess(result);
-    assert.deepEqual(result.calls.map((call) => call.command), ['docker']);
-    assert.ok(result.calls[0].args.includes('PLAYWRIGHT_VERSION'));
-    assert.equal(result.calls[0].version, '1.63.0');
-  });
-
-  it('requires an explicit version for configuration', () => {
-    const result = fixture.run({ name: 'configure' });
-    assert.notEqual(result.status, 0);
-    assert.deepEqual(result.calls, []);
   });
 
   it('rejects an unknown executor without running tools', () => {

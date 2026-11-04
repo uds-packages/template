@@ -29,21 +29,18 @@ authentication setup, and selected browser projects. Authentication setup uses
 the first selected browser, so a single-browser runner needs only that browser.
 
 The exact `@playwright/test` dependency in `tests/package.json` determines the
-Docker image tag as well. To change it, update the dependency and npm lockfile
-together:
+Docker image tag as well. Renovate updates the dependency and lockfile together;
+no additional configuration step is needed after a bump. To choose a version
+manually, use the ordinary dependency update:
 
 ```bash
-uds run test:configure --set PLAYWRIGHT_VERSION=1.63.0
+npm install --prefix tests --save-dev --save-exact @playwright/test@1.63.0
 ```
 
-This uses the current Docker image's npm without requiring npm on the host. Use
-`--set PLAYWRIGHT_EXECUTOR=direct` to configure with host npm instead. Commit the
-updated `tests/package.json` and `tests/package-lock.json`; if you maintain a Bun
-lockfile, refresh and commit that too. `PLAYWRIGHT_VERSION` is used only by this
-configuration task, not as a runtime dependency override. For direct execution,
-match this pin to the Playwright release that installed your runner's browsers.
-Scaffolding tools can run the configuration task with the runner's version after
-copying the template.
+Commit the updated `tests/package.json` and `tests/package-lock.json`; Docker and
+CI require the npm lockfile to match the dependency. If you maintain a Bun lockfile,
+refresh and commit it too. For direct execution, match the dependency pin to the
+Playwright release that installed your runner's browsers.
 
 The same executor and browser settings work with `uds run test:all`, preserving
 its health, ingress, and authentication checks. Configure `BASE_URL` and customize

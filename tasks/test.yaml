@@ -8,8 +8,6 @@ variables:
     default: chromium,firefox
   - name: PLAYWRIGHT_COMMAND
     default: npx --no-install playwright
-  - name: PLAYWRIGHT_VERSION
-    default: ""
 
 tasks:
   - name: all
@@ -44,11 +42,5 @@ tasks:
   - name: ui
     description: #TEMPLATE_APPLICATION_DISPLAY_NAME# UI Checks
     actions:
-      - cmd: bash playwright.sh test
-        dir: tests
-
-  - name: configure
-    description: Pin PLAYWRIGHT_VERSION in the test dependency and lockfile
-    actions:
-      - cmd: bash playwright.sh configure
+      - cmd: bash playwright.sh
         dir: tests
