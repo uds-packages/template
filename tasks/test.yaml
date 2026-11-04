@@ -1,6 +1,16 @@
 # Copyright #TEMPLATE_COPYRIGHT_YEAR# Defense Unicorns
 # SPDX-License-Identifier: AGPL-3.0-or-later OR LicenseRef-Defense-Unicorns-Commercial
 # yaml-language-server: $schema=https://raw.githubusercontent.com/defenseunicorns/uds-cli/refs/heads/main/tasks.schema.json
+variables:
+  - name: PLAYWRIGHT_EXECUTOR
+    default: docker
+  - name: PLAYWRIGHT_BROWSERS
+    default: chromium,firefox
+  - name: PLAYWRIGHT_COMMAND
+    default: npx --no-install playwright
+  - name: PLAYWRIGHT_VERSION
+    default: ""
+
 tasks:
   - name: all
     actions:
@@ -34,15 +44,11 @@ tasks:
   - name: ui
     description: #TEMPLATE_APPLICATION_DISPLAY_NAME# UI Checks
     actions:
-      - cmd: |
-          docker run --rm \
-            --network=host \
-            --shm-size=1g \
-            --security-opt seccomp=unconfined \
-            --user "$(id -u):$(id -g)" \
-            -e HOME=/tmp \
-            -e NPM_CONFIG_CACHE=/tmp/.npm \
-            -v "$(pwd)":/app -w /app \
-            mcr.microsoft.com/playwright:v1.64.1 \
-            bash -lc "npm ci && npx playwright test"
+      - cmd: bash playwright.sh test
+        dir: tests
+
+  - name: configure
+    description: Pin PLAYWRIGHT_VERSION in the test dependency and lockfile
+    actions:
+      - cmd: bash playwright.sh configure
         dir: tests
