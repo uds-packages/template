@@ -22,6 +22,28 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
+  playwright-settings:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+
+      - name: Install UDS CLI
+        uses: defenseunicorns/setup-uds@d6add59d4c2ca789ed7c92741e91bd340b4e950b # v1.0.2
+        with:
+          # renovate: datasource=github-tags depName=defenseunicorns/uds-cli versioning=semver
+          version: v0.40.0
+
+      - name: Install locked test dependencies
+        run: npm ci --prefix tests --ignore-scripts
+
+      - name: Check task execution and browser projects
+        run: |
+          python3 -m unittest discover -s scripts -v
+          python3 -m unittest discover -s scripts -p 'check_*.py' -v
+
   check-flavor:
     runs-on: ubuntu-latest
     steps:
@@ -35,7 +57,7 @@ jobs:
       upgrade-flavors: ${{ steps.test-flavor.outputs.upgrade-flavors }}
 
   validate:
-    needs: check-flavor
+    needs: [check-flavor, playwright-settings]
     strategy:
       fail-fast: false
       matrix:

@@ -28,6 +28,7 @@ terraform.tfstate.backup
 # Tests
 node_modules/
 .playwright/
+__pycache__/
 
 # VSCode
 .vscode/

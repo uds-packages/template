@@ -26,6 +26,12 @@ uds run dev         # iterate on an existing cluster
 uds run --list      # show all available tasks
 ```
 
+## Tests
+
+Run `uds run test:all` to check health, ingress, and browser behavior. Browser tests
+default to Docker with Chromium and Firefox. See [Playwright testing](./docs/playwright-testing.md) for
+runner, browser, and Playwright version configuration.
+
 ## Contributing
 
 See [CONTRIBUTING.md](./CONTRIBUTING.md).
