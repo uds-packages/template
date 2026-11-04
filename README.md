@@ -24,6 +24,8 @@ These items are specific to this template repo and aren't covered in the canonic
 - [ ] If your application has a UI, rename `tests/template-application-name.test.ts` to `tests/<app-name>.test.ts` and customize it for your app. If your application has no UI, delete `tests/template-application-name.test.ts`, `tests/auth.setup.ts`, and the `ui` task in [`tasks/test.yaml`](./tasks/test.yaml).
 - [ ] When ready to publish your first release, uncomment [`releaser.yaml`](./releaser.yaml) and set the version. Add `registry1` / `unicorn` entries if you've added those flavors.
 
+See [Playwright testing](./docs/playwright-testing.md) for browser test configuration.
+
 ## Engineers external to Defense Unicorns
 
 These files are specific to Defense Unicorns infrastructure and may not apply to your situation:

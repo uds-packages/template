@@ -8,6 +8,14 @@ import { defineConfig, devices } from '@playwright/test';
 export const playwrightDir = '.playwright';
 export const authFile = `${playwrightDir}/auth/user.json`;
 
+const browserDevices = new Map([
+  ['chromium', devices['Desktop Chrome']],
+  ['firefox', devices['Desktop Firefox']],
+]);
+const browsers = (process.env.PLAYWRIGHT_BROWSERS ?? 'chromium,firefox')
+  .split(',')
+  .map((browser) => browser.trim());
+
 /**
  * See https://playwright.dev/docs/test-configuration.
  */
@@ -32,18 +40,25 @@ export default defineConfig({
   },
 
   projects: [
-    { name: 'setup', testMatch: /.*\.setup\.ts/ }, // authentication
+    {
+      name: 'setup',
+      testMatch: /.*\.setup\.ts/,
+      use: { ...browserDevices.get(browsers[0]) }, // authenticate with an installed selected browser
+    },
 
-    ...[
-      'Desktop Chrome',
-      'Desktop Firefox',
-    ].map((p) => ({
-      name: devices[p].defaultBrowserType,
-      dependencies: ['setup'],
-      use: {
-        ...devices[p],
-        storageState: authFile,
-      },
-    })),
+    ...browsers.map((browser) => {
+      const device = browserDevices.get(browser);
+      if (!device) {
+        throw new Error(`Unknown PLAYWRIGHT_BROWSERS entry: "${browser}". Use chromium or firefox.`);
+      }
+      return {
+        name: browser,
+        dependencies: ['setup'],
+        use: {
+          ...device,
+          storageState: authFile,
+        },
+      };
+    }),
   ],
 });

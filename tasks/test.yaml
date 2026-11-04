@@ -1,6 +1,12 @@
 # Copyright #TEMPLATE_COPYRIGHT_YEAR# Defense Unicorns
 # SPDX-License-Identifier: AGPL-3.0-or-later OR LicenseRef-Defense-Unicorns-Commercial
 # yaml-language-server: $schema=https://raw.githubusercontent.com/defenseunicorns/uds-cli/refs/heads/main/tasks.schema.json
+variables:
+  - name: PLAYWRIGHT_EXECUTOR
+    default: docker
+  - name: PLAYWRIGHT_COMMAND
+    default: npx --no-install playwright
+
 tasks:
   - name: all
     actions:
@@ -35,14 +41,32 @@ tasks:
     description: #TEMPLATE_APPLICATION_DISPLAY_NAME# UI Checks
     actions:
       - cmd: |
-          docker run --rm \
-            --network=host \
-            --shm-size=1g \
-            --security-opt seccomp=unconfined \
-            --user "$(id -u):$(id -g)" \
-            -e HOME=/tmp \
-            -e NPM_CONFIG_CACHE=/tmp/.npm \
-            -v "$(pwd)":/app -w /app \
-            mcr.microsoft.com/playwright:v1.64.1 \
-            bash -lc "npm ci && npx playwright test"
+          set -euo pipefail
+          case "$PLAYWRIGHT_EXECUTOR" in
+            docker)
+              version=$(uds zarf tools yq -r '.devDependencies."@playwright/test"' package.json)
+              exec docker run --rm \
+                --network=host \
+                --shm-size=1g \
+                --security-opt seccomp=unconfined \
+                --user "$(id -u):$(id -g)" \
+                -e HOME=/tmp \
+                -e NPM_CONFIG_CACHE=/tmp/.npm \
+                -e PLAYWRIGHT_BROWSERS \
+                -e BASE_URL \
+                -v "$(pwd)":/app -w /app \
+                "mcr.microsoft.com/playwright:v$version" \
+                bash -lc 'npm ci && npx playwright test'
+              ;;
+            direct)
+              exec bash -c "$PLAYWRIGHT_COMMAND test"
+              ;;
+            *)
+              echo "PLAYWRIGHT_EXECUTOR must be docker or direct: $PLAYWRIGHT_EXECUTOR" >&2
+              exit 1
+              ;;
+          esac
         dir: tests
+        shell:
+          linux: bash
+          darwin: bash
