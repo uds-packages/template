@@ -40,5 +40,33 @@ tasks:
   - name: ui
     description: #TEMPLATE_APPLICATION_DISPLAY_NAME# UI Checks
     actions:
-      - cmd: bash playwright.sh
+      - cmd: |
+          set -euo pipefail
+          case "$PLAYWRIGHT_EXECUTOR" in
+            docker)
+              version=$(uds zarf tools yq -r '.devDependencies."@playwright/test"' package.json)
+              exec docker run --rm \
+                --network=host \
+                --shm-size=1g \
+                --security-opt seccomp=unconfined \
+                --user "$(id -u):$(id -g)" \
+                -e HOME=/tmp \
+                -e NPM_CONFIG_CACHE=/tmp/.npm \
+                -e PLAYWRIGHT_BROWSERS \
+                -e BASE_URL \
+                -v "$(pwd)":/app -w /app \
+                "mcr.microsoft.com/playwright:v$version" \
+                bash -lc 'npm ci && npx playwright test'
+              ;;
+            direct)
+              exec bash -c "$PLAYWRIGHT_COMMAND test"
+              ;;
+            *)
+              echo "PLAYWRIGHT_EXECUTOR must be docker or direct: $PLAYWRIGHT_EXECUTOR" >&2
+              exit 1
+              ;;
+          esac
         dir: tests
+        shell:
+          linux: bash
+          darwin: bash
