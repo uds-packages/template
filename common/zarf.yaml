@@ -15,6 +15,9 @@ components:
         namespace: #TEMPLATE_APPLICATION_NAME#
         version: 0.1.0
         localPath: ../chart
+        values:
+          - sourcePath: ".uds-#TEMPLATE_APPLICATION_NAME#-config"
+            targetPath: .
       - name: #TEMPLATE_APPLICATION_NAME#
         namespace: #TEMPLATE_APPLICATION_NAME#
         url: #TEMPLATE_CHART_REPO#
@@ -22,3 +25,18 @@ components:
         version: 1.2.3
         valuesFiles:
           - ../values/common-values.yaml
+        values:
+          - sourcePath: ".#TEMPLATE_APPLICATION_NAME#"
+            targetPath: .
+            # Review chart-specific image and integration settings when selecting the application.
+            excludePaths:
+              - ".#TEMPLATE_APPLICATION_NAME#.image"
+              - ".#TEMPLATE_APPLICATION_NAME#.imagePullSecrets"
+              - ".#TEMPLATE_APPLICATION_NAME#.global.imageRegistry"
+              - ".#TEMPLATE_APPLICATION_NAME#.global.imagePullSecrets"
+              - ".#TEMPLATE_APPLICATION_NAME#.securityContext"
+              - ".#TEMPLATE_APPLICATION_NAME#.containerSecurityContext"
+              - ".#TEMPLATE_APPLICATION_NAME#.podSecurityContext"
+              - ".#TEMPLATE_APPLICATION_NAME#.crds"
+              - ".#TEMPLATE_APPLICATION_NAME#.installCRDs"
+              - ".#TEMPLATE_APPLICATION_NAME#.ingress"
