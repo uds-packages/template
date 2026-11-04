@@ -5,7 +5,9 @@
 `uds run test:all` checks health and ingress, then runs the browser suite. By
 default, browser tests run in Docker with Chromium and Firefox.
 
-Select browsers with a comma-separated list of `chromium`, `firefox`, and `webkit`:
+Select browsers with `--set PLAYWRIGHT_BROWSERS=...` and a comma-separated list of
+`chromium`, `firefox`, and `webkit`. This works with either executor. Omitting the
+setting uses the default in `tests/playwright.config.ts`:
 
 ```bash
 uds run test:ui --set PLAYWRIGHT_BROWSERS=chromium

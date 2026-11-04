@@ -4,8 +4,6 @@
 variables:
   - name: PLAYWRIGHT_EXECUTOR
     default: docker
-  - name: PLAYWRIGHT_BROWSERS
-    default: chromium,firefox
   - name: PLAYWRIGHT_COMMAND
     default: npx --no-install playwright
 

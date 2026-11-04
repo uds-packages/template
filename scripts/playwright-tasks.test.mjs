@@ -70,7 +70,7 @@ describe('Playwright UDS tasks', () => {
   let fixture;
   beforeEach((t) => { fixture = createFixture(t); });
 
-  it('preserves Docker and both browsers by default', () => {
+  it('defaults to Docker without overriding the configured browsers', () => {
     const result = fixture.run();
     assertSuccess(result);
     assert.equal(result.calls.length, 1);
@@ -79,7 +79,7 @@ describe('Playwright UDS tasks', () => {
     assert.equal(call.command, 'docker');
     assert.ok(call.args.includes(`mcr.microsoft.com/playwright:v${manifest.devDependencies['@playwright/test']}`));
     assert.ok(call.args.includes('--network=host'));
-    assert.equal(call.browsers, 'chromium,firefox');
+    assert.equal(call.browsers, undefined);
     assert.equal(call.args.at(-1), 'npm ci && npx playwright test');
   });
 

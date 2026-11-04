@@ -24,7 +24,7 @@ case "$PLAYWRIGHT_EXECUTOR" in
   direct)
     # This is an explicitly configured shell command, e.g. a Bun launcher.
     # Dependencies and matching browsers must already be installed.
-    exec bash -c "$PLAYWRIGHT_COMMAND \"\$@\"" -- test
+    exec bash -c "$PLAYWRIGHT_COMMAND test"
     ;;
   *)
     echo "PLAYWRIGHT_EXECUTOR must be docker or direct: $PLAYWRIGHT_EXECUTOR" >&2
