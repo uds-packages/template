@@ -11,7 +11,6 @@ export const authFile = `${playwrightDir}/auth/user.json`;
 const browserDevices = new Map([
   ['chromium', devices['Desktop Chrome']],
   ['firefox', devices['Desktop Firefox']],
-  ['webkit', devices['Desktop Safari']],
 ]);
 const browsers = (process.env.PLAYWRIGHT_BROWSERS ?? 'chromium,firefox')
   .split(',')
@@ -50,7 +49,7 @@ export default defineConfig({
     ...browsers.map((browser) => {
       const device = browserDevices.get(browser);
       if (!device) {
-        throw new Error(`Unknown PLAYWRIGHT_BROWSERS entry: "${browser}". Use chromium, firefox or webkit.`);
+        throw new Error(`Unknown PLAYWRIGHT_BROWSERS entry: "${browser}". Use chromium or firefox.`);
       }
       return {
         name: browser,
