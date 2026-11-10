@@ -30,16 +30,10 @@ jobs:
           - flavor: registry1
             architecture: arm64
     steps:
-      - name: Checkout repository
-        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
-
       - name: Build, test, sign, and publish
-        uses: defenseunicorns/uds-common/.github/actions/publish@721f6f4b72699be9c90fb30cd02b3b05a461d392
+        uses: defenseunicorns/uds-common/.github/actions/publish@7a86081440df7e1f4df1f4a6f9286642f9fd4d10 # v1.34.0
         with:
           flavor: ${{ matrix.flavor }}
-          arch: ${{ matrix.architecture }}
-          uds-pk: "true"
-          base-repo: ghcr.io/uds-packages
           options: --set BASE_REPO="ghcr.io/uds-packages"
           registry1-username: ${{ secrets.IRON_BANK_ROBOT_USERNAME }}
           registry1-password: ${{ secrets.IRON_BANK_ROBOT_PASSWORD }}
