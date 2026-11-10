@@ -16,6 +16,8 @@ permissions:
 
 jobs:
   publish:
+    runs-on: ${{ matrix.architecture == 'arm64' && 'appstore-8-core-arm64' || 'appstore-8-core-amd64' }}
+    timeout-minutes: 40
     permissions:
       contents: write # Allows writing the content of the repository.
       packages: write # Allows writing the content of the repository's packages.
@@ -27,9 +29,21 @@ jobs:
         exclude:
           - flavor: registry1
             architecture: arm64
-    uses: defenseunicorns/uds-common/.github/workflows/callable-publish.yaml@9cb4ebfd9f9a5efd1dbc454bf3aae843d0b57b9f # v1.32.2
-    with:
-      flavor: ${{ matrix.flavor }}
-      options: --set BASE_REPO="ghcr.io/uds-packages"
-      runsOn: ${{ matrix.architecture == 'arm64' && 'appstore-8-core-arm64' || 'appstore-8-core-amd64' }}
-    secrets: inherit # Inherits all secrets from the parent workflow.
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+
+      - name: Build, test, sign, and publish
+        uses: defenseunicorns/uds-common/.github/actions/publish@721f6f4b72699be9c90fb30cd02b3b05a461d392
+        with:
+          flavor: ${{ matrix.flavor }}
+          arch: ${{ matrix.architecture }}
+          uds-pk: "true"
+          base-repo: ghcr.io/uds-packages
+          options: --set BASE_REPO="ghcr.io/uds-packages"
+          registry1-username: ${{ secrets.IRON_BANK_ROBOT_USERNAME }}
+          registry1-password: ${{ secrets.IRON_BANK_ROBOT_PASSWORD }}
+          rapidfort-username: ${{ secrets.RAPIDFORT_USERNAME }}
+          rapidfort-password: ${{ secrets.RAPIDFORT_PASSWORD }}
+          chainguard-identity: ${{ secrets.CHAINGUARD_IDENTITY }}
+          license-key: ${{ secrets.LICENSE_KEY }}
