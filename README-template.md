@@ -20,6 +20,21 @@ See [configuration](./docs/configuration.md) for Zarf package values, defaults, 
 
 Released packages are available in [GHCR](https://github.com/uds-packages/#TEMPLATE_APPLICATION_NAME#/pkgs/container/#TEMPLATE_APPLICATION_NAME#).
 
+### Verify a Package
+
+Packages are signed using [Zarf's Keyless Signing](https://docs.zarf.dev/ref/package-signing/#using-keyless-signing).
+
+To verify a package, follow the below example:
+
+```bash
+uds zarf package verify "oci://ghcr.io/uds-packages/#TEMPLATE_APPLICATION_NAME#:0.1.0-uds.0-upstream" \
+  --certificate-identity "https://github.com/uds-packages/#TEMPLATE_APPLICATION_NAME#/.github/workflows/release.yaml@refs/heads/main" \
+  --certificate-oidc-issuer "https://token.actions.githubusercontent.com"
+```
+
+For a `unicorn` package, use `oci://ghcr.io/uds-packages/private/#TEMPLATE_APPLICATION_NAME#:<VERSION>-unicorn`
+as the package source.
+
 ## Local development
 
 Requires [UDS CLI](https://github.com/defenseunicorns/uds-cli?tab=readme-ov-file#install) v0.40.0 or newer.
