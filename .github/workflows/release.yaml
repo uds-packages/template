@@ -16,7 +16,7 @@ permissions:
 
 jobs:
   publish:
-    runs-on: ${{ matrix.architecture == 'arm64' && 'appstore-8-core-arm64' || 'appstore-8-core-amd64' }}
+    runs-on: ${{ matrix.architecture == 'arm64' && 'appstore-4-core-arm64' || 'appstore-4-core-amd64' }}
     timeout-minutes: 40
     permissions:
       contents: write # Allows writing the content of the repository.

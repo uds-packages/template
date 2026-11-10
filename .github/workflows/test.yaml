@@ -45,7 +45,7 @@ jobs:
     with:
       timeout: 30
       options: --set BASE_REPO="ghcr.io/uds-packages"
-      runsOn: appstore-8-core-amd64
+      runsOn: appstore-4-core-amd64
       upgrade-flavors: ${{ needs.check-flavor.outputs.upgrade-flavors }}
       flavor: ${{ matrix.flavor }}
       type: ${{ matrix.type }}
