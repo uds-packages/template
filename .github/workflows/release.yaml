@@ -40,4 +40,3 @@ jobs:
           rapidfort-username: ${{ secrets.RAPIDFORT_USERNAME }}
           rapidfort-password: ${{ secrets.RAPIDFORT_PASSWORD }}
           chainguard-identity: ${{ secrets.CHAINGUARD_IDENTITY }}
-          license-key: ${{ secrets.LICENSE_KEY }}
