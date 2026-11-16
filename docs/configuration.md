@@ -1,6 +1,46 @@
 # Configuration
 
 #TEMPLATE_APPLICATION_DISPLAY_NAME# supports deploy-time configuration through Zarf package values.
+
+## Table of Contents
+
+- [Package Signature Verification](#package-signature-verification)
+- [Package Values](#package-values)
+- [Additional Configuration Info Follows](#additional-configuration-info-follows)
+
+## Package Signature Verification
+
+See [Verify a Package](../README.md#verify-a-package) in the README for the first signed releases and package source paths. Replace `<version>` and `<flavor>` with your package version and flavor. For signed releases, configure the settings below to avoid signature verification failures during bundle creation.
+
+### CLI Next — `bundle.uds.hcl`
+
+```hcl
+package "#TEMPLATE_APPLICATION_NAME#" {
+  source = "oci://ghcr.io/uds-packages/#TEMPLATE_APPLICATION_NAME#:<version>-<flavor>"
+
+  signature_verification {
+    keyless {
+      certificate_identity    = "https://github.com/uds-packages/#TEMPLATE_APPLICATION_NAME#/.github/workflows/release.yaml@refs/heads/main"
+      certificate_oidc_issuer = "https://token.actions.githubusercontent.com"
+    }
+  }
+}
+```
+
+### Classic — `uds-bundle.yaml`
+
+```yaml
+packages:
+  - name: "#TEMPLATE_APPLICATION_NAME#"
+    repository: ghcr.io/uds-packages/#TEMPLATE_APPLICATION_NAME#
+    ref: <version>-<flavor>
+    keylessVerification:
+      certificateIdentity: https://github.com/uds-packages/#TEMPLATE_APPLICATION_NAME#/.github/workflows/release.yaml@refs/heads/main
+      certificateOIDCIssuer: https://token.actions.githubusercontent.com
+```
+
+## Package Values
+
 Application chart settings and UDS integration settings use separate top-level keys:
 
 | Key | Configures | Package default |
